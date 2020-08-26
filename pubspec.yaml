@@ -1,41 +1,36 @@
 name: beans
 description: A new Flutter application.
-
-# The following line prevents the package from being accidentally published to
-# pub.dev using `pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-
-# The following defines the version and build number for your application.
-# A version number is three numbers separated by dots, like 1.2.43
-# followed by an optional build number separated by a +.
-# Both the version and the builder number may be overridden in flutter
-# build by specifying --build-name and --build-number, respectively.
-# In Android, build-name is used as versionName while build-number used as versionCode.
-# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
-# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
-# Read more about iOS versioning at
-# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+publish_to: none
 version: 1.0.0+1
-
 environment:
-  sdk: ">=2.7.0 <3.0.0"
-
+  sdk: '>=2.7.0 <3.0.0'
 dependencies:
   flutter:
     sdk: flutter
-
   google_fonts: ^1.1.0
   cupertino_icons: ^0.1.3
   flutter_svg: ^0.18.1
-
+  gen_lang: ^0.1.3
+  r_dart_library:
+    git:
+      url: https://github.com/YK-Unit/r_dart_library.git
+      ref: 0.2.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
 flutter:
-
   uses-material-design: true
-
   assets:
-    - assets/document.svg
-    - assets/internet.svg
+    - assets/ic_home.svg
+    - assets/ic_calendar.svg
+    - assets/ic_confession.svg
+    - assets/ic_bean.svg
+    - assets/ic_god.svg
+    - assets/ic_my_self.svg
+    - assets/ic_other_guys.svg
+    - assets/tooltip.png
+flr:
+  core_version: 3.1.0
+  dartfmt_line_length: 80
+  assets: []
+  fonts: []

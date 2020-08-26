@@ -9,12 +9,13 @@
 // ![A scaffold with a bottom navigation bar containing three bottom navigation
 // bar items. The first one is selected.](https://flutter.github.io/assets-for-api-docs/assets/material/bottom_navigation_bar.png)
 
-import 'package:beans/value/res.dart';
 import 'package:beans/value/styles.dart';
 import 'package:beans/widget/tab/home_tab.dart';
 import 'package:beans/widget/bar/sliding_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import 'generated/r.dart';
 
 void main() => runApp(MyApp());
 
@@ -83,6 +84,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   {
     return AppBar(
       title: const Text('Beans'),
+      backgroundColor: Colors.amber[300],
       automaticallyImplyLeading: false,
       actions: <Widget>[
         IconButton(
@@ -104,48 +106,50 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     return  BottomNavigationBar(
       items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          icon:
-          SvgPicture.asset(Res.document, height: 24, color: Colors.blueGrey[400]),
+          icon: SvgPicture.asset(R.ic_home,
+              height: 24, color: Colors.blueGrey[400]),
           activeIcon: SvgPicture.asset(
-            Res.document,
+            R.ic_home,
             height: 24,
-            color: Colors.amber[800],
+            color: Colors.brown[400],
           ),
           title: Text('Nhà', style: Styles.textStyleSmall),
         ),
         BottomNavigationBarItem(
           icon:
-          SvgPicture.asset(Res.internet, height: 24, color: Colors.blueGrey[400]),
+          SvgPicture.asset(
+              R.ic_calendar, height: 24, color: Colors.blueGrey[400]),
           activeIcon: SvgPicture.asset(
-            Res.internet,
+            R.ic_calendar,
             height: 24,
-            color: Colors.amber[800],
+            color: Colors.brown[400],
           ),
           title: Text('Lời nhắc', style: Styles.textStyleSmall),
         ),
         BottomNavigationBarItem(
           icon:
-          SvgPicture.asset(Res.internet, height: 24, color: Colors.blueGrey[400]),
+          SvgPicture.asset(
+              R.ic_confession, height: 24, color: Colors.blueGrey[400]),
           activeIcon: SvgPicture.asset(
-            Res.internet,
+            R.ic_confession,
             height: 24,
-            color: Colors.amber[800],
+            color: Colors.brown[400],
           ),
           title: Text('Bản xét mình', style: Styles.textStyleSmall),
         ),
         BottomNavigationBarItem(
           icon:
-          SvgPicture.asset(Res.internet, height: 24, color: Colors.blueGrey[400]),
+          SvgPicture.asset(R.ic_bean, height: 24, color: Colors.blueGrey[400]),
           activeIcon: SvgPicture.asset(
-            Res.internet,
+            R.ic_bean,
             height: 24,
-            color: Colors.amber[800],
+            color: Colors.brown[400],
           ),
           title: Text('Đậu', style: Styles.textStyleSmall),
         ),
       ],
       currentIndex: _selectedIndex,
-      selectedItemColor: Colors.amber[800],
+      selectedItemColor: Colors.brown[400],
       unselectedItemColor: Colors.blueGrey[400],
       showUnselectedLabels: true,
       showSelectedLabels: true,
