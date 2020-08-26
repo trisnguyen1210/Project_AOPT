@@ -56,4 +56,4 @@ nội dung của các sub trong đây (có cả thử thách 24h và Lời Chúa
 https://drive.google.com/file/d/1rtxjLqA-LyFWQxlDaQ50JHVt_5nqE42z/view?usp=sharing
 
 4/ design zeplin: 
-https://zpl.io/V03KnEw
+https://zpl.io/aMOwOQz
