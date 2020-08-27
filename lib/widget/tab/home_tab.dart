@@ -1,29 +1,29 @@
 import 'package:beans/generated/r.dart';
 import 'package:beans/value/styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class HomeTab extends StatelessWidget {
   final List<String> listRelation = <String>['Tôi', 'Tha nhân', 'Chúa'];
   final List<String> listIconRelation = <String>[
-    R.ic_my_self,
+    R.ic_myself,
     R.ic_other_guys,
     R.ic_god
   ];
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      shrinkWrap: true,
-      children: <Widget>[
-        titleTop(),
-        getListRelation(),
-        divider(),
-        titleChallenge(),
-        challengeText(),
-        buttonChallenge(),
-        anotherChallengeText()
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          titleTop(),
+          getListRelation(),
+          divider(),
+          titleChallenge(),
+          challengeText(),
+          buttonChallenge(),
+          anotherChallengeText(),
+        ],
+      ),
     );
   }
 
@@ -86,7 +86,12 @@ class HomeTab extends StatelessWidget {
   Widget getItemRelation(int index) {
     return Column(
       children: [
-        SvgPicture.asset(listIconRelation[index], height: 85, width: 85),
+        //SvgPicture.asset(listIconRelation[index], height: 85, width: 85),
+        Image(
+          width: 85,
+          height: 85,
+          image: AssetImage(listIconRelation[index]),
+        ),
         Padding(
             padding: const EdgeInsets.only(top: 18),
             child: Text(listRelation[index], style: Styles.textStyleRelation))
