@@ -14,7 +14,7 @@ import 'package:beans/widget/tab/home_tab.dart';
 import 'package:beans/widget/bar/sliding_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
+import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'generated/r.dart';
 
 void main() => runApp(MyApp());
@@ -80,11 +80,11 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     );
   }
 
-  AppBar createAppbar()
-  {
-    return AppBar(
+  GradientAppBar createAppbar() {
+    return GradientAppBar(
       title: const Text('Beans'),
-      backgroundColor: Colors.amber[300],
+      gradient: LinearGradient(
+          colors: [Colors.lightBlue[400], Colors.lightBlueAccent[200]]),
       automaticallyImplyLeading: false,
       actions: <Widget>[
         IconButton(
@@ -111,7 +111,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           activeIcon: SvgPicture.asset(
             R.ic_home,
             height: 24,
-            color: Colors.brown[400],
+            color: Colors.lightBlue[400],
           ),
           title: Text('Nhà', style: Styles.textStyleSmall),
         ),
@@ -122,7 +122,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           activeIcon: SvgPicture.asset(
             R.ic_calendar,
             height: 24,
-            color: Colors.brown[400],
+            color: Colors.lightBlue[400],
           ),
           title: Text('Lời nhắc', style: Styles.textStyleSmall),
         ),
@@ -133,7 +133,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           activeIcon: SvgPicture.asset(
             R.ic_confession,
             height: 24,
-            color: Colors.brown[400],
+            color: Colors.lightBlue[400],
           ),
           title: Text('Bản xét mình', style: Styles.textStyleSmall),
         ),
@@ -143,13 +143,13 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           activeIcon: SvgPicture.asset(
             R.ic_bean,
             height: 24,
-            color: Colors.brown[400],
+            color: Colors.lightBlue[400],
           ),
           title: Text('Đậu', style: Styles.textStyleSmall),
         ),
       ],
       currentIndex: _selectedIndex,
-      selectedItemColor: Colors.brown[400],
+      selectedItemColor: Colors.lightBlue[400],
       unselectedItemColor: Colors.blueGrey[400],
       showUnselectedLabels: true,
       showSelectedLabels: true,

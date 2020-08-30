@@ -5,10 +5,10 @@ class Styles {
   static TextStyle textStyleSmall =
       GoogleFonts.montserrat(fontSize: 9, fontWeight: FontWeight.w400);
   static TextStyle textStyleMedium = GoogleFonts.montserrat(
-      fontSize: 17, color: Colors.deepOrange[900], fontWeight: FontWeight.w500);
+      fontSize: 17, color: Colors.lightBlue[800], fontWeight: FontWeight.w500);
 
   static TextStyle textStyleButton = GoogleFonts.montserrat(
-      fontSize: 14, color: Colors.brown[400], fontWeight: FontWeight.w600);
+      fontSize: 14, color: Colors.white, fontWeight: FontWeight.w600);
 
   static TextStyle textStyleUnderline = GoogleFonts.montserrat(
       fontSize: 14,
@@ -16,6 +16,15 @@ class Styles {
       decoration: TextDecoration.underline,
       fontWeight: FontWeight.w400);
 
+  static TextStyle textStyleTab =
+      GoogleFonts.montserrat(fontSize: 17, fontWeight: FontWeight.w500);
+
   static TextStyle textStyleRelation = GoogleFonts.montserrat(
       fontSize: 17, color: Colors.grey[700], fontWeight: FontWeight.w400);
+
+  static TextStyle textStyleGreyNormal = GoogleFonts.montserrat(
+      fontSize: 14, color: Colors.grey[700], fontWeight: FontWeight.w400);
+
+  static TextStyle textStyleGreyMedium = GoogleFonts.montserrat(
+      fontSize: 17, color: Colors.grey[700], fontWeight: FontWeight.w500);
 }

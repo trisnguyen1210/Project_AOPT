@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" height="15px" version="1.1" viewBox="0 0 15 15"
+    width="15px" xmlns="http://www.w3.org/2000/svg">
+    <title>next</title>
+    <defs>
+        <linearGradient id="linearGradient-1" x1="0%" x2="100%" y1="50%" y2="50%">
+            <stop offset="0%" stop-color="#31D8FF"></stop>
+            <stop offset="100%" stop-color="#FF80FF"></stop>
+        </linearGradient>
+    </defs>
+    <g fill="none" fill-rule="evenodd" id="Page-1" stroke="none" stroke-width="1">
+        <g fill-rule="nonzero" id="câu-gợi-ý-xét-mình--1"
+            transform="translate(-322.000000, -284.000000)">
+            <g id="next" transform="translate(322.000000, 284.000000)">
+                <path
+                    d="M15,7.5 C15,11.642189 11.642189,15 7.5,15 C3.35781097,15 0,11.642189 0,7.5 C0,3.35781097 3.35781097,0 7.5,0 C11.642189,0 15,3.35781097 15,7.5 Z"
+                    fill="url(#linearGradient-1)" id="Path"></path>
+                <path
+                    d="M5.44047756,13 C5.32588251,13 5.21140217,12.955057 5.12514045,12.8654032 C4.95525532,12.6891151 4.95881133,12.4067986 5.13294074,12.2348073 L9.92872572,7.5 L5.13294074,2.76518473 C4.95881133,2.59319348 4.95525532,2.31087697 5.12514045,2.13458885 C5.2950256,1.9583007 5.57388497,1.9547006 5.74801437,2.12669188 L10.8671661,7.1807496 C10.952166,7.26471292 11,7.37979956 11,7.5 C11,7.62030861 10.9520513,7.73539527 10.8671661,7.81924244 L5.74801437,12.8733002 C5.66232619,12.9578441 5.55140189,13 5.44047756,13 Z"
+                    fill="#FFFFFF" id="Path"></path>
+            </g>
+        </g>
+    </g>
+</svg>

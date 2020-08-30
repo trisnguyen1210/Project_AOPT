@@ -1,6 +1,8 @@
 import 'package:beans/generated/r.dart';
 import 'package:beans/value/styles.dart';
+import 'package:beans/widget/relation_detail/relation_detail.dart';
 import 'package:flutter/material.dart';
+import 'package:gradient_widgets/gradient_widgets.dart';
 
 class HomeTab extends StatelessWidget {
   final List<String> listRelation = <String>['Tôi', 'Tha nhân', 'Chúa'];
@@ -30,18 +32,18 @@ class HomeTab extends StatelessWidget {
   Widget buttonChallenge() {
     return Padding(
         padding: const EdgeInsets.only(top: 16),
-        child: Container(
-          margin: const EdgeInsets.only(left: 80, right: 80),
-          height: 37,
-          child: RaisedButton(
-            color: Colors.amber[300],
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18.5),
-                side: BorderSide(color: Colors.amber[300])),
-            onPressed: () {},
-            child: Text("Chấp nhận thử thách", style: Styles.textStyleButton),
-          ),
-        ));
+        child: GradientButton(
+          increaseWidthBy: 125,
+          increaseHeightBy: 7.0,
+          callback: () {},
+          gradient: LinearGradient(
+              colors: [Color(0xfff784ff), Color(0xff3ad5ff)],
+              stops: [0, 1],
+              begin: Alignment(1.00, -0.00),
+              end: Alignment(-1.00, 0.00)),
+          child: Text("Chấp nhận thử thách", style: Styles.textStyleButton),
+        )
+    );
   }
 
   Widget divider() {
@@ -62,9 +64,9 @@ class HomeTab extends StatelessWidget {
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         gridDelegate:
-            new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+        new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
         itemBuilder: (BuildContext context, int index) =>
-            getItemRelation(index),
+            getItemRelation(index, context),
       ),
     );
   }
@@ -83,20 +85,31 @@ class HomeTab extends StatelessWidget {
             style: Styles.textStyleUnderline, textAlign: TextAlign.center));
   }
 
-  Widget getItemRelation(int index) {
-    return Column(
-      children: [
-        //SvgPicture.asset(listIconRelation[index], height: 85, width: 85),
-        Image(
-          width: 85,
-          height: 85,
-          image: AssetImage(listIconRelation[index]),
-        ),
-        Padding(
-            padding: const EdgeInsets.only(top: 18),
-            child: Text(listRelation[index], style: Styles.textStyleRelation))
-      ],
-    );
+  Widget getItemRelation(int index, BuildContext context) {
+    return
+
+      GestureDetector(
+          onTap: () {
+            Navigator.push(context,
+              MaterialPageRoute(builder: (context) => RelationDetail()),
+            );
+          },
+          // The custom button
+          child: Column(
+            children: [
+              //SvgPicture.asset(listIconRelation[index], height: 85, width: 85),
+              Image(
+                width: 85,
+                height: 85,
+                image: AssetImage(listIconRelation[index]),
+              ),
+              Padding(
+                  padding: const EdgeInsets.only(top: 18),
+                  child: Text(
+                      listRelation[index], style: Styles.textStyleRelation))
+            ],
+          )
+      );
   }
 
   Column titleTop() {
@@ -104,7 +117,7 @@ class HomeTab extends StatelessWidget {
       children: [
         Padding(
           padding:
-              const EdgeInsets.only(left: 37, right: 37, top: 30, bottom: 41),
+          const EdgeInsets.only(left: 37, right: 37, top: 30, bottom: 41),
           child: RichText(
             textAlign: TextAlign.center,
             text: TextSpan(
@@ -114,7 +127,7 @@ class HomeTab extends StatelessWidget {
                     text: 'Mối tương quan nào bạn muốn xét lại hôm nay?  '),
                 WidgetSpan(
                   child: Image(
-                    image: AssetImage('assets/tooltip.png'),
+                    image: AssetImage(R.tooltip),
                     height: 28,
                     width: 28,
                   ),
