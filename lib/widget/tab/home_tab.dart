@@ -1,4 +1,5 @@
 import 'package:beans/generated/r.dart';
+import 'package:beans/value/gradient.dart';
 import 'package:beans/value/styles.dart';
 import 'package:beans/widget/relation_detail/relation_detail.dart';
 import 'package:flutter/material.dart';
@@ -36,11 +37,7 @@ class HomeTab extends StatelessWidget {
           increaseWidthBy: 125,
           increaseHeightBy: 7.0,
           callback: () {},
-          gradient: LinearGradient(
-              colors: [Color(0xfff784ff), Color(0xff3ad5ff)],
-              stops: [0, 1],
-              begin: Alignment(1.00, -0.00),
-              end: Alignment(-1.00, 0.00)),
+          gradient: GradientApp.gradientButton,
           child: Text("Chấp nhận thử thách", style: Styles.textStyleButton),
         )
     );

@@ -1,3 +1,4 @@
+import 'package:beans/value/gradient.dart';
 import 'package:beans/value/styles.dart';
 import 'package:beans/widget/relation_detail/relation_tab/relation_tab.dart';
 import 'package:flutter/material.dart';
@@ -11,11 +12,19 @@ class RelationDetail extends StatelessWidget {
         length: 3,
         child: Scaffold(
             floatingActionButton: FloatingActionButton(
-              onPressed: () {
-                // Add your onPressed code here!
-              },
-              child: Icon(Icons.add),
-              backgroundColor: Colors.green,
+              child: Container(
+                width: 60,
+                height: 60,
+                child: Icon(
+                  Icons.add,
+                  size: 40,
+                ),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: GradientApp.gradientButton,
+                ),
+              ),
+              onPressed: () {},
             ),
             appBar: GradientAppBar(
               gradient: LinearGradient(
