@@ -1,7 +1,7 @@
 import 'package:beans/generated/r.dart';
 import 'package:beans/value/gradient.dart';
 import 'package:beans/value/styles.dart';
-import 'package:beans/widget/relation_detail/relation_detail.dart';
+import 'package:beans/widget/relation/relation_list.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
 
@@ -34,7 +34,7 @@ class HomeTab extends StatelessWidget {
     return Padding(
         padding: const EdgeInsets.only(top: 16),
         child: GradientButton(
-          increaseWidthBy: 125,
+          increaseWidthBy: 120,
           increaseHeightBy: 7.0,
           callback: () {},
           gradient: GradientApp.gradientButton,
@@ -55,13 +55,13 @@ class HomeTab extends StatelessWidget {
 
   Widget getListRelation() {
     return Padding(
-      padding: const EdgeInsets.only(left: 10, right: 10, bottom: 30),
+      padding: const EdgeInsets.only(left: 0, right: 0, bottom: 30),
       child: GridView.builder(
         itemCount: listRelation.length,
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         gridDelegate:
-        new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+            new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
         itemBuilder: (BuildContext context, int index) =>
             getItemRelation(index, context),
       ),
@@ -88,7 +88,7 @@ class HomeTab extends StatelessWidget {
       GestureDetector(
           onTap: () {
             Navigator.push(context,
-              MaterialPageRoute(builder: (context) => RelationDetail()),
+              MaterialPageRoute(builder: (context) => RelationList()),
             );
           },
           // The custom button

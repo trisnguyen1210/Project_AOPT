@@ -35,6 +35,7 @@ flutter:
     - assets/ic_other_guys.png
     - assets/ic_health.svg
     - assets/tooltip.png
+    - assets/ic_more.svg
 flr:
   core_version: 3.1.0
   dartfmt_line_length: 80

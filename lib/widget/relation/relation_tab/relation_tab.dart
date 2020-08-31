@@ -1,5 +1,7 @@
 import 'package:beans/generated/r.dart';
 import 'package:beans/value/styles.dart';
+import 'package:beans/widget/custom/expansion_tile.dart';
+import 'package:beans/widget/relation/relation_detail/relation_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -34,7 +36,7 @@ class RelationTab extends StatelessWidget {
             ),
             ListView.builder(
               itemBuilder: (BuildContext context, int index) =>
-                  EntryItem(data[index], index),
+                  EntryItem(data[index], index, data.length),
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemCount: data.length,
@@ -92,32 +94,75 @@ List<Entry> data = <Entry>[
       Entry('Thời gian & Hoàn cảnh', R.ic_time),
     ],
   ),
+  Entry(
+    'Khác',
+    R.ic_more,
+  ),
 ];
 
 // Displays one Entry. If the entry has children then it's displayed
 // with an ExpansionTile.
 class EntryItem extends StatelessWidget {
-  const EntryItem(this.entry, this.position);
+  const EntryItem(this.entry, this.position, this.size);
 
   final Entry entry;
   final int position;
+  final int size;
 
-  Widget _buildTiles(Entry root, int position) {
-    if (root.children.isEmpty)
-      return ListTile(
+  Widget createChildItem(Entry root, int position, BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => RelationDetail()),
+        );
+      },
+      child: ListTile(
           title: Text(position.toString() + "." + root.title,
               style: Styles.textStyleGreyNormal),
-          trailing: SvgPicture.asset(R.ic_arrow_next, height: 15));
-    return ExpansionTile(
+          trailing: SvgPicture.asset(R.ic_arrow_next, height: 15)),
+    );
+  }
+
+  Widget createParentNoChild(Entry root, int position, BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => RelationDetail()),
+        );
+      },
+      child: ListTile(
+          title: Text(root.title, style: Styles.textStyleGreyMedium),
+          leading: SvgPicture.asset(root.icon, height: 40, width: 53)),
+    );
+  }
+
+  Widget _buildTiles(Entry root, int position, BuildContext context) {
+    if (root.children.isEmpty) {
+      if (position == size - 1) {
+        //createParentNoChild(root, position, context);
+        return createParentNoChild(root, position, context);
+      } else {
+        return createChildItem(root, position, context);
+      }
+    } else {
+      return createParenItem(root, position, context);
+    }
+  }
+
+  Widget createParenItem(Entry root, int position, BuildContext context) {
+    return CustomExpansionTile(
       key: PageStorageKey<Entry>(root),
       title: Text(
         root.title,
         style: Styles.textStyleGreyMedium,
       ),
-      children: mapIndexed(
-              root.children, (index, item) => _buildTiles(item, index + 1))
-          .toList(),
+      children: mapIndexed(root.children,
+          (index, item) => _buildTiles(item, index + 1, context)).toList(),
       leading: SvgPicture.asset(root.icon, height: 40, width: 53),
+      headerBackgroundColor: Colors.white,
+      iconColor: Color(0xff4facfe),
     );
   }
 
@@ -133,6 +178,6 @@ class EntryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _buildTiles(entry, position);
+    return _buildTiles(entry, position, context);
   }
 }

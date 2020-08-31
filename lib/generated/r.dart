@@ -12,4 +12,5 @@ class R {
   static const String ic_confession = "assets/ic_confession.svg";
   static const String ic_health = "assets/ic_health.svg";
   static const String ic_other_guys = "assets/ic_other_guys.png";
+  static const String ic_more = "assets/ic_more.svg";
 }
