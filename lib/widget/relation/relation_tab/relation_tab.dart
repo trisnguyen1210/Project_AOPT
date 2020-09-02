@@ -2,6 +2,7 @@ import 'package:beans/generated/r.dart';
 import 'package:beans/value/styles.dart';
 import 'package:beans/widget/custom/expansion_tile.dart';
 import 'package:beans/widget/relation/relation_detail/relation_detail.dart';
+import 'package:beans/widget/relation/relation_detail/relation_detail_other.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -13,39 +14,46 @@ class RelationTab extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 20, right: 20, top: 30, bottom: 20),
-              child: RichText(
-                text: TextSpan(
-                  style: Styles.textStyleGreyNormal,
-                  children: [
-                    TextSpan(
-                        text:
-                            'Bạn hãy chọn 1 điều làm mình trăn trở hay hạnh phúc nhất hôm nay để ghi nhận lại.  '),
-                    WidgetSpan(
-                      child: Image(
-                        image: AssetImage(R.tooltip),
-                        height: 28,
-                        width: 28,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            ListView.builder(
-              itemBuilder: (BuildContext context, int index) =>
-                  EntryItem(data[index], index, data.length),
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: data.length,
-            ),
+            createTopTitle(),
+            createListViewCategory(),
           ],
         ),
       ),
     );
   }
+}
+
+Widget createListViewCategory() {
+  return ListView.builder(
+    itemBuilder: (BuildContext context, int index) =>
+        EntryItem(data[index], index, data.length),
+    shrinkWrap: true,
+    physics: const NeverScrollableScrollPhysics(),
+    itemCount: data.length,
+  );
+}
+
+Widget createTopTitle() {
+  return Padding(
+    padding: const EdgeInsets.only(left: 20, right: 20, top: 30, bottom: 20),
+    child: RichText(
+      text: TextSpan(
+        style: Styles.textStyleGreyNormal,
+        children: [
+          TextSpan(
+              text:
+                  'Bạn hãy chọn 1 điều làm mình trăn trở hay hạnh phúc nhất hôm nay để ghi nhận lại.  '),
+          WidgetSpan(
+            child: Image(
+              image: AssetImage(R.tooltip),
+              height: 28,
+              width: 28,
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
 }
 
 // One entry in the multilevel list displayed by this app.
@@ -129,7 +137,7 @@ class EntryItem extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => RelationDetail()),
+          MaterialPageRoute(builder: (context) => RelationDetailOther()),
         );
       },
       child: ListTile(

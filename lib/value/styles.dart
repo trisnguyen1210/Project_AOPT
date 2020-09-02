@@ -7,6 +7,9 @@ class Styles {
   static TextStyle textStyleMedium = GoogleFonts.montserrat(
       fontSize: 17, color: Colors.lightBlue[800], fontWeight: FontWeight.w500);
 
+  static TextStyle textStyleBlue = GoogleFonts.montserrat(
+      fontSize: 14, color: Colors.lightBlue[800], fontWeight: FontWeight.w500);
+
   static TextStyle textStyleButton = GoogleFonts.montserrat(
       fontSize: 14, color: Colors.white, fontWeight: FontWeight.w600);
 
@@ -25,6 +28,12 @@ class Styles {
   static TextStyle textStyleGreyNormal = GoogleFonts.montserrat(
       fontSize: 14, color: Colors.grey[700], fontWeight: FontWeight.w400);
 
+  static TextStyle textStyleGrey300Normal = GoogleFonts.montserrat(
+      fontSize: 14, color: Colors.grey[300], fontWeight: FontWeight.w400);
+
   static TextStyle textStyleGreyMedium = GoogleFonts.montserrat(
       fontSize: 17, color: Colors.grey[700], fontWeight: FontWeight.w500);
+
+  static TextStyle textStyleGreyMediumNormalSize = GoogleFonts.montserrat(
+      fontSize: 14, color: Colors.grey[700], fontWeight: FontWeight.w500);
 }

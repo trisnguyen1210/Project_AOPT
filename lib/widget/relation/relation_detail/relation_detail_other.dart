@@ -6,7 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
 
-class RelationDetail extends StatelessWidget {
+class RelationDetailOther extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +24,7 @@ class RelationDetail extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              margin: EdgeInsets.only(left: 20, right: 10, top: 20, bottom: 20),
+              margin: EdgeInsets.only(left: 20, right: 10, top: 20, bottom: 5),
               child: createTopViewRelation(),
             ),
             Opacity(
@@ -46,13 +46,13 @@ class RelationDetail extends StatelessWidget {
 
   Widget createListViewTopic() {
     return Padding(
-      padding: EdgeInsets.all(20),
+      padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
       child: ListView.builder(
         itemBuilder: (BuildContext context, int index) =>
-            TopicItem(data[index], index, data.length),
+            TopicItem(dataOther[index], index, dataOther.length),
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
-        itemCount: data.length,
+        itemCount: dataOther.length,
       ),
     );
   }
@@ -150,23 +150,14 @@ class RelationDetail extends StatelessWidget {
                   style: Styles.textStyleMedium,
                 ),
                 WidgetSpan(
-                  child: SvgPicture.asset(R.ic_health, height: 24),
+                  child: SvgPicture.asset(R.ic_more, height: 24),
                 ),
                 TextSpan(
-                  text: 'Khả năng & Sức khoẻ',
+                  text: 'Khác',
                   style: Styles.textStyleRelation,
                 )
               ],
             ),
-          ),
-        ),
-        SizedBox(
-          width: double.infinity,
-          // height: double.infinity,
-          child: Container(
-            margin: EdgeInsets.only(top: 5),
-            child: Text('Đối với sức khoẻ của tôi hôm nay',
-                style: Styles.textStyleGreyMedium),
           ),
         ),
       ],
@@ -187,21 +178,17 @@ class Bean {
   final String title;
 }
 
-List<Topic> data = <Topic>[
+List<Topic> dataOther = <Topic>[
   Topic(
     'Tôi biết ơn vì',
     <Bean>[
-      Bean('Tôi được khoẻ mạnh'),
-      Bean('Tôi ít đau bệnh'),
-      Bean('Lí do khác…'),
+      Bean('Lí do'),
     ],
   ),
   Topic(
     'Tôi trăn trở vì',
     <Bean>[
-      Bean('Tôi không bảo vệ sức khoẻ'),
-      Bean('Tôi vui chơi quá độ'),
-      Bean('Lí do khác…'),
+      Bean('Lí do'),
     ],
   ),
 ];
@@ -223,7 +210,7 @@ class TopicItem extends StatelessWidget {
         SizedBox(
           width: double.infinity,
           child: Padding(
-            padding: EdgeInsets.only(bottom: 12),
+            padding: EdgeInsets.only(top: 25),
             child: Text(root.title, style: Styles.textStyleBlue),
           ),
         ),
@@ -231,7 +218,7 @@ class TopicItem extends StatelessWidget {
           width: double.infinity,
           child: ListView.builder(
             itemBuilder: (BuildContext context, int index) =>
-                BeanItem(root.beans[index], index, root.beans.length),
+                BeanItemOther(root.beans[index], index, root.beans.length),
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: root.beans.length,
@@ -247,125 +234,49 @@ class TopicItem extends StatelessWidget {
   }
 }
 
-class BeanItem extends StatefulWidget {
-  BeanItem(this.bean, this.position, this.size);
+class BeanItemOther extends StatelessWidget {
+  const BeanItemOther(this.bean, this.position, this.size);
 
-  Bean bean;
-  int position;
-  int size;
-
-  @override
-  _BeanItem createState() => _BeanItem(bean, position, size);
-}
-
-class _BeanItem extends State<BeanItem> {
-  _BeanItem(this.bean, this.position, this.size);
-
-  Bean bean;
-  int position;
-  int size;
-  bool monVal = false;
-
-  Widget _buildTiles(Bean root, int position, BuildContext context) {
-    if (position == size - 1) {
-      return createChildOtherItem(root, position, context);
-    } else {
-      return createChildItem(root, position, context);
-    }
-  }
-
-  Widget createChildOtherItem(Bean root, int position, BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          width: double.infinity,
-          child: Padding(
-            padding: EdgeInsets.only(bottom: 20, top: 8),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(right: 9),
-                  child: SizedBox(
-                    height: 15.0,
-                    width: 15.0,
-                    child: Checkbox(
-                      value: monVal,
-                      onChanged: (bool value) {
-                        setState(() {
-                          monVal = value; // rebuilds with new value
-                        });
-                      },
-                    ),
-                  ),
-                ),
-                Expanded(
-                    child: Padding(
-                        padding: EdgeInsets.only(right: 48),
-                        child: TextField(
-                          keyboardType: TextInputType.multiline,
-                          maxLines: null,
-                          decoration: InputDecoration(
-                              contentPadding: EdgeInsets.symmetric(vertical: 1),
-                              //Change this value to custom as you like
-                              isDense: true,
-                              // and add this line
-                              hintStyle: Styles.textStyleGrey300Normal,
-                              hintText: 'Lí do khác…'),
-                          style: Styles.textStyleGreyNormal,
-                        ))),
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
-  }
+  final Bean bean;
+  final int position;
+  final int size;
 
   Widget createChildItem(Bean root, int position, BuildContext context) {
-    return InkWell(
-        onTap: () {
-          setState(() {
-            monVal = !monVal;
-          });
-        },
-        child: Column(
-          children: [
-            SizedBox(
-              width: double.infinity,
-              child: Padding(
-                padding: EdgeInsets.only(bottom: 8, top: 8),
-                child: Row(
-                  children: [
-                    SizedBox(
-                      height: 15.0,
-                      width: 15.0,
-                      child: Checkbox(
-                        value: monVal,
-                        onChanged: (bool value) {
-                          setState(() {
-                            monVal = value; // rebuilds with new value
-                          });
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 9),
-                      child: Text(
-                        root.title,
-                        style: Styles.textStyleGreyNormal,
-                      ),
-                    )
-                  ],
+    return SizedBox(
+      width: double.infinity,
+      child: Padding(
+        padding: EdgeInsets.only(bottom: 0, top: 5, right: 20),
+        child: Padding(
+          padding: EdgeInsets.only(top: 10, bottom: 15),
+          child: Stack(
+            alignment: Alignment.topRight,
+            children: <Widget>[
+              TextField(
+                keyboardType: TextInputType.multiline,
+                maxLines: null,
+                decoration: InputDecoration(
+                  hintStyle: Styles.textStyleGrey300Normal,
+                  //Change this value to custom as you like
+                  isDense: true,
+                  hintText: 'Lí do',
+                  contentPadding: EdgeInsets.symmetric(vertical: 2),
                 ),
               ),
-            ),
-          ],
-        ));
+              GestureDetector(
+                  onTap: () {
+                    FocusScope.of(context).requestFocus(FocusNode());
+                  },
+                  child: SvgPicture.asset(R.ic_add, height: 15)),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return _buildTiles(bean, position, context);
+    return createChildItem(bean, position, context);
+    ;
   }
 }

@@ -29,12 +29,15 @@ flutter:
     - assets/ic_human_rights.svg
     - assets/ic_myself.png
     - assets/ic_arrow_next.svg
+    - assets/ic_add.svg
     - assets/ic_calendar.svg
     - assets/ic_confession.svg
     - assets/ic_bean.svg
+    - assets/ic_black_bean.svg
     - assets/ic_other_guys.png
     - assets/ic_health.svg
     - assets/tooltip.png
+    - assets/ic_white_bean.svg
     - assets/ic_more.svg
 flr:
   core_version: 3.1.0
