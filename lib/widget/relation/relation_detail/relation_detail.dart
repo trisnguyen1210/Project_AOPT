@@ -1,4 +1,5 @@
 import 'package:beans/generated/r.dart';
+import 'package:beans/utils/utils.dart';
 import 'package:beans/value/gradient.dart';
 import 'package:beans/value/styles.dart';
 import 'package:flutter/material.dart';
@@ -12,13 +13,20 @@ class RelationDetail extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: GradientAppBar(
-        gradient: LinearGradient(
-            colors: [Colors.lightBlue[400], Colors.lightBlueAccent[200]]),
+        gradient: GradientApp.gradientAppbar,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: Utils.getIconBack(),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: Text('Beans'),
+        centerTitle: false,
+        titleSpacing: 0.0,
+        title: Container(
+          child: SvgPicture.asset(
+            R.ic_snowman,
+            width: 99,
+            height: 43,
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -65,7 +73,7 @@ class RelationDetail extends StatelessWidget {
         increaseHeightBy: 7.0,
         callback: () {},
         gradient: GradientApp.gradientButton,
-        child: Text("Xét mình xong", style: Styles.textStyleButton),
+        child: Text("Xét mình xong", style: Styles.buttonText),
       ),
     );
   }
@@ -91,11 +99,11 @@ class RelationDetail extends StatelessWidget {
                       children: [
                         TextSpan(
                           text: 'Biết ơn ',
-                          style: Styles.textStyleBlue,
+                          style: Styles.titlePurple,
                         ),
                         TextSpan(
                           text: '+2',
-                          style: Styles.textStyleGreyMediumNormalSize,
+                          style: Styles.titleGrey,
                         )
                       ],
                     ),
@@ -117,11 +125,11 @@ class RelationDetail extends StatelessWidget {
                     children: [
                       TextSpan(
                         text: 'Trăn trở ',
-                        style: Styles.textStyleBlue,
+                        style: Styles.titlePurple,
                       ),
                       TextSpan(
                         text: '+2',
-                        style: Styles.textStyleGreyMediumNormalSize,
+                        style: Styles.titleGrey,
                       )
                     ],
                   ),
@@ -147,7 +155,7 @@ class RelationDetail extends StatelessWidget {
               children: [
                 TextSpan(
                   text: 'Tôi ',
-                  style: Styles.textStyleMedium,
+                  style: Styles.headingPurple,
                 ),
                 WidgetSpan(
                   child: SvgPicture.asset(R.ic_health, height: 24),
@@ -166,7 +174,7 @@ class RelationDetail extends StatelessWidget {
           child: Container(
             margin: EdgeInsets.only(top: 5),
             child: Text('Đối với sức khoẻ của tôi hôm nay',
-                style: Styles.textStyleGreyMedium),
+                style: Styles.headingGrey),
           ),
         ),
       ],
@@ -224,7 +232,7 @@ class TopicItem extends StatelessWidget {
           width: double.infinity,
           child: Padding(
             padding: EdgeInsets.only(bottom: 12),
-            child: Text(root.title, style: Styles.textStyleBlue),
+            child: Text(root.title, style: Styles.titlePurple),
           ),
         ),
         SizedBox(
@@ -303,16 +311,23 @@ class _BeanItem extends State<BeanItem> {
                     child: Padding(
                         padding: EdgeInsets.only(right: 48),
                         child: TextField(
+                          cursorColor: Color(0xff9b3790),
                           keyboardType: TextInputType.multiline,
                           maxLines: null,
                           decoration: InputDecoration(
+                              enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Color(
+                                      0xff9b3790))),
+                              focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Color(
+                                      0xffcfcfcf))),
                               contentPadding: EdgeInsets.symmetric(vertical: 1),
                               //Change this value to custom as you like
                               isDense: true,
                               // and add this line
-                              hintStyle: Styles.textStyleGrey300Normal,
+                              hintStyle: Styles.hintGrey,
                               hintText: 'Lí do khác…'),
-                          style: Styles.textStyleGreyNormal,
+                          style: Styles.bodyGrey,
                         ))),
               ],
             ),
@@ -353,7 +368,7 @@ class _BeanItem extends State<BeanItem> {
                       padding: EdgeInsets.only(left: 9),
                       child: Text(
                         root.title,
-                        style: Styles.textStyleGreyNormal,
+                        style: Styles.bodyGrey,
                       ),
                     )
                   ],

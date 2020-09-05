@@ -1,4 +1,5 @@
 import 'package:beans/generated/r.dart';
+import 'package:beans/utils/utils.dart';
 import 'package:beans/value/gradient.dart';
 import 'package:beans/value/styles.dart';
 import 'package:flutter/material.dart';
@@ -12,13 +13,20 @@ class RelationDetailOther extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: GradientAppBar(
-        gradient: LinearGradient(
-            colors: [Colors.lightBlue[400], Colors.lightBlueAccent[200]]),
+        gradient: GradientApp.gradientAppbar,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: Utils.getIconBack(),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: Text('Beans'),
+        centerTitle: false,
+        titleSpacing: 0.0,
+        title: Container(
+          child: SvgPicture.asset(
+            R.ic_snowman,
+            width: 99,
+            height: 43,
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -65,7 +73,7 @@ class RelationDetailOther extends StatelessWidget {
         increaseHeightBy: 7.0,
         callback: () {},
         gradient: GradientApp.gradientButton,
-        child: Text("Xét mình xong", style: Styles.textStyleButton),
+        child: Text("Xét mình xong", style: Styles.buttonText),
       ),
     );
   }
@@ -91,11 +99,11 @@ class RelationDetailOther extends StatelessWidget {
                       children: [
                         TextSpan(
                           text: 'Biết ơn ',
-                          style: Styles.textStyleBlue,
+                          style: Styles.titlePurple,
                         ),
                         TextSpan(
                           text: '+2',
-                          style: Styles.textStyleGreyMediumNormalSize,
+                          style: Styles.titleGrey,
                         )
                       ],
                     ),
@@ -117,11 +125,11 @@ class RelationDetailOther extends StatelessWidget {
                     children: [
                       TextSpan(
                         text: 'Trăn trở ',
-                        style: Styles.textStyleBlue,
+                        style: Styles.titlePurple,
                       ),
                       TextSpan(
                         text: '+2',
-                        style: Styles.textStyleGreyMediumNormalSize,
+                        style: Styles.titleGrey,
                       )
                     ],
                   ),
@@ -147,7 +155,7 @@ class RelationDetailOther extends StatelessWidget {
               children: [
                 TextSpan(
                   text: 'Tôi ',
-                  style: Styles.textStyleMedium,
+                  style: Styles.headingPurple,
                 ),
                 WidgetSpan(
                   child: SvgPicture.asset(R.ic_more, height: 24),
@@ -212,7 +220,7 @@ class TopicItem extends StatelessWidget {
           width: double.infinity,
           child: Padding(
             padding: EdgeInsets.only(top: 25),
-            child: Text(root.title, style: Styles.textStyleBlue),
+            child: Text(root.title, style: Styles.titlePurple),
           ),
         ),
         SizedBox(
@@ -253,10 +261,15 @@ class BeanItemOther extends StatelessWidget {
             alignment: Alignment.topRight,
             children: <Widget>[
               TextField(
+                cursorColor: Color(0xff9b3790),
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
                 decoration: InputDecoration(
-                  hintStyle: Styles.textStyleGrey300Normal,
+                  enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Color(0xff9b3790))),
+                  focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Color(0xffcfcfcf))),
+                  hintStyle: Styles.hintGrey,
                   //Change this value to custom as you like
                   isDense: true,
                   hintText: 'Lí do',
@@ -288,7 +301,11 @@ class BeanItemOther extends StatelessWidget {
               TextField(
                 enabled: false,
                 decoration: InputDecoration(
-                  hintStyle: Styles.textStyleGrey300Normal,
+                  enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Color(0xff9b3790))),
+                  focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Color(0xffcfcfcf))),
+                  hintStyle: Styles.hintGrey,
                   //Change this value to custom as you like
                   isDense: true,
                   hintText: 'Thêm Lí do',

@@ -38,7 +38,7 @@ Widget createTopTitle() {
     padding: const EdgeInsets.only(left: 20, right: 20, top: 30, bottom: 20),
     child: RichText(
       text: TextSpan(
-        style: Styles.textStyleGreyNormal,
+        style: Styles.bodyGrey,
         children: [
           TextSpan(
               text:
@@ -127,7 +127,7 @@ class EntryItem extends StatelessWidget {
       },
       child: ListTile(
           title: Text(position.toString() + ". " + root.title,
-              style: Styles.textStyleGreyNormal)),
+              style: Styles.bodyGrey)),
     );
   }
 
@@ -140,7 +140,7 @@ class EntryItem extends StatelessWidget {
         );
       },
       child: ListTile(
-          title: Text(root.title, style: Styles.textStyleGreyMedium),
+          title: Text(root.title, style: Styles.headingGrey),
           leading: SvgPicture.asset(root.icon, height: 40, width: 53)),
     );
   }
@@ -163,7 +163,7 @@ class EntryItem extends StatelessWidget {
       key: PageStorageKey<Entry>(root),
       title: Text(
         root.title,
-        style: Styles.textStyleGreyMedium,
+        style: Styles.headingGrey,
       ),
       children: mapIndexed(root.children,
           (index, item) => _buildTiles(item, index + 1, context)).toList(),

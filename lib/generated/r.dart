@@ -11,6 +11,7 @@ class R {
   static const String ic_close = "assets/ic_close.svg";
   static const String ic_calendar = "assets/ic_calendar.svg";
   static const String tooltip = "assets/tooltip.png";
+  static const String ic_snowman = "assets/ic_snowman.svg";
   static const String ic_black_bean = "assets/ic_black_bean.svg";
   static const String ic_confession = "assets/ic_confession.svg";
   static const String ic_health = "assets/ic_health.svg";

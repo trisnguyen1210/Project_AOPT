@@ -1,7 +1,10 @@
+import 'package:beans/generated/r.dart';
+import 'package:beans/utils/utils.dart';
 import 'package:beans/value/gradient.dart';
 import 'package:beans/value/styles.dart';
 import 'package:beans/widget/relation/relation_tab/relation_tab.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:gradient_app_bar/gradient_app_bar.dart';
 
 class RelationList extends StatelessWidget {
@@ -12,22 +15,30 @@ class RelationList extends StatelessWidget {
         length: 3,
         child: Scaffold(
             appBar: GradientAppBar(
-              gradient: LinearGradient(
-                  colors: [Colors.lightBlue[400], Colors.lightBlueAccent[200]]),
+              gradient: GradientApp.gradientAppbar,
               leading: IconButton(
-                icon: Icon(Icons.arrow_back),
+                icon: Utils.getIconBack(),
                 onPressed: () => Navigator.of(context).pop(),
               ),
-              title: Text('Beans'),
+              centerTitle: false,
+              titleSpacing: 0.0,
+              title: Container(
+                margin: EdgeInsets.only(left: 16),
+                child: SvgPicture.asset(
+                  R.ic_snowman,
+                  width: 99,
+                  height: 43,
+                ),
+              ),
             ),
             body: Column(
               children: [
                 Container(
                   color: Colors.white,
                   child: TabBar(
-                    indicatorColor: Colors.lightBlue[800],
-                    labelColor: Colors.lightBlue[800],
-                    labelStyle: Styles.textStyleTab,
+                    indicatorColor: Color(0xff9b3790),
+                    labelColor: Color(0xff9b3790),
+                    labelStyle: Styles.tabText,
                     indicatorSize: TabBarIndicatorSize.label,
                     labelPadding: EdgeInsets.only(top: 10),
                     tabs: [

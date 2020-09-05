@@ -38,7 +38,7 @@ class HomeTab extends StatelessWidget {
           increaseHeightBy: 7.0,
           callback: () {},
           gradient: GradientApp.gradientButton,
-          child: Text("Chấp nhận thử thách", style: Styles.textStyleButton),
+          child: Text("Chấp nhận thử thách", style: Styles.buttonText),
         )
     );
   }
@@ -79,7 +79,7 @@ class HomeTab extends StatelessWidget {
     return Padding(
         padding: const EdgeInsets.only(top: 16),
         child: Text('Tìm thử thách khác',
-            style: Styles.textStyleUnderline, textAlign: TextAlign.center));
+            style: Styles.bodyBlueUnderline, textAlign: TextAlign.center));
   }
 
   Widget getItemRelation(int index, BuildContext context) {
@@ -118,7 +118,7 @@ class HomeTab extends StatelessWidget {
           child: RichText(
             textAlign: TextAlign.center,
             text: TextSpan(
-              style: Styles.textStyleMedium,
+              style: Styles.headingPurple,
               children: [
                 TextSpan(
                     text: 'Mối tương quan nào bạn muốn xét lại hôm nay?  '),
@@ -145,7 +145,7 @@ class HomeTab extends StatelessWidget {
           child: RichText(
             textAlign: TextAlign.center,
             text: TextSpan(
-              style: Styles.textStyleMedium,
+              style: Styles.headingPurple,
               children: [
                 TextSpan(text: 'Thử thách 24 giờ  '),
                 WidgetSpan(
