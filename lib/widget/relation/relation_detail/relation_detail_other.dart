@@ -61,7 +61,7 @@ class RelationDetailOther extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(bottom: 20),
       child: GradientButton(
-        increaseWidthBy: 80,
+        increaseWidthBy: 90,
         increaseHeightBy: 7.0,
         callback: () {},
         gradient: GradientApp.gradientButton,
@@ -78,7 +78,7 @@ class RelationDetailOther extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
-            padding: EdgeInsets.only(right: 10),
+            padding: EdgeInsets.only(right: 42),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -183,6 +183,7 @@ List<Topic> dataOther = <Topic>[
     'Tôi biết ơn vì',
     <Bean>[
       Bean('Lí do'),
+      Bean('Lí do'),
     ],
   ),
   Topic(
@@ -266,7 +267,34 @@ class BeanItemOther extends StatelessWidget {
                   onTap: () {
                     FocusScope.of(context).requestFocus(FocusNode());
                   },
-                  child: SvgPicture.asset(R.ic_add, height: 15)),
+                  child: SvgPicture.asset(R.ic_close, height: 15)),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget createChildAddItem(Bean root, int position, BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      child: Padding(
+        padding: EdgeInsets.only(bottom: 0, top: 5, right: 20),
+        child: Padding(
+          padding: EdgeInsets.only(top: 10, bottom: 15),
+          child: Stack(
+            alignment: Alignment.topRight,
+            children: <Widget>[
+              TextField(
+                enabled: false,
+                decoration: InputDecoration(
+                  hintStyle: Styles.textStyleGrey300Normal,
+                  //Change this value to custom as you like
+                  isDense: true,
+                  hintText: 'Thêm Lí do',
+                  contentPadding: EdgeInsets.symmetric(vertical: 2),
+                ),
+              ),
             ],
           ),
         ),
@@ -276,7 +304,9 @@ class BeanItemOther extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return createChildItem(bean, position, context);
-    ;
+    if (position == 1)
+      return createChildAddItem(bean, position, context);
+    else
+      return createChildItem(bean, position, context);
   }
 }

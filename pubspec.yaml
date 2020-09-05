@@ -31,6 +31,7 @@ flutter:
     - assets/ic_arrow_next.svg
     - assets/ic_add.svg
     - assets/ic_calendar.svg
+    - assets/ic_close.svg
     - assets/ic_confession.svg
     - assets/ic_bean.svg
     - assets/ic_black_bean.svg

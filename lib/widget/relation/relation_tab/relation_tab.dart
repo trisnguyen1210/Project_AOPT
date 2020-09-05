@@ -126,9 +126,8 @@ class EntryItem extends StatelessWidget {
         );
       },
       child: ListTile(
-          title: Text(position.toString() + "." + root.title,
-              style: Styles.textStyleGreyNormal),
-          trailing: SvgPicture.asset(R.ic_arrow_next, height: 15)),
+          title: Text(position.toString() + ". " + root.title,
+              style: Styles.textStyleGreyNormal)),
     );
   }
 

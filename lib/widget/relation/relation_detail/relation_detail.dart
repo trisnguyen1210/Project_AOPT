@@ -61,7 +61,7 @@ class RelationDetail extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(bottom: 20),
       child: GradientButton(
-        increaseWidthBy: 80,
+        increaseWidthBy: 90,
         increaseHeightBy: 7.0,
         callback: () {},
         gradient: GradientApp.gradientButton,
@@ -78,7 +78,7 @@ class RelationDetail extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
-            padding: EdgeInsets.only(right: 10),
+            padding: EdgeInsets.only(right: 42),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
