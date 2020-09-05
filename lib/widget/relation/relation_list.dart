@@ -22,13 +22,10 @@ class RelationList extends StatelessWidget {
               ),
               centerTitle: false,
               titleSpacing: 0.0,
-              title: Container(
-                margin: EdgeInsets.only(left: 16),
-                child: SvgPicture.asset(
-                  R.ic_snowman,
-                  width: 99,
-                  height: 43,
-                ),
+              title: SvgPicture.asset(
+                R.ic_snowman,
+                width: 99,
+                height: 43,
               ),
             ),
             body: Column(
