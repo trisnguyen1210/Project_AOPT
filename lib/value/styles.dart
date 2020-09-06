@@ -8,6 +8,9 @@ class Styles {
   static TextStyle titlePurple = GoogleFonts.montserrat(
       fontSize: 14, color: Color(0xff9b3790), fontWeight: FontWeight.w500);
 
+  static TextStyle bodyPurple = GoogleFonts.montserrat(
+      fontSize: 14, color: Color(0xff9b3790), fontWeight: FontWeight.w400);
+
   static TextStyle bodyBlueUnderline = GoogleFonts.montserrat(
       fontSize: 14,
       color: Color(0xff9b3790),

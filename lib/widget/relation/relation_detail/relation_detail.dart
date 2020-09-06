@@ -314,11 +314,11 @@ class _BeanItem extends State<BeanItem> {
                           maxLines: null,
                           decoration: InputDecoration(
                               enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Color(
-                                      0xff9b3790))),
+                                  borderSide:
+                                      BorderSide(color: Color(0xffcfcfcf))),
                               focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Color(
-                                      0xffcfcfcf))),
+                                  borderSide:
+                                      BorderSide(color: Color(0xff9b3790))),
                               contentPadding: EdgeInsets.symmetric(vertical: 1),
                               //Change this value to custom as you like
                               isDense: true,
