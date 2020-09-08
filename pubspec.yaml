@@ -27,8 +27,11 @@ flutter:
     - assets/ic_god.png
     - assets/ic_money.svg
     - assets/ic_human_rights.svg
+    - assets/ic_quote.svg
+    - assets/ic_plus.svg
     - assets/ic_myself.png
     - assets/ic_arrow_next.svg
+    - assets/ic_minus.svg
     - assets/ic_add.svg
     - assets/ic_calendar.svg
     - assets/ic_close.svg
@@ -38,6 +41,9 @@ flutter:
     - assets/ic_black_bean.svg
     - assets/ic_other_guys.png
     - assets/ic_health.svg
+    - assets/ic_switch_inactive.svg
+    - assets/ic_sucess.svg
+    - assets/ic_switch_active.svg
     - assets/tooltip.png
     - assets/ic_white_bean.svg
     - assets/ic_more.svg

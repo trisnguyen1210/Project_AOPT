@@ -1,6 +1,7 @@
 import 'package:beans/value/gradient.dart';
 import 'package:beans/value/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
 
 import '../../main.dart';
@@ -18,6 +19,7 @@ class _RegistrationState extends State<Registration> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -29,12 +31,12 @@ class _RegistrationState extends State<Registration> {
             createTextFieldName(),
             createDropDownAge(),
             createViewPin(),
-            createViewPinRetype(),
-            createTerm(),
-            createButtonDone()
-          ],
-        ),
-      )),
+                createViewPinRetype(),
+                createTerm(),
+                createButtonDone()
+              ],
+            ),
+          )),
     );
   }
 

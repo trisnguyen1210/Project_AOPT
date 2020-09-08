@@ -43,7 +43,7 @@ class RelationDetailOther extends StatelessWidget {
             ),
             createListViewTopic(),
             createBeanBottle(),
-            createButtonDone()
+            createButtonDone(context)
           ],
         ),
       ),
@@ -63,13 +63,15 @@ class RelationDetailOther extends StatelessWidget {
     );
   }
 
-  Widget createButtonDone() {
+  Widget createButtonDone(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(bottom: 20),
       child: GradientButton(
         increaseWidthBy: 90,
         increaseHeightBy: 7.0,
-        callback: () {},
+        callback: () {
+          Utils.goToConfessSuccess(context);
+        },
         gradient: GradientApp.gradientButton,
         child: Text("Xét mình xong", style: Styles.buttonText),
       ),
