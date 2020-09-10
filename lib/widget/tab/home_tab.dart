@@ -3,6 +3,8 @@ import 'package:beans/value/gradient.dart';
 import 'package:beans/value/styles.dart';
 import 'package:beans/widget/relation/relation_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
 
 class HomeTab extends StatelessWidget {
@@ -12,21 +14,54 @@ class HomeTab extends StatelessWidget {
     R.ic_other_guys,
     R.ic_god
   ];
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          titleTop(),
-          getListRelation(),
-          divider(),
-          titleChallenge(),
-          challengeText(),
-          buttonChallenge(),
-          anotherChallengeText(),
-        ],
+    return Scaffold(
+      key: _scaffoldKey,
+      appBar: createAppbar(),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            titleTop(),
+            getListRelation(),
+            divider(),
+            titleChallenge(),
+            challengeText(),
+            buttonChallenge(),
+            anotherChallengeText(),
+          ],
+        ),
       ),
+    );
+  }
+
+  GradientAppBar createAppbar() {
+    return GradientAppBar(
+      centerTitle: false,
+      titleSpacing: 0.0,
+      title: Container(
+        margin: EdgeInsets.only(left: 16),
+        child: SvgPicture.asset(
+          R.ic_snowman,
+          width: 99,
+          height: 43,
+        ),
+      ),
+      gradient: GradientApp.gradientAppbar,
+      automaticallyImplyLeading: false,
+      actions: <Widget>[
+        IconButton(
+          icon: Icon(
+            Icons.more_vert,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            _scaffoldKey.currentState.openEndDrawer();
+          },
+        )
+      ],
     );
   }
 
@@ -39,8 +74,7 @@ class HomeTab extends StatelessWidget {
           callback: () {},
           gradient: GradientApp.gradientButton,
           child: Text("Chấp nhận thử thách", style: Styles.buttonText),
-        )
-    );
+        ));
   }
 
   Widget divider() {
@@ -83,30 +117,28 @@ class HomeTab extends StatelessWidget {
   }
 
   Widget getItemRelation(int index, BuildContext context) {
-    return
-
-      GestureDetector(
-          onTap: () {
-            Navigator.push(context,
-              MaterialPageRoute(builder: (context) => RelationList()),
-            );
-          },
-          // The custom button
-          child: Column(
-            children: [
-              //SvgPicture.asset(listIconRelation[index], height: 85, width: 85),
-              Image(
-                width: 85,
-                height: 85,
-                image: AssetImage(listIconRelation[index]),
-              ),
-              Padding(
-                  padding: const EdgeInsets.only(top: 18),
-                  child: Text(
-                      listRelation[index], style: Styles.textStyleRelation))
-            ],
-          )
-      );
+    return GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => RelationList()),
+          );
+        },
+        // The custom button
+        child: Column(
+          children: [
+            //SvgPicture.asset(listIconRelation[index], height: 85, width: 85),
+            Image(
+              width: 85,
+              height: 85,
+              image: AssetImage(listIconRelation[index]),
+            ),
+            Padding(
+                padding: const EdgeInsets.only(top: 18),
+                child:
+                    Text(listRelation[index], style: Styles.textStyleRelation))
+          ],
+        ));
   }
 
   Column titleTop() {

@@ -2,7 +2,6 @@ import 'package:beans/generated/r.dart';
 import 'package:beans/value/gradient.dart';
 import 'package:beans/value/styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
 
@@ -18,8 +17,6 @@ class ConfessSuccess extends StatefulWidget {
 class _ConfessSuccessState extends State<ConfessSuccess> {
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -28,7 +25,7 @@ class _ConfessSuccessState extends State<ConfessSuccess> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              margin: EdgeInsets.only(top: 19, right: 19),
+              margin: EdgeInsets.only(top: 40, right: 19),
               child: GestureDetector(
                 onTap: () {
                   Navigator.pushReplacement(

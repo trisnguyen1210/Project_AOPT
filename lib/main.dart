@@ -9,14 +9,13 @@
 // ![A scaffold with a bottom navigation bar containing three bottom navigation
 // bar items. The first one is selected.](https://flutter.github.io/assets-for-api-docs/assets/material/bottom_navigation_bar.png)
 
-import 'package:beans/value/gradient.dart';
 import 'package:beans/value/styles.dart';
 import 'package:beans/widget/bar/sliding_menu.dart';
+import 'package:beans/widget/confess_list/confess_list.dart';
 import 'package:beans/widget/registration/registration.dart';
 import 'package:beans/widget/tab/home_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:gradient_app_bar/gradient_app_bar.dart';
 
 import 'generated/r.dart';
 
@@ -51,10 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
       'Lời nhắc',
       style: optionStyle,
     ),
-    Text(
-      'Bản xét mình',
-      style: optionStyle,
-    ),
+    ConfessList(),
     Text(
       'Đậu',
       style: optionStyle,
@@ -67,46 +63,15 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,
-      appBar: createAppbar(),
       body: Container(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       endDrawer: SlidingMenu(),
       bottomNavigationBar: createBottomNavigationBar(),
-    );
-  }
-
-  GradientAppBar createAppbar() {
-    return GradientAppBar(
-      centerTitle: false,
-      titleSpacing: 0.0,
-      title: Container(
-        margin: EdgeInsets.only(left: 16),
-        child: SvgPicture.asset(
-          R.ic_snowman,
-          width: 99,
-          height: 43,
-        ),
-      ),
-      gradient: GradientApp.gradientAppbar,
-      automaticallyImplyLeading: false,
-      actions: <Widget>[
-        IconButton(
-          icon: Icon(
-            Icons.more_vert,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            _scaffoldKey.currentState.openEndDrawer();
-          },
-        )
-      ],
     );
   }
 
