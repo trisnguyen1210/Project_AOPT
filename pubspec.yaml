@@ -22,8 +22,10 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    - assets/ic_empty_list.svg
     - assets/ic_time.svg
     - assets/ic_home.svg
+    - assets/ic_pin.svg
     - assets/ic_god.png
     - assets/ic_money.svg
     - assets/ic_human_rights.svg
@@ -33,12 +35,14 @@ flutter:
     - assets/ic_arrow_next.svg
     - assets/ic_minus.svg
     - assets/ic_add.svg
+    - assets/ic_confess_done.svg
     - assets/ic_calendar.svg
     - assets/ic_close.svg
     - assets/ic_confession.svg
     - assets/ic_bean.svg
     - assets/ic_snowman.svg
     - assets/ic_black_bean.svg
+    - assets/ic_switch_active_blue.svg
     - assets/ic_other_guys.png
     - assets/ic_health.svg
     - assets/ic_switch_inactive.svg

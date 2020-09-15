@@ -1,6 +1,7 @@
 import 'package:beans/generated/r.dart';
 import 'package:beans/value/gradient.dart';
 import 'package:beans/value/styles.dart';
+import 'package:beans/widget/confess/done/confess_done.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
@@ -105,7 +106,12 @@ class _ConfessListState extends State<ConfessList> {
       child: GradientButton(
         increaseWidthBy: 90,
         increaseHeightBy: 7.0,
-        callback: () {},
+        callback: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ConfessDone()),
+          );
+        },
         gradient: GradientApp.gradientButton,
         child: Text("Xưng tội xong", style: Styles.buttonText),
       ),

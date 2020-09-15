@@ -9,9 +9,10 @@
 // ![A scaffold with a bottom navigation bar containing three bottom navigation
 // bar items. The first one is selected.](https://flutter.github.io/assets-for-api-docs/assets/material/bottom_navigation_bar.png)
 
+import 'package:beans/utils/utils.dart';
 import 'package:beans/value/styles.dart';
 import 'package:beans/widget/bar/sliding_menu.dart';
-import 'package:beans/widget/confess_list/confess_list.dart';
+import 'package:beans/widget/confess/pin_code/pin_code.dart';
 import 'package:beans/widget/registration/registration.dart';
 import 'package:beans/widget/tab/home_tab.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Utils.setColorStatubBar();
     return MaterialApp(
       home: Registration(),
     );
@@ -47,10 +49,10 @@ class _HomeScreenState extends State<HomeScreen> {
   static List<Widget> _widgetOptions = <Widget>[
     HomeTab(),
     Text(
-      'Lời nhắc',
+      'Lời Nhắc',
       style: optionStyle,
     ),
-    ConfessList(),
+    PinCodeScreen(),
     Text(
       'Đậu',
       style: optionStyle,
@@ -66,6 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Utils.setColorStatubBar();
     return Scaffold(
       body: Container(
         child: _widgetOptions.elementAt(_selectedIndex),

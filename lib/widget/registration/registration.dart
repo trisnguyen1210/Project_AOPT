@@ -1,3 +1,4 @@
+import 'package:beans/utils/utils.dart';
 import 'package:beans/value/gradient.dart';
 import 'package:beans/value/styles.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ class _RegistrationState extends State<Registration> {
 
   @override
   Widget build(BuildContext context) {
+    Utils.setColorStatubBar();
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(

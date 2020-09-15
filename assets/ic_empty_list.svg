@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg height="77px" version="1.1" viewBox="0 0 77 77" width="77px"
+    xmlns="http://www.w3.org/2000/svg">
+    <title>blank</title>
+    <g fill="none" fill-rule="evenodd" id="Page-1" stroke="none" stroke-width="1">
+        <g fill-rule="nonzero" id="bản-xet-mình--copy"
+            transform="translate(-142.000000, -175.000000)">
+            <g id="blank" transform="translate(142.000000, 175.000000)">
+                <polygon fill="#F3F0DE" id="Path"
+                    points="53.741 0 0 0 0 76.04 76.04 76.04 76.04 22.299"></polygon>
+                <polygon fill="#E2DFCF" id="Path"
+                    points="53.741 22.299 53.741 0 76.04 22.299"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

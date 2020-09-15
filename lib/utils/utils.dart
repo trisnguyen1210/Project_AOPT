@@ -19,4 +19,8 @@ class Utils {
       MaterialPageRoute(builder: (context) => ConfessSuccess()),
     );
   }
+
+  static void setColorStatubBar() {
+    //SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+  }
 }
