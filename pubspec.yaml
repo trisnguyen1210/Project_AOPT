@@ -12,6 +12,7 @@ dependencies:
   flutter_svg: ^0.18.1
   gradient_app_bar: ^0.1.3
   gradient_widgets: ^0.5.1
+  percent_indicator: ^2.1.6
   r_dart_library:
     git:
       url: https://github.com/YK-Unit/r_dart_library.git

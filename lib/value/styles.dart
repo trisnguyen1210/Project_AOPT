@@ -3,17 +3,20 @@ import 'package:google_fonts/google_fonts.dart';
 
 class Styles {
   static TextStyle headingPurple = GoogleFonts.montserrat(
-      fontSize: 17, color: Color(0xff9b3790), fontWeight: FontWeight.w500);
+      fontSize: 17, color: Color(0xff316beb), fontWeight: FontWeight.w500);
 
   static TextStyle titlePurple = GoogleFonts.montserrat(
-      fontSize: 14, color: Color(0xff9b3790), fontWeight: FontWeight.w500);
+      fontSize: 14, color: Color(0xff316beb), fontWeight: FontWeight.w500);
 
   static TextStyle bodyPurple = GoogleFonts.montserrat(
-      fontSize: 14, color: Color(0xff9b3790), fontWeight: FontWeight.w400);
+      fontSize: 14, color: Color(0xff316beb), fontWeight: FontWeight.w400);
+
+  static TextStyle superPurple = GoogleFonts.montserrat(
+      fontSize: 50, color: Color(0xff316beb), fontWeight: FontWeight.w600);
 
   static TextStyle bodyBlueUnderline = GoogleFonts.montserrat(
       fontSize: 14,
-      color: Color(0xff9b3790),
+      color: Color(0xff316beb),
       decoration: TextDecoration.underline,
       fontWeight: FontWeight.w400);
 
@@ -25,6 +28,12 @@ class Styles {
 
   static TextStyle bodyGrey = GoogleFonts.montserrat(
       fontSize: 14, color: Colors.grey[700], fontWeight: FontWeight.w400);
+
+  static TextStyle bodyGreyUnderline = GoogleFonts.montserrat(
+      fontSize: 14,
+      color: Colors.grey[700],
+      decoration: TextDecoration.underline,
+      fontWeight: FontWeight.w400);
 
   static TextStyle buttonText = GoogleFonts.montserrat(
       fontSize: 14, color: Colors.white, fontWeight: FontWeight.w600);

@@ -27,7 +27,8 @@ class _ConfessDoneState extends State<ConfessDone> {
         child: Column(
           children: [
             Padding(
-                padding: EdgeInsets.only(top: 29, left: 40, right: 40),
+                padding:
+                    EdgeInsets.only(top: 29, left: 40, right: 40, bottom: 2),
                 child: Text(
                   'Thành có cảm thấy người nhẹ đi 100kg sau khi xưng tội xong không?',
                   style: Styles.bodyGrey,
@@ -47,11 +48,25 @@ class _ConfessDoneState extends State<ConfessDone> {
             ),
             Padding(
                 padding: EdgeInsets.only(bottom: 30, left: 40, right: 40),
-                child: Text(
-                  'Bản xét mình của Thành vừa được xoá, bạn hãy làm việc đền tội trong 24 giờ và nhấn hoàn thành để nhận 2 đậu trắng nhé! ',
-                  style: Styles.bodyGrey,
+                child:
+                RichText(
                   textAlign: TextAlign.center,
-                ))
+                  text: TextSpan(
+                    style: Styles.bodyGrey,
+                    children: [
+                      TextSpan(
+                          text: 'Bản xét mình của Thành vừa được xoá, bạn hãy làm việc đền tội trong 24 giờ và nhấn hoàn thành để nhận 2 đậu trắng nhé! '),
+                      WidgetSpan(
+                        child: Image(
+                          image: AssetImage(R.tooltip),
+                          height: 28,
+                          width: 28,
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+            )
           ],
         ),
       ),

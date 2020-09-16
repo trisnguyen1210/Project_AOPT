@@ -54,7 +54,7 @@ class _RegistrationState extends State<Registration> {
               textAlign: TextAlign.left,
             ),
             TextField(
-              cursorColor: Color(0xff9b3790),
+              cursorColor: Color(0xff316beb),
               keyboardType: TextInputType.name,
               maxLines: 1,
               decoration: InputDecoration(
@@ -63,7 +63,7 @@ class _RegistrationState extends State<Registration> {
                 enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Color(0xffcfcfcf))),
                 focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xff9b3790))),
+                    borderSide: BorderSide(color: Color(0xff316beb))),
                 //Change this value to custom as you like
               ),
               style: Styles.bodyGrey,
@@ -90,12 +90,12 @@ class _RegistrationState extends State<Registration> {
                 value: dropdownValue,
                 icon: Icon(
                   Icons.arrow_drop_down,
-                  color: Color(0xff9b3790),
+                  color: Color(0xff316beb),
                 ),
                 elevation: 16,
                 isExpanded: true,
                 style: Styles.bodyGrey,
-                underline: Container(height: 2, color: Color(0xff9b3790)),
+                underline: Container(height: 2, color: Color(0xff316beb)),
                 onChanged: (String newValue) {
                   setState(() {
                     dropdownValue = newValue;
@@ -127,7 +127,7 @@ class _RegistrationState extends State<Registration> {
               textAlign: TextAlign.left,
             ),
             TextField(
-              cursorColor: Color(0xff9b3790),
+              cursorColor: Color(0xff316beb),
               obscureText: true,
               keyboardType: TextInputType.text,
               maxLines: 1,
@@ -137,7 +137,7 @@ class _RegistrationState extends State<Registration> {
                 enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Color(0xffcfcfcf))),
                 focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xff9b3790))),
+                    borderSide: BorderSide(color: Color(0xff316beb))),
                 //Change this value to custom as you like
               ),
               style: Styles.bodyGrey,
@@ -159,7 +159,7 @@ class _RegistrationState extends State<Registration> {
               textAlign: TextAlign.left,
             ),
             TextField(
-              cursorColor: Color(0xff9b3790),
+              cursorColor: Color(0xff316beb),
               obscureText: true,
               keyboardType: TextInputType.text,
               maxLines: 1,
@@ -169,7 +169,7 @@ class _RegistrationState extends State<Registration> {
                 enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Color(0xffcfcfcf))),
                 focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xff9b3790))),
+                    borderSide: BorderSide(color: Color(0xff316beb))),
                 //Change this value to custom as you like
               ),
               style: Styles.bodyGrey,

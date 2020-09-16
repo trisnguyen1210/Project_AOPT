@@ -88,6 +88,10 @@ class _ConfessListState extends State<ConfessList> {
   }
 
   Widget createListRelation() {
+    if (data.isEmpty) {
+      return creatEmptyView();
+    }
+
     return Padding(
       padding: EdgeInsets.only(left: 26, right: 26),
       child: ListView.builder(
@@ -100,22 +104,68 @@ class _ConfessListState extends State<ConfessList> {
     );
   }
 
-  Widget createButtonDone() {
-    return Padding(
-      padding: EdgeInsets.only(bottom: 20, top: 20),
-      child: GradientButton(
-        increaseWidthBy: 90,
-        increaseHeightBy: 7.0,
-        callback: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => ConfessDone()),
-          );
-        },
-        gradient: GradientApp.gradientButton,
-        child: Text("Xưng tội xong", style: Styles.buttonText),
+  Widget creatEmptyView() {
+    return Center(
+      child: Padding(
+        padding: EdgeInsets.only(left: 26, right: 26, top: 42, bottom: 26),
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(bottom: 35),
+              child: SvgPicture.asset(
+                R.ic_empty_list,
+                width: 77,
+                height: 77,
+              ),
+            ),
+            RichText(
+              textAlign: TextAlign.center,
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'Thành chưa có điều gì để xưng tội.\n',
+                    style: Styles.bodyGrey,
+                  ),
+                  TextSpan(
+                    text: 'Hãy quay về nhà ',
+                    style: Styles.bodyPurple,
+                  ),
+                  TextSpan(
+                    text: 'xét mình!',
+                    style: TextStyle(
+                      color: Color(0xff646464),
+                      fontFamily: 'Montserrat',
+                    ),
+                  ),
+
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
+  }
+
+  Widget createButtonDone() {
+    if (data.isNotEmpty) {
+      return Padding(
+        padding: EdgeInsets.only(bottom: 20, top: 20),
+        child: GradientButton(
+          increaseWidthBy: 90,
+          increaseHeightBy: 7.0,
+          callback: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ConfessDone()),
+            );
+          },
+          gradient: GradientApp.gradientButton,
+          child: Text("Xưng tội xong", style: Styles.buttonText),
+        ),
+      );
+    }
+    return Container();
   }
 }
 
@@ -133,29 +183,31 @@ class Bean {
   final int count;
 }
 
+List<Relation> data1 = <Relation>[];
+
 List<Relation> data = <Relation>[
   Relation(
     'Đối với bản thân',
     <Bean>[
-      Bean('Tôi không bảo vệ sức khoẻ', 10),
-      Bean('Tôi không bảo vệ sức khoẻ', 10),
-      Bean('Tôi không bảo vệ sức khoẻ', 10),
+      Bean('- Tôi không bảo vệ sức khoẻ', 10),
+      Bean('- Tôi không bảo vệ sức khoẻ', 10),
+      Bean('- Tôi không bảo vệ sức khoẻ', 10),
     ],
   ),
   Relation(
     'Đối với người khác',
     <Bean>[
-      Bean('Tôi không bảo vệ sức khoẻ', 10),
-      Bean('Tôi không bảo vệ sức khoẻ', 10),
-      Bean('Tôi không bảo vệ sức khoẻ', 10),
+      Bean('- Tôi không bảo vệ sức khoẻ', 10),
+      Bean('- Tôi không bảo vệ sức khoẻ', 10),
+      Bean('- Tôi không bảo vệ sức khoẻ', 10),
     ],
   ),
   Relation(
     'Đối với Chúa',
     <Bean>[
-      Bean('Tôi không bảo vệ sức khoẻ', 10),
-      Bean('Tôi không bảo vệ sức khoẻ', 10),
-      Bean('Tôi không bảo vệ sức khoẻ', 10),
+      Bean('- Tôi không bảo vệ sức khoẻ', 10),
+      Bean('- Tôi không bảo vệ sức khoẻ', 10),
+      Bean('- Tôi không bảo vệ sức khoẻ', 10),
     ],
   ),
 ];
@@ -247,7 +299,7 @@ class _BeanItem extends State<BeanItem> {
                   children: [
                     Row(
                       children: [
-                        SizedBox(
+                        /* SizedBox(
                           height: 15.0,
                           width: 15.0,
                           child: Checkbox(
@@ -258,7 +310,7 @@ class _BeanItem extends State<BeanItem> {
                               });
                             },
                           ),
-                        ),
+                        ),*/
                         Padding(
                           padding: EdgeInsets.only(left: 9),
                           child: Text(

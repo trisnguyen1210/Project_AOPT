@@ -12,6 +12,7 @@
 import 'package:beans/utils/utils.dart';
 import 'package:beans/value/styles.dart';
 import 'package:beans/widget/bar/sliding_menu.dart';
+import 'package:beans/widget/bean/my_bean.dart';
 import 'package:beans/widget/confess/pin_code/pin_code.dart';
 import 'package:beans/widget/registration/registration.dart';
 import 'package:beans/widget/tab/home_tab.dart';
@@ -53,10 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
       style: optionStyle,
     ),
     PinCodeScreen(),
-    Text(
-      'Đậu',
-      style: optionStyle,
-    ),
+    MyBean(),
   ];
 
   void _onItemTapped(int index) {
@@ -87,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
           activeIcon: SvgPicture.asset(
             R.ic_home,
             height: 24,
-            color: Color(0xff9b3790),
+            color: Color(0xff316beb),
           ),
           title: Text('Nhà', style: Styles.bottomBarText),
         ),
@@ -97,7 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
           activeIcon: SvgPicture.asset(
             R.ic_calendar,
             height: 24,
-            color: Color(0xff9b3790),
+            color: Color(0xff316beb),
           ),
           title: Text('Lời nhắc', style: Styles.bottomBarText),
         ),
@@ -107,23 +105,23 @@ class _HomeScreenState extends State<HomeScreen> {
           activeIcon: SvgPicture.asset(
             R.ic_confession,
             height: 24,
-            color: Color(0xff9b3790),
+            color: Color(0xff316beb),
           ),
           title: Text('Bản xét mình', style: Styles.bottomBarText),
         ),
         BottomNavigationBarItem(
           icon:
-          SvgPicture.asset(R.ic_bean, height: 24, color: Color(0xff8e8e93)),
+              SvgPicture.asset(R.ic_bean, height: 24, color: Color(0xff8e8e93)),
           activeIcon: SvgPicture.asset(
             R.ic_bean,
             height: 24,
-            color: Color(0xff9b3790),
+            color: Color(0xff316beb),
           ),
           title: Text('Đậu', style: Styles.bottomBarText),
         ),
       ],
       currentIndex: _selectedIndex,
-      selectedItemColor: Color(0xff9b3790),
+      selectedItemColor: Color(0xff316beb),
       unselectedItemColor: Color(0xff8e8e93),
       showUnselectedLabels: true,
       showSelectedLabels: true,

@@ -169,7 +169,7 @@ class EntryItem extends StatelessWidget {
           (index, item) => _buildTiles(item, index + 1, context)).toList(),
       leading: SvgPicture.asset(root.icon, height: 40, width: 53),
       headerBackgroundColor: Colors.white,
-      iconColor: Color(0xff9b3790),
+      iconColor: Color(0xff316beb),
     );
   }
 

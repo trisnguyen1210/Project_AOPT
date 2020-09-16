@@ -261,14 +261,14 @@ class BeanItemOther extends StatelessWidget {
             alignment: Alignment.topRight,
             children: <Widget>[
               TextField(
-                cursorColor: Color(0xff9b3790),
+                cursorColor: Color(0xff316beb),
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
                 decoration: InputDecoration(
                   enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: Color(0xffcfcfcf))),
                   focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xff9b3790))),
+                      borderSide: BorderSide(color: Color(0xff316beb))),
                   hintStyle: Styles.hintGrey,
                   //Change this value to custom as you like
                   isDense: true,
@@ -302,11 +302,9 @@ class BeanItemOther extends StatelessWidget {
                 enabled: false,
                 decoration: InputDecoration(
                   enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Color(
-                          0xffcfcfcf))),
+                      borderSide: BorderSide(color: Color(0xffcfcfcf))),
                   focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Color(
-                          0xff9b3790))),
+                      borderSide: BorderSide(color: Color(0xff316beb))),
                   hintStyle: Styles.hintGrey,
                   //Change this value to custom as you like
                   isDense: true,
