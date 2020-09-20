@@ -54,7 +54,6 @@ class RelationList extends StatelessWidget {
                               color: const Color(0xff979797), width: 1))),
                 ),
                 Expanded(
-                  flex: 3,
                   child: TabBarView(
                     children: [
                       RelationTab(),

@@ -29,4 +29,7 @@ class R {
   static const String ic_other_guys = "assets/ic_other_guys.png";
   static const String ic_white_bean = "assets/ic_white_bean.svg";
   static const String ic_more = "assets/ic_more.svg";
+  static const String ic_congratulation = "assets/ic_congratulation.svg";
+  static const String ic_close_gradient = "assets/ic_close_gradient.png";
+  static const String ic_expired = "assets/ic_expired.png";
 }

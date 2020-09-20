@@ -23,4 +23,14 @@ class Utils {
   static void setColorStatubBar() {
     //SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
   }
+
+  static String getNumberAddZero(int number) {
+    if (number == null) {
+      return '00';
+    }
+    if (number < 10) {
+      return '0' + number.toString();
+    }
+    return number.toString();
+  }
 }

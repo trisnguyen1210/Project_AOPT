@@ -13,6 +13,11 @@ dependencies:
   gradient_app_bar: ^0.1.3
   gradient_widgets: ^0.5.1
   percent_indicator: ^2.1.6
+  gen_lang: ^0.1.3
+  sqflite: ^1.3.0
+  path: ^1.7.0
+  provider: ^4.3.2+1
+
   r_dart_library:
     git:
       url: https://github.com/YK-Unit/r_dart_library.git
@@ -52,6 +57,9 @@ flutter:
     - assets/tooltip.png
     - assets/ic_white_bean.svg
     - assets/ic_more.svg
+    - assets/ic_congratulation.svg
+    - assets/ic_close_gradient.png
+    - assets/ic_expired.png
 flr:
   core_version: 3.1.0
   dartfmt_line_length: 80

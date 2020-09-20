@@ -10,6 +10,9 @@
 // bar items. The first one is selected.](https://flutter.github.io/assets-for-api-docs/assets/material/bottom_navigation_bar.png)
 
 import 'package:beans/utils/utils.dart';
+import 'package:beans/provider/auth_provider.dart';
+import 'package:beans/provider/registration_provider.dart';
+import 'package:beans/value/gradient.dart';
 import 'package:beans/value/styles.dart';
 import 'package:beans/widget/bar/sliding_menu.dart';
 import 'package:beans/widget/bean/my_bean.dart';
@@ -18,6 +21,8 @@ import 'package:beans/widget/registration/registration.dart';
 import 'package:beans/widget/tab/home_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:gradient_app_bar/gradient_app_bar.dart';
+import 'package:provider/provider.dart';
 
 import 'generated/r.dart';
 
@@ -25,13 +30,38 @@ void main() => runApp(MyApp());
 
 /// This Widget is the main application widget.
 class MyApp extends StatelessWidget {
-  static const String _title = 'Flutter Code Sample';
-
   @override
   Widget build(BuildContext context) {
-    Utils.setColorStatubBar();
-    return MaterialApp(
-      home: Registration(),
+    return ChangeNotifierProvider<AuthProvider>(
+      create: (context) => AuthProvider(),
+      child: MaterialApp(
+        home: AnimatedSwitcher(
+          duration: Duration(milliseconds: 500),
+          child: Consumer<AuthProvider>(
+            builder: (context, auth, child) {
+              switch (auth.state) {
+                case ViewState.home:
+                  return HomeScreen();
+                case ViewState.register:
+                  return ChangeNotifierProvider<RegistrationProvider>(
+                    create: (context) => RegistrationProvider(auth),
+                    child: Registration(),
+                  );
+                case ViewState.loading:
+                  return loading();
+                default:
+                  return loading();
+              }
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget loading() {
+    return Material(
+      child: CircularProgressIndicator(),
     );
   }
 }
@@ -63,16 +93,48 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     Utils.setColorStatubBar();
     return Scaffold(
-      body: Container(
-        child: _widgetOptions.elementAt(_selectedIndex),
+      key: _scaffoldKey,
+      appBar: createAppbar(),
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: _widgetOptions,
       ),
       endDrawer: SlidingMenu(),
       bottomNavigationBar: createBottomNavigationBar(),
+    );
+  }
+
+  GradientAppBar createAppbar() {
+    return GradientAppBar(
+      centerTitle: false,
+      titleSpacing: 0.0,
+      title: Container(
+        margin: EdgeInsets.only(left: 16),
+        child: SvgPicture.asset(
+          R.ic_snowman,
+          width: 99,
+          height: 43,
+        ),
+      ),
+      gradient: GradientApp.gradientAppbar,
+      automaticallyImplyLeading: false,
+      actions: <Widget>[
+        IconButton(
+          icon: Icon(
+            Icons.more_vert,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            _scaffoldKey.currentState.openEndDrawer();
+          },
+        )
+      ],
     );
   }
 
@@ -91,7 +153,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         BottomNavigationBarItem(
           icon: SvgPicture.asset(R.ic_calendar,
-              height: 24, color: Color(0xff8e8e93)),
+              height: 24, color: Colors.blueGrey[400]),
           activeIcon: SvgPicture.asset(
             R.ic_calendar,
             height: 24,
@@ -101,7 +163,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         BottomNavigationBarItem(
           icon: SvgPicture.asset(R.ic_confession,
-              height: 24, color: Color(0xff8e8e93)),
+              height: 24, color: Colors.blueGrey[400]),
           activeIcon: SvgPicture.asset(
             R.ic_confession,
             height: 24,
@@ -110,8 +172,8 @@ class _HomeScreenState extends State<HomeScreen> {
           title: Text('Bản xét mình', style: Styles.bottomBarText),
         ),
         BottomNavigationBarItem(
-          icon:
-              SvgPicture.asset(R.ic_bean, height: 24, color: Color(0xff8e8e93)),
+          icon: SvgPicture.asset(R.ic_bean,
+              height: 24, color: Colors.blueGrey[400]),
           activeIcon: SvgPicture.asset(
             R.ic_bean,
             height: 24,

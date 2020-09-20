@@ -38,6 +38,12 @@ class Styles {
   static TextStyle buttonText = GoogleFonts.montserrat(
       fontSize: 14, color: Colors.white, fontWeight: FontWeight.w600);
 
+  static TextStyle textStyleStrike = GoogleFonts.montserrat(
+      fontSize: 17,
+      color: Colors.grey[700],
+      decoration: TextDecoration.lineThrough,
+      fontWeight: FontWeight.w400);
+
   static TextStyle textStyleRelation = GoogleFonts.montserrat(
       fontSize: 17, color: Colors.grey[700], fontWeight: FontWeight.w400);
 
@@ -49,4 +55,18 @@ class Styles {
 
   static TextStyle hintGrey = GoogleFonts.montserrat(
       fontSize: 14, color: Colors.grey[300], fontWeight: FontWeight.w400);
+  static TextStyle textStyleGreyMedium = GoogleFonts.montserrat(
+      fontSize: 17, color: Colors.grey[700], fontWeight: FontWeight.w500);
+
+  static TextStyle textStyleLarge = GoogleFonts.montserrat(
+    fontSize: 38,
+    color: Colors.grey[700],
+    fontWeight: FontWeight.w600,
+  );
+
+  static TextStyle textStyleBold = GoogleFonts.montserrat(
+    fontSize: 14,
+    color: Colors.grey[700],
+    fontWeight: FontWeight.w700,
+  );
 }

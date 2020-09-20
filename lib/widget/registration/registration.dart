@@ -1,26 +1,18 @@
 import 'package:beans/utils/utils.dart';
+import 'package:beans/model/user.dart';
+import 'package:beans/provider/registration_provider.dart';
 import 'package:beans/value/gradient.dart';
 import 'package:beans/value/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
+import 'package:provider/provider.dart';
 
-import '../../main.dart';
-
-class Registration extends StatefulWidget {
-  Registration({Key key}) : super(key: key);
-
-  @override
-  _RegistrationState createState() => _RegistrationState();
-}
-
-class _RegistrationState extends State<Registration> {
-  bool monVal = false;
-  String dropdownValue = '18 - 40 tuổi';
-
+class Registration extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Utils.setColorStatubBar();
+    final registrationProvider = Provider.of<RegistrationProvider>(context);
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -29,19 +21,19 @@ class _RegistrationState extends State<Registration> {
         child: Column(
           children: [
             createTitle(),
-            createTextFieldName(),
-            createDropDownAge(),
-            createViewPin(),
-                createViewPinRetype(),
-                createTerm(),
-                createButtonDone()
-              ],
-            ),
-          )),
+            createTextFieldName(registrationProvider),
+            createDropDownAge(registrationProvider),
+            createViewPin(registrationProvider),
+            createViewPinRetype(registrationProvider),
+            createTerm(registrationProvider),
+            createButtonDone(registrationProvider),
+          ],
+        ),
+      )),
     );
   }
 
-  Widget createTextFieldName() {
+  Widget createTextFieldName(RegistrationProvider registration) {
     return Padding(
         padding: EdgeInsets.only(bottom: 25),
         child: Column(
@@ -55,6 +47,7 @@ class _RegistrationState extends State<Registration> {
             ),
             TextField(
               cursorColor: Color(0xff316beb),
+              onChanged: (value) => registration.name = value,
               keyboardType: TextInputType.name,
               maxLines: 1,
               decoration: InputDecoration(
@@ -72,7 +65,7 @@ class _RegistrationState extends State<Registration> {
         ));
   }
 
-  Widget createDropDownAge() {
+  Widget createDropDownAge(RegistrationProvider registration) {
     return Padding(
         padding: EdgeInsets.only(bottom: 25),
         child: SizedBox(
@@ -86,8 +79,8 @@ class _RegistrationState extends State<Registration> {
                 style: Styles.titleGrey,
                 textAlign: TextAlign.left,
               ),
-              DropdownButton<String>(
-                value: dropdownValue,
+              DropdownButton<AgeRange>(
+                value: registration.ageRange,
                 icon: Icon(
                   Icons.arrow_drop_down,
                   color: Color(0xff316beb),
@@ -96,16 +89,16 @@ class _RegistrationState extends State<Registration> {
                 isExpanded: true,
                 style: Styles.bodyGrey,
                 underline: Container(height: 2, color: Color(0xff316beb)),
-                onChanged: (String newValue) {
-                  setState(() {
-                    dropdownValue = newValue;
-                  });
-                },
-                items: <String>['12 - 17 tuổi', '18 - 40 tuổi', 'Trên 40 tuổi']
-                    .map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
+                onChanged: (AgeRange newValue) =>
+                    registration.ageRange = newValue,
+                items: [AgeRange.from12To17, AgeRange.from18To40, AgeRange.gt40]
+                    .map<DropdownMenuItem<AgeRange>>((AgeRange value) {
+                  return DropdownMenuItem<AgeRange>(
                     value: value,
-                    child: Text(value, style: Styles.bodyGrey),
+                    child: Text(
+                      '${value.toShortString()} tuổi',
+                      style: Styles.bodyGrey,
+                    ),
                   );
                 }).toList(),
               ),
@@ -114,7 +107,7 @@ class _RegistrationState extends State<Registration> {
         ));
   }
 
-  Widget createViewPin() {
+  Widget createViewPin(RegistrationProvider registration) {
     return Padding(
         padding: EdgeInsets.only(bottom: 25),
         child: Column(
@@ -127,6 +120,7 @@ class _RegistrationState extends State<Registration> {
               textAlign: TextAlign.left,
             ),
             TextField(
+              onChanged: (value) => registration.pin = value,
               cursorColor: Color(0xff316beb),
               obscureText: true,
               keyboardType: TextInputType.text,
@@ -146,7 +140,7 @@ class _RegistrationState extends State<Registration> {
         ));
   }
 
-  Widget createViewPinRetype() {
+  Widget createViewPinRetype(RegistrationProvider registration) {
     return Padding(
         padding: EdgeInsets.only(bottom: 25),
         child: Column(
@@ -159,6 +153,7 @@ class _RegistrationState extends State<Registration> {
               textAlign: TextAlign.left,
             ),
             TextField(
+              onChanged: (value) => registration.retypePin = value,
               cursorColor: Color(0xff316beb),
               obscureText: true,
               keyboardType: TextInputType.text,
@@ -182,80 +177,71 @@ class _RegistrationState extends State<Registration> {
     return Padding(
       padding: EdgeInsets.only(bottom: 40),
       child: Text(
-        'Để bảo mật và lựa chọn cách  xét mình thích hợp bạn hãy điền vào chỗ trống',
+        'Để bảo mật và lựa chọn cách xét mình thích hợp bạn hãy điền vào chỗ trống',
         style: Styles.headingPurple,
         textAlign: TextAlign.center,
       ),
     );
   }
 
-  Widget createTerm() {
+  Widget createTerm(RegistrationProvider registration) {
     return InkWell(
-        onTap: () {
-          setState(() {
-            monVal = !monVal;
-          });
-        },
-        child: Column(
-          children: [
-            SizedBox(
-              width: double.infinity,
-              child: Padding(
-                padding: EdgeInsets.only(bottom: 8, top: 8),
-                child: Row(
-                  children: [
-                    SizedBox(
-                      height: 15.0,
-                      width: 15.0,
-                      child: Checkbox(
-                        value: monVal,
-                        onChanged: (bool value) {
-                          setState(() {
-                            monVal = value; // rebuilds with new value
-                          });
-                        },
+      onTap: () => registration.acceptTerm = !registration.acceptTerm,
+      child: Column(
+        children: [
+          SizedBox(
+            width: double.infinity,
+            child: Padding(
+              padding: EdgeInsets.only(bottom: 8, top: 8),
+              child: Row(
+                children: [
+                  SizedBox(
+                    height: 15.0,
+                    width: 15.0,
+                    child: Checkbox(
+                      value: registration.acceptTerm,
+                      onChanged: (bool value) =>
+                          registration.acceptTerm = value,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 9),
+                    child: RichText(
+                      textAlign: TextAlign.left,
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: 'Đọc và đồng ý ',
+                            style: Styles.bodyGrey,
+                          ),
+                          TextSpan(
+                            text: 'điều khoản và bảo mật',
+                            style: Styles.bodyPurple,
+                          )
+                        ],
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 9),
-                      child: RichText(
-                        textAlign: TextAlign.left,
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                              text: 'Đọc và đồng ý ',
-                              style: Styles.bodyGrey,
-                            ),
-                            TextSpan(
-                              text: 'điều khoản và bảo mật',
-                              style: Styles.bodyPurple,
-                            )
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
-                ),
+                  )
+                ],
               ),
             ),
-          ],
-        ));
+          ),
+        ],
+      ),
+    );
   }
 
-  Widget createButtonDone() {
+  Widget createButtonDone(RegistrationProvider registration) {
     return Padding(
-        padding: const EdgeInsets.only(top: 40, bottom: 40),
-        child: GradientButton(
-          increaseWidthBy: 80,
-          increaseHeightBy: 7.0,
-          callback: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => HomeScreen()),
-            );
-          },
-          gradient: GradientApp.gradientButton,
-          child: Text("Xong", style: Styles.buttonText),
-        ));
+      padding: const EdgeInsets.only(top: 40, bottom: 40),
+      child: GradientButton(
+        increaseWidthBy: 80,
+        increaseHeightBy: 7.0,
+        callback: registration.register,
+        isEnabled: registration.isValid,
+        gradient: GradientApp.gradientButton,
+        child: Text("Xong", style: Styles.buttonText),
+      ),
+    );
   }
 }

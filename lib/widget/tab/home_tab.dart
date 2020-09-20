@@ -1,11 +1,14 @@
+import 'dart:ui';
+
 import 'package:beans/generated/r.dart';
-import 'package:beans/value/gradient.dart';
+import 'package:beans/provider/challenge_provider.dart';
 import 'package:beans/value/styles.dart';
 import 'package:beans/widget/relation/relation_list.dart';
+import 'package:beans/widget/challenge/challenge_view.dart';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:gradient_app_bar/gradient_app_bar.dart';
-import 'package:gradient_widgets/gradient_widgets.dart';
+import 'package:provider/provider.dart';
 
 class HomeTab extends StatelessWidget {
   final List<String> listRelation = <String>['Tôi', 'Tha nhân', 'Chúa'];
@@ -14,67 +17,22 @@ class HomeTab extends StatelessWidget {
     R.ic_other_guys,
     R.ic_god
   ];
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      appBar: createAppbar(),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            titleTop(),
-            getListRelation(),
-            divider(),
-            titleChallenge(),
-            challengeText(),
-            buttonChallenge(),
-            anotherChallengeText(),
-          ],
-        ),
-      ),
-    );
-  }
-
-  GradientAppBar createAppbar() {
-    return GradientAppBar(
-      centerTitle: false,
-      titleSpacing: 0.0,
-      title: Container(
-        margin: EdgeInsets.only(left: 16),
-        child: SvgPicture.asset(
-          R.ic_snowman,
-          width: 99,
-          height: 43,
-        ),
-      ),
-      gradient: GradientApp.gradientAppbar,
-      automaticallyImplyLeading: false,
-      actions: <Widget>[
-        IconButton(
-          icon: Icon(
-            Icons.more_vert,
-            color: Colors.white,
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          titleTop(),
+          getListRelation(),
+          divider(),
+          ChangeNotifierProvider(
+            create: (context) => ChallengeProvider(),
+            child: ChallengeView(),
           ),
-          onPressed: () {
-            _scaffoldKey.currentState.openEndDrawer();
-          },
-        )
-      ],
+        ],
+      ),
     );
-  }
-
-  Widget buttonChallenge() {
-    return Padding(
-        padding: const EdgeInsets.only(top: 16),
-        child: GradientButton(
-          increaseWidthBy: 120,
-          increaseHeightBy: 7.0,
-          callback: () {},
-          gradient: GradientApp.gradientButton,
-          child: Text("Chấp nhận thử thách", style: Styles.buttonText),
-        ));
   }
 
   Widget divider() {
@@ -100,20 +58,6 @@ class HomeTab extends StatelessWidget {
             getItemRelation(index, context),
       ),
     );
-  }
-
-  Widget challengeText() {
-    return Padding(
-        padding: const EdgeInsets.only(top: 30),
-        child: Text('"Gửi một tấm thiệp cám ơn"',
-            style: Styles.textStyleRelation, textAlign: TextAlign.center));
-  }
-
-  Widget anotherChallengeText() {
-    return Padding(
-        padding: const EdgeInsets.only(top: 16),
-        child: Text('Tìm thử thách khác',
-            style: Styles.bodyBlueUnderline, textAlign: TextAlign.center));
   }
 
   Widget getItemRelation(int index, BuildContext context) {
@@ -146,7 +90,7 @@ class HomeTab extends StatelessWidget {
       children: [
         Padding(
           padding:
-          const EdgeInsets.only(left: 37, right: 37, top: 30, bottom: 41),
+              const EdgeInsets.only(left: 37, right: 37, top: 30, bottom: 41),
           child: RichText(
             textAlign: TextAlign.center,
             text: TextSpan(
@@ -157,32 +101,6 @@ class HomeTab extends StatelessWidget {
                 WidgetSpan(
                   child: Image(
                     image: AssetImage(R.tooltip),
-                    height: 28,
-                    width: 28,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Column titleChallenge() {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 30),
-          child: RichText(
-            textAlign: TextAlign.center,
-            text: TextSpan(
-              style: Styles.headingPurple,
-              children: [
-                TextSpan(text: 'Thử thách 24 giờ  '),
-                WidgetSpan(
-                  child: Image(
-                    image: AssetImage('assets/tooltip.png'),
                     height: 28,
                     width: 28,
                   ),
