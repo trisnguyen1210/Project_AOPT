@@ -9,15 +9,16 @@
 // ![A scaffold with a bottom navigation bar containing three bottom navigation
 // bar items. The first one is selected.](https://flutter.github.io/assets-for-api-docs/assets/material/bottom_navigation_bar.png)
 
-import 'package:beans/utils/utils.dart';
 import 'package:beans/provider/auth_provider.dart';
 import 'package:beans/provider/registration_provider.dart';
+import 'package:beans/utils/utils.dart';
 import 'package:beans/value/gradient.dart';
 import 'package:beans/value/styles.dart';
 import 'package:beans/widget/bar/sliding_menu.dart';
 import 'package:beans/widget/bean/my_bean.dart';
 import 'package:beans/widget/confess/pin_code/pin_code.dart';
 import 'package:beans/widget/registration/registration.dart';
+import 'package:beans/widget/registration/splash_screen.dart';
 import 'package:beans/widget/tab/home_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -26,7 +27,9 @@ import 'package:provider/provider.dart';
 
 import 'generated/r.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(MaterialApp(
+      home: SplashScreen(),
+    ));
 
 /// This Widget is the main application widget.
 class MyApp extends StatelessWidget {

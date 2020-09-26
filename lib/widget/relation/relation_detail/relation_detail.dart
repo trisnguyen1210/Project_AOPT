@@ -155,14 +155,14 @@ class RelationDetail extends StatelessWidget {
               children: [
                 TextSpan(
                   text: 'Tôi ',
-                  style: Styles.headingPurple,
+                  style: Styles.headingBoldPurple,
                 ),
                 WidgetSpan(
                   child: SvgPicture.asset(R.ic_health, height: 24),
                 ),
                 TextSpan(
                   text: 'Khả năng & Sức khoẻ',
-                  style: Styles.textStyleRelation,
+                  style: Styles.textStyleRegular,
                 )
               ],
             ),

@@ -3,9 +3,8 @@ import 'dart:ui';
 import 'package:beans/generated/r.dart';
 import 'package:beans/provider/challenge_provider.dart';
 import 'package:beans/value/styles.dart';
-import 'package:beans/widget/relation/relation_list.dart';
 import 'package:beans/widget/challenge/challenge_view.dart';
-
+import 'package:beans/widget/relation/relation_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -78,7 +77,7 @@ class HomeTab extends StatelessWidget {
               image: AssetImage(listIconRelation[index]),
             ),
             Padding(
-                padding: const EdgeInsets.only(top: 18),
+                padding: const EdgeInsets.only(top: 14),
                 child:
                     Text(listRelation[index], style: Styles.textStyleRelation))
           ],
@@ -88,16 +87,31 @@ class HomeTab extends StatelessWidget {
   Column titleTop() {
     return Column(
       children: [
-        Padding(
+        Padding(padding: EdgeInsets.only(top: 27),
+          child: RichText(
+            text: TextSpan(
+              children: [
+                TextSpan(
+                  text: 'XÉT MÌNH\n',
+                  style: Styles.extraHeadingPurple,
+                ),
+                TextSpan(
+                  text: 'NGÀY 12.09.20',
+                  style: Styles.dateStyle,
+                ),
+              ],
+            ),
+          ),
+        ), Padding(
           padding:
-              const EdgeInsets.only(left: 37, right: 37, top: 30, bottom: 41),
+          const EdgeInsets.only(left: 20, right: 20, top: 9, bottom: 43),
           child: RichText(
             textAlign: TextAlign.center,
             text: TextSpan(
-              style: Styles.headingPurple,
+              style: Styles.titleGrey,
               children: [
                 TextSpan(
-                    text: 'Mối tương quan nào bạn muốn xét lại hôm nay?  '),
+                    text: 'Mối tương quan nào khiến Thành băn khoăn hay hạnh phúc nhất hôm nay? '),
                 WidgetSpan(
                   child: Image(
                     image: AssetImage(R.tooltip),

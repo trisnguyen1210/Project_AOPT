@@ -1,6 +1,6 @@
-import 'package:beans/utils/utils.dart';
 import 'package:beans/model/user.dart';
 import 'package:beans/provider/registration_provider.dart';
+import 'package:beans/utils/utils.dart';
 import 'package:beans/value/gradient.dart';
 import 'package:beans/value/styles.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +20,7 @@ class Registration extends StatelessWidget {
         padding: EdgeInsets.only(top: 55, left: 35, right: 35, bottom: 35),
         child: Column(
           children: [
+            createHeading(),
             createTitle(),
             createTextFieldName(registrationProvider),
             createDropDownAge(registrationProvider),
@@ -40,10 +41,19 @@ class Registration extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "Biệt danh/ tên của bạn",
-              style: Styles.titleGrey,
-              textAlign: TextAlign.left,
+            RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'Biệt danh/ tên của bạn ',
+                    style: Styles.titleGreyBold,
+                  ),
+                  TextSpan(
+                    text: '(không quá 10 kí tự)',
+                    style: Styles.subtitleGrey,
+                  ),
+                ],
+              ),
             ),
             TextField(
               cursorColor: Color(0xff316beb),
@@ -74,11 +84,20 @@ class Registration extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "Độ tuổi",
-                style: Styles.titleGrey,
-                textAlign: TextAlign.left,
+              RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: 'Sinh nhật ',
+                      style: Styles.titleGreyBold,
+                    ),
+                    TextSpan(
+                      text: '(để app tìm cách xét mình phù hợp)',
+                      style: Styles.subtitleGrey,)
+                  ],
+                ),
               ),
+
               DropdownButton<AgeRange>(
                 value: registration.ageRange,
                 icon: Icon(
@@ -116,14 +135,14 @@ class Registration extends StatelessWidget {
           children: [
             Text(
               "Nhập mã pin",
-              style: Styles.titleGrey,
+              style: Styles.titleGreyBold,
               textAlign: TextAlign.left,
             ),
             TextField(
               onChanged: (value) => registration.pin = value,
               cursorColor: Color(0xff316beb),
               obscureText: true,
-              keyboardType: TextInputType.text,
+              keyboardType: TextInputType.number,
               maxLines: 1,
               decoration: InputDecoration(
                 isDense: true,
@@ -149,14 +168,14 @@ class Registration extends StatelessWidget {
           children: [
             Text(
               "Nhập lại mã pin",
-              style: Styles.titleGrey,
+              style: Styles.titleGreyBold,
               textAlign: TextAlign.left,
             ),
             TextField(
               onChanged: (value) => registration.retypePin = value,
               cursorColor: Color(0xff316beb),
               obscureText: true,
-              keyboardType: TextInputType.text,
+              keyboardType: TextInputType.number,
               maxLines: 1,
               decoration: InputDecoration(
                 isDense: true,
@@ -178,11 +197,23 @@ class Registration extends StatelessWidget {
       padding: EdgeInsets.only(bottom: 40),
       child: Text(
         'Để bảo mật và lựa chọn cách xét mình thích hợp bạn hãy điền vào chỗ trống',
-        style: Styles.headingPurple,
+        style: Styles.bodyGrey,
         textAlign: TextAlign.center,
       ),
     );
   }
+
+  Widget createHeading() {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 5),
+      child: Text(
+        'THÔNG TIN CÁ NHÂN',
+        style: Styles.extraHeadingPurple,
+        textAlign: TextAlign.center,
+      ),
+    );
+  }
+
 
   Widget createTerm(RegistrationProvider registration) {
     return InkWell(

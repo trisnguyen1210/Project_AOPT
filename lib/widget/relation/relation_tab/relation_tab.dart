@@ -42,7 +42,7 @@ Widget createTopTitle() {
         children: [
           TextSpan(
               text:
-                  'Bạn hãy chọn 1 điều làm mình trăn trở hay hạnh phúc nhất hôm nay để ghi nhận lại.  '),
+                  'Thành hãy chọn 1 điều làm mình trăn trở hay hạnh phúc nhất hôm nay để ghi nhận lại. '),
           WidgetSpan(
             child: Image(
               image: AssetImage(R.tooltip),

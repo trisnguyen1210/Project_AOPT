@@ -23,8 +23,9 @@ class _ConfessListState extends State<ConfessList> {
           children: [
             Padding(
               padding: EdgeInsets.only(top: 60, bottom: 0, left: 50, right: 50),
-              child: Text('Bản xét mình của Thành',
-                  style: Styles.headingPurple, textAlign: TextAlign.center),
+              child: Text('BẢN XÉT MÌNH',
+                  style: Styles.extraHeadingPurple,
+                  textAlign: TextAlign.center),
             ),
             Padding(
               padding: EdgeInsets.only(bottom: 15, left: 50, right: 50),
@@ -132,10 +133,7 @@ class _ConfessListState extends State<ConfessList> {
                   ),
                   TextSpan(
                     text: 'xét mình!',
-                    style: TextStyle(
-                      color: Color(0xff646464),
-                      fontFamily: 'Montserrat',
-                    ),
+                    style: Styles.bodyGrey,
                   ),
 
                 ],
@@ -233,7 +231,7 @@ class RelationItem extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(root.title, style: Styles.titleGrey),
+                  Text(root.title, style: Styles.titleGreyBold),
                   Text('Lần', style: Styles.titleGrey),
                 ],
               ),
