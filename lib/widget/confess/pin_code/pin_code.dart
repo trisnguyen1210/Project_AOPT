@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:beans/generated/r.dart';
+import 'package:beans/usecase/user_usecase.dart';
 import 'package:beans/utils/utils.dart';
 import 'package:beans/value/styles.dart';
 import 'package:beans/widget/custom/pin_code_fields.dart';
@@ -16,6 +19,11 @@ class PinCodeScreen extends StatefulWidget {
 
 class _PinCodeScreenState extends State<PinCodeScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final UserUsecase userUsecase = UserUsecase();
+  TextEditingController textEditingController = TextEditingController();
+  StreamController<ErrorAnimationType> errorController =
+      StreamController<ErrorAnimationType>();
+  final snackBar = SnackBar(content: Text('Bạn đã nhập sai mã pin'));
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +52,9 @@ class _PinCodeScreenState extends State<PinCodeScreen> {
               obscureText: true,
               mainAxisAlignment: MainAxisAlignment.center,
               animationType: AnimationType.fade,
+              controller: textEditingController,
+              errorAnimationController: errorController,
+              // Pass it here
               pinTheme: PinTheme(
                 shape: PinCodeFieldShape.box,
                 fieldHeight: 30,
@@ -59,20 +70,24 @@ class _PinCodeScreenState extends State<PinCodeScreen> {
               animationDuration: Duration(milliseconds: 300),
               backgroundColor: Colors.transparent,
               enableActiveFill: false,
-              onCompleted: (v) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ConfessList()),
-                );
+              onCompleted: (v) async {
+                if (await userUsecase.checkPin(v)) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ConfessList()),
+                  );
+                } else {
+                  errorController.add(ErrorAnimationType
+                      .shake); // This will shake the pin code field
+                  Scaffold.of(context).showSnackBar(snackBar);
+                }
+
+                textEditingController.clear();
               },
               onChanged: (value) {
-                print(value);
                 setState(() {});
               },
               beforeTextPaste: (text) {
-                print("Allowing to paste $text");
-                //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
-                //but you can show anything you want here, like your pop up saying wrong paste format or etc
                 return true;
               },
               appContext: context,

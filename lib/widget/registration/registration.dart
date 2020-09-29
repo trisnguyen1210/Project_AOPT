@@ -139,6 +139,7 @@ class Registration extends StatelessWidget {
               textAlign: TextAlign.left,
             ),
             TextField(
+              maxLength: 4,
               onChanged: (value) => registration.pin = value,
               cursorColor: Color(0xff316beb),
               obscureText: true,
@@ -172,6 +173,7 @@ class Registration extends StatelessWidget {
               textAlign: TextAlign.left,
             ),
             TextField(
+              maxLength: 4,
               onChanged: (value) => registration.retypePin = value,
               cursorColor: Color(0xff316beb),
               obscureText: true,

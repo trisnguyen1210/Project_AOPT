@@ -445,7 +445,7 @@ class _PinCodeTextFieldState extends State<PinCodeTextField>
                   ],
                   autofocus: widget.autoFocus,
                   autocorrect: false,
-                  keyboardType: widget.textInputType,
+                  keyboardType: TextInputType.number,
                   keyboardAppearance: widget.keyboardAppearance,
                   textCapitalization: widget.textCapitalization,
                   validator: widget.validator,
