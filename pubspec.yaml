@@ -19,6 +19,7 @@ dependencies:
   provider: ^4.3.2+1
   supercharged: ^1.10.0
   date_format: ^1.0.9
+  flutter_circular_chart: ^0.1.0
   r_dart_library:
     git:
       url: https://github.com/YK-Unit/r_dart_library.git

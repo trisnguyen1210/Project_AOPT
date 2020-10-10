@@ -5,6 +5,9 @@ class Styles {
   static TextStyle extraHeadingPurple = GoogleFonts.montserrat(
       fontSize: 24, color: Color(0xff316beb), fontWeight: FontWeight.w800);
 
+  static TextStyle headingExtraPurple = GoogleFonts.montserrat(
+      fontSize: 17, color: Color(0xff316beb), fontWeight: FontWeight.w800);
+
   static TextStyle headingBoldPurple = GoogleFonts.montserrat(
       fontSize: 17, color: Color(0xff316beb), fontWeight: FontWeight.w700);
 
