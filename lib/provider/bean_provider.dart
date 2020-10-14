@@ -21,7 +21,7 @@ class BeanProvider with ChangeNotifier {
   final _userDao = UserDao();
   final _targetDao = TargetDao();
 
-  ConfessProvider() {
+  BeanProvider() {
     getUser();
     getTarget();
   }
