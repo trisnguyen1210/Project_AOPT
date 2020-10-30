@@ -8,6 +8,8 @@ class Styles {
   static TextStyle headingExtraPurple = GoogleFonts.montserrat(
       fontSize: 17, color: Color(0xff316beb), fontWeight: FontWeight.w800);
 
+  static TextStyle headingExtraWhite = GoogleFonts.montserrat(
+      fontSize: 17, color: Colors.white, fontWeight: FontWeight.w800);
   static TextStyle headingBoldPurple = GoogleFonts.montserrat(
       fontSize: 17, color: Color(0xff316beb), fontWeight: FontWeight.w700);
 
@@ -44,6 +46,8 @@ class Styles {
   static TextStyle bodyGrey = GoogleFonts.montserrat(
       fontSize: 14, color: Colors.grey[700], fontWeight: FontWeight.w400);
 
+  static TextStyle bodyWhite = GoogleFonts.montserrat(
+      fontSize: 14, color: Colors.white, fontWeight: FontWeight.w400);
   static TextStyle subtitleGrey = GoogleFonts.montserrat(
       fontSize: 10, color: Colors.grey[700], fontWeight: FontWeight.w400);
 

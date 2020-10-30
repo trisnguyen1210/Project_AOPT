@@ -66,14 +66,32 @@ class RelationDetailOther extends StatelessWidget {
   Widget createButtonDone(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(bottom: 20),
-      child: GradientButton(
-        increaseWidthBy: 90,
-        increaseHeightBy: 7.0,
-        callback: () {
-          Utils.goToConfessSuccess(context);
-        },
-        gradient: GradientApp.gradientButton,
-        child: Text("Xét mình xong", style: Styles.buttonText),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Padding(
+            padding: EdgeInsets.only(right: 12),
+            child: GradientButton(
+              increaseWidthBy: 40,
+              increaseHeightBy: 7.0,
+              callback: () {
+                Utils.goToConfessSuccess(context);
+              },
+              gradient: GradientApp.gradientButton,
+              child: Text("Xong", style: Styles.buttonText),
+            ),
+          ),
+          GradientButton(
+            increaseWidthBy: 40,
+            increaseHeightBy: 7.0,
+            callback: () {
+              Navigator.of(context).pop();
+            },
+            gradient: GradientApp.gradientButtonGrey,
+            child: Text("Huỷ", style: Styles.buttonText),
+          )
+        ],
       ),
     );
   }

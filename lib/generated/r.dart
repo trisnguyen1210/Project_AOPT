@@ -21,6 +21,7 @@ class R {
   static const String tooltip = "assets/tooltip.png";
   static const String ic_snowman = "assets/ic_snowman.svg";
   static const String ic_black_bean = "assets/ic_black_bean.svg";
+  static const String background_god = "assets/background_god.svg";
   static const String ic_switch_active_blue =
       "assets/ic_switch_active_blue.svg";
   static const String ic_confession = "assets/ic_confession.svg";
@@ -28,6 +29,7 @@ class R {
   static const String ic_health = "assets/ic_health.svg";
   static const String ic_switch_inactive = "assets/ic_switch_inactive.svg";
   static const String ic_sucess = "assets/ic_sucess.svg";
+  static const String background_god_png = "assets/background_god_png.png";
   static const String ic_logo = "assets/ic_logo.svg";
   static const String ic_switch_active = "assets/ic_switch_active.svg";
   static const String ic_other_guys = "assets/ic_other_guys.png";
