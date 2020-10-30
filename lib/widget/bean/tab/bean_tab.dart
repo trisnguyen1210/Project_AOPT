@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:beans/provider/bean_provider.dart';
 import 'package:beans/utils/utils.dart';
 import 'package:beans/value/styles.dart';
@@ -23,171 +25,226 @@ class _BeanTabState extends State<BeanTab> {
   final _chartSize = const Size(200.0, 200.0);
 
   Color labelColor = Color(0xffFFC269);
+  bool monVal = false;
+
+  // ScrollableState scrollable = Scrollable.of(context);
+  ScrollController _scrollController = new ScrollController();
 
   @override
   Widget build(BuildContext context) {
-    TextStyle _labelStyle = Theme.of(context)
-        .textTheme
-        .title
-        .merge(new TextStyle(color: labelColor));
-
     return Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
+            controller: _scrollController,
             child: ChangeNotifierProvider<BeanProvider>(
                 create: (context) => BeanProvider(),
                 child: Center(
                   child: Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: 20, left: 59, right: 59, bottom: 14),
-                        child: Text('HỦ ĐẬU BIẾT ƠN',
-                            style: Styles.headingExtraPurple,
-                            textAlign: TextAlign.center),
-                      ),
-                      Consumer<BeanProvider>(
-                          builder: (context, beanProvider, child) {
-                        return Padding(
-                            padding: EdgeInsets.only(left: 48, right: 48),
-                            child: Text(
-                                "Thành đang có " +
-                                    beanProvider.whiteBeanCount.toString() +
-                                    " hạt đậu biết ơn.",
-                                style: Styles.bodyGrey,
-                                textAlign: TextAlign.center));
-                      }),
-                      Consumer<BeanProvider>(
-                          builder: (context, beanProvider, child) {
-                        return Padding(
-                            padding: EdgeInsets.only(
-                                bottom: 15, left: 48, right: 48),
-                            child: AnimatedCircularChart(
-                              key: _chartKey,
-                              size: _chartSize,
-                              initialChartData: Utils.getChartDataWhiteBean(
-                                  beanProvider.target.greenCount,
-                                  beanProvider.whiteBeanCount),
-                              chartType: CircularChartType.Radial,
-                              edgeStyle: SegmentEdgeStyle.round,
-                              percentageValues: true,
-                              holeLabel: Utils.getTargetWhiteBeanComplete(
-                                          beanProvider.target.greenCount,
-                                          beanProvider.whiteBeanCount)
-                                      .toString() +
-                                  "%",
-                              labelStyle: _labelStyle,
-                            ));
-                      }),
-                      Consumer<BeanProvider>(
-                          builder: (context, beanProvider, child) {
-                        return Padding(
-                            padding: EdgeInsets.only(
-                                bottom: 15, left: 48, right: 48),
-                            child: Text(
-                                "Hoàn thành " +
-                                    Utils.getTargetWhiteBeanComplete(
-                                            beanProvider.target.greenCount,
-                                            beanProvider.whiteBeanCount)
-                                        .toString() +
-                                    "% mục tiêu",
-                                style: Styles.bodyGrey,
-                                textAlign: TextAlign.center));
-                      }),
-                      Padding(
-                          padding:
-                              EdgeInsets.only(bottom: 15, left: 48, right: 48),
-                          child: Text(
-                              "Thời gian: " +
-                                  formatDate(DateTime.now(), [dd]) +
-                                  " ngày / 1 tháng",
-                              style: Styles.bodyGrey,
-                              textAlign: TextAlign.center)),
-                      Padding(
-                        padding:
-                            EdgeInsets.only(bottom: 31, left: 60, right: 60),
-                        child: LinearPercentIndicator(
-                          lineHeight: 13.0,
-                          percent: 0.5,
-                          backgroundColor: Color(0xffdddddd),
-                          progressColor: Color(0xff316beb),
-                        ),
-                      ),
-                      Padding(
-                          padding:
-                              EdgeInsets.only(bottom: 0, left: 48, right: 48),
-                          child: Text(
-                            'Xem hủ trăn trở',
-                            style: Styles.bodyGreyUnderline,
-                          )),
-                      Padding(
-                          padding:
-                              EdgeInsets.only(bottom: 8, left: 48, right: 48),
-                          child: Icon(
-                            Icons.keyboard_arrow_down,
-                            color: Colors.grey[700],
-                          )),
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: 20, left: 59, right: 59, bottom: 14),
-                        child: Text('HỦ ĐẬU TRĂN TRỞ',
-                            style: Styles.headingExtraPurple,
-                            textAlign: TextAlign.center),
-                      ),
-                      Consumer<BeanProvider>(
-                          builder: (context, beanProvider, child) {
-                        return Padding(
-                            padding: EdgeInsets.only(left: 48, right: 48),
-                            child: Text(
-                                "Thành đang có " +
-                                    beanProvider.blackBeanCount.toString() +
-                                    " hạt đậu trăn trở.\ngần chạm mức mục tiêu tối thiểu",
-                                style: Styles.bodyGrey,
-                                textAlign: TextAlign.center));
-                      }),
-                      Consumer<BeanProvider>(
-                          builder: (context, beanProvider, child) {
-                        return Padding(
-                            padding: EdgeInsets.only(
-                                bottom: 15, left: 48, right: 48),
-                            child: AnimatedCircularChart(
-                              key: _chartKey2,
-                              size: _chartSize,
-                              initialChartData: Utils.getChartDataBlackBean(
-                                  beanProvider.target.greenCount,
-                                  beanProvider.whiteBeanCount),
-                              chartType: CircularChartType.Radial,
-                              edgeStyle: SegmentEdgeStyle.round,
-                              percentageValues: true,
-                              holeLabel: Utils.getTargetBlackBeanComplete(
-                                          beanProvider.target.greenCount,
-                                          beanProvider.whiteBeanCount)
-                                      .toString() +
-                                  "%",
-                              labelStyle: _labelStyle,
-                            ));
-                      }),
-                      Padding(
-                          padding:
-                              EdgeInsets.only(bottom: 15, left: 48, right: 48),
-                          child: Text(
-                              "Thời gian: " +
-                                  formatDate(DateTime.now(), [dd]) +
-                                  " ngày / 1 tháng",
-                              style: Styles.bodyGrey,
-                              textAlign: TextAlign.center)),
-                      Padding(
-                        padding:
-                            EdgeInsets.only(bottom: 31, left: 60, right: 60),
-                        child: LinearPercentIndicator(
-                          lineHeight: 13.0,
-                          percent: 0.5,
-                          backgroundColor: Color(0xffdddddd),
-                          progressColor: Color(0xff316beb),
-                        ),
-                      ),
-                    ],
+                    children: [whiteBeanView(), blackBeanView()],
                   ),
                 ))));
+  }
+
+  Widget blackBeanView() {
+    return Visibility(
+        visible: monVal,
+        child: Column(
+          children: [
+            Padding(
+              padding:
+                  EdgeInsets.only(top: 20, left: 59, right: 59, bottom: 14),
+              child: Text('HỦ ĐẬU TRĂN TRỞ',
+                  style: Styles.headingExtraPurple,
+                  textAlign: TextAlign.center),
+            ),
+            Consumer<BeanProvider>(builder: (context, beanProvider, child) {
+              return Padding(
+                  padding: EdgeInsets.only(left: 48, right: 48),
+                  child: Text(
+                      "Thành đang có " +
+                          beanProvider.blackBeanCount.toString() +
+                          " hạt đậu trăn trở.\ngần chạm mức mục tiêu tối thiểu",
+                      style: Styles.bodyGrey,
+                      textAlign: TextAlign.center));
+            }),
+            Consumer<BeanProvider>(builder: (context, beanProvider, child) {
+              return Padding(
+                  padding: EdgeInsets.only(bottom: 15, left: 48, right: 48),
+                  child: AnimatedCircularChart(
+                    key: _chartKey2,
+                    size: _chartSize,
+                    initialChartData: Utils.getChartDataBlackBean(
+                        beanProvider.target.greenCount,
+                        beanProvider.whiteBeanCount),
+                    chartType: CircularChartType.Radial,
+                    edgeStyle: SegmentEdgeStyle.round,
+                    percentageValues: true,
+                    holeLabel: Utils.getTargetBlackBeanComplete(
+                                beanProvider.target.greenCount,
+                                beanProvider.whiteBeanCount)
+                            .round()
+                            .toString() +
+                        "%",
+                    labelStyle: Theme.of(context)
+                        .textTheme
+                        .title
+                        .merge(new TextStyle(color: labelColor)),
+                  ));
+            }),
+            Padding(
+                padding: EdgeInsets.only(bottom: 15, left: 48, right: 48),
+                child: Text(
+                    "Thời gian: " +
+                        formatDate(DateTime.now(), [dd]) +
+                        " ngày / 1 tháng",
+                    style: Styles.bodyGrey,
+                    textAlign: TextAlign.center)),
+            Padding(
+              padding: EdgeInsets.only(bottom: 31, left: 60, right: 60),
+              child: LinearPercentIndicator(
+                lineHeight: 13.0,
+                percent: double.parse(formatDate(DateTime.now(), [dd])) / 30,
+                backgroundColor: Color(0xffdddddd),
+                progressColor: Color(0xff316beb),
+              ),
+            ),
+          ],
+        ));
+  }
+
+  Widget whiteBeanView() {
+    Timer _timer;
+    return Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.only(top: 20, left: 59, right: 59, bottom: 14),
+          child: Text('HỦ ĐẬU BIẾT ƠN',
+              style: Styles.headingExtraPurple, textAlign: TextAlign.center),
+        ),
+        Consumer<BeanProvider>(builder: (context, beanProvider, child) {
+          return Padding(
+              padding: EdgeInsets.only(left: 48, right: 48),
+              child: Text(
+                  "Thành đang có " +
+                      beanProvider.whiteBeanCount.toString() +
+                      " hạt đậu biết ơn.",
+                  style: Styles.bodyGrey,
+                  textAlign: TextAlign.center));
+        }),
+        Consumer<BeanProvider>(builder: (context, beanProvider, child) {
+          return Padding(
+              padding: EdgeInsets.only(bottom: 15, left: 48, right: 48),
+              child: AnimatedCircularChart(
+                key: _chartKey,
+                size: _chartSize,
+                initialChartData: Utils.getChartDataWhiteBean(
+                    beanProvider.target.greenCount,
+                    beanProvider.whiteBeanCount),
+                chartType: CircularChartType.Radial,
+                edgeStyle: SegmentEdgeStyle.round,
+                percentageValues: true,
+                holeLabel: Utils.getTargetWhiteBeanComplete(
+                            beanProvider.target.greenCount,
+                            beanProvider.whiteBeanCount)
+                        .round()
+                        .toString() +
+                    "%",
+                labelStyle: Theme.of(context)
+                    .textTheme
+                    .title
+                    .merge(new TextStyle(color: labelColor)),
+              ));
+        }),
+        Consumer<BeanProvider>(builder: (context, beanProvider, child) {
+          return Padding(
+              padding: EdgeInsets.only(bottom: 15, left: 48, right: 48),
+              child: Text(
+                  "Hoàn thành " +
+                      Utils.getTargetWhiteBeanComplete(
+                              beanProvider.target.greenCount,
+                              beanProvider.whiteBeanCount)
+                          .round()
+                          .toString() +
+                      "% mục tiêu",
+                  style: Styles.bodyGrey,
+                  textAlign: TextAlign.center));
+        }),
+        Padding(
+            padding: EdgeInsets.only(bottom: 15, left: 48, right: 48),
+            child: Text(
+                "Thời gian: " +
+                    formatDate(DateTime.now(), [dd]) +
+                    " ngày / 1 tháng",
+                style: Styles.bodyGrey,
+                textAlign: TextAlign.center)),
+        Padding(
+          padding: EdgeInsets.only(bottom: 31, left: 60, right: 60),
+          child: LinearPercentIndicator(
+            lineHeight: 13.0,
+            percent: double.parse(formatDate(DateTime.now(), [dd])) / 30,
+            backgroundColor: Color(0xffdddddd),
+            progressColor: Color(0xff316beb),
+          ),
+        ),
+        InkWell(
+            onTap: () {
+              setState(() {
+                monVal = !monVal;
+                if (monVal) {
+                  _timer = new Timer(const Duration(milliseconds: 100), () {
+                    _scrollController.animateTo(
+                        _scrollController.position.maxScrollExtent,
+                        duration: Duration(milliseconds: 500),
+                        curve: Curves.ease);
+                  });
+                }
+              });
+            },
+            child: Column(
+              children: [
+                Visibility(
+                    visible: !monVal,
+                    child: Column(
+                      children: [
+                        Padding(
+                            padding:
+                                EdgeInsets.only(bottom: 0, left: 48, right: 48),
+                            child: Text(
+                              'Xem hủ trăn trở',
+                              style: Styles.bodyGreyUnderline,
+                            )),
+                        Padding(
+                            padding:
+                                EdgeInsets.only(bottom: 8, left: 48, right: 48),
+                            child: Icon(
+                              Icons.keyboard_arrow_down,
+                              color: Colors.grey[700],
+                            )),
+                      ],
+                    )),
+                Visibility(
+                    visible: monVal,
+                    child: Column(
+                      children: [
+                        Padding(
+                            padding:
+                                EdgeInsets.only(bottom: 8, left: 48, right: 48),
+                            child: Icon(
+                              Icons.keyboard_arrow_up,
+                              color: Colors.grey[700],
+                            )),
+                        Padding(
+                            padding:
+                                EdgeInsets.only(bottom: 0, left: 48, right: 48),
+                            child: Text(
+                              'Trở về hủ biết ơn',
+                              style: Styles.bodyGreyUnderline,
+                            )),
+                      ],
+                    )),
+              ],
+            )),
+      ],
+    );
   }
 }

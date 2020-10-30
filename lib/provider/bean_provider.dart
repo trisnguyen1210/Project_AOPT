@@ -22,7 +22,7 @@ class BeanProvider with ChangeNotifier {
   final _targetDao = TargetDao();
 
   BeanProvider() {
-    getUser();
+    //getUser();
     getTarget();
   }
 
@@ -35,6 +35,9 @@ class BeanProvider with ChangeNotifier {
 
   getTarget() async {
     _target = await _targetDao.getOrCreate();
+    _user = await _userDao.get();
+    _whiteBeanCount = _user.greenCount;
+    _blackBeanCount = _user.blackCount;
     notifyListeners();
   }
 }

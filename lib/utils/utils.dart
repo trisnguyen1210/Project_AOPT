@@ -35,26 +35,26 @@ class Utils {
     return number.toString();
   }
 
-  static int getTargetWhiteBeanComplete(
+  static double getTargetWhiteBeanComplete(
       int whiteBeanCount, int currentWhiteBeanCount) {
     if (currentWhiteBeanCount == 0) return 0;
-    if (currentWhiteBeanCount ~/ whiteBeanCount > 1) return 100;
-    return currentWhiteBeanCount ~/ whiteBeanCount * 100;
+    if (currentWhiteBeanCount / whiteBeanCount > 1) return 100;
+    return currentWhiteBeanCount / whiteBeanCount * 100;
   }
 
-  static int getTargetBlackBeanComplete(
-      int blackBeanCount, int currentBlackBeanCount) {
+  static double getTargetBlackBeanComplete(int blackBeanCount,
+      int currentBlackBeanCount) {
     if (currentBlackBeanCount == 0) return 0;
-    if (currentBlackBeanCount ~/ blackBeanCount > 1) return 100;
-    return currentBlackBeanCount ~/ blackBeanCount * 100;
+    if (currentBlackBeanCount / blackBeanCount > 1) return 100;
+    return currentBlackBeanCount / blackBeanCount * 100;
   }
 
   static List<CircularStackEntry> getChartDataBlackBean(
       int blackBeanCount, int currentBlackBeanCount) {
     Color dialColor = Color(0xff83380e);
     Color dialColor2 = Color(0xffe3e3e3);
-    int current =
-        getTargetBlackBeanComplete(blackBeanCount, currentBlackBeanCount);
+    double current =
+    getTargetBlackBeanComplete(blackBeanCount, currentBlackBeanCount);
     if (current < 100) {
       return <CircularStackEntry>[
         new CircularStackEntry(
@@ -93,8 +93,8 @@ class Utils {
       int whiteBeanCount, int currentWhiteBeanCount) {
     Color dialColor = Color(0xfff6d76a);
     Color dialColor2 = Color(0xffe3e3e3);
-    int current =
-        getTargetWhiteBeanComplete(whiteBeanCount, currentWhiteBeanCount);
+    double current =
+    getTargetWhiteBeanComplete(whiteBeanCount, currentWhiteBeanCount);
     if (current < 100) {
       return <CircularStackEntry>[
         new CircularStackEntry(
