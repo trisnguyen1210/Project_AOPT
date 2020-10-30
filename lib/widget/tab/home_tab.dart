@@ -98,6 +98,10 @@ class HomeTab extends StatelessWidget {
     return GradientAppBar(
       centerTitle: false,
       titleSpacing: 0.0,
+      flexibleSpace: Image(
+        image: AssetImage(R.ic_snow_png),
+        fit: BoxFit.cover,
+      ),
       title: Container(
         margin: EdgeInsets.only(left: 16),
         child: SvgPicture.asset(

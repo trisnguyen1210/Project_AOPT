@@ -21,13 +21,13 @@ class R {
   static const String tooltip = "assets/tooltip.png";
   static const String ic_snowman = "assets/ic_snowman.svg";
   static const String ic_black_bean = "assets/ic_black_bean.svg";
-  static const String background_god = "assets/background_god.svg";
   static const String ic_switch_active_blue =
       "assets/ic_switch_active_blue.svg";
   static const String ic_confession = "assets/ic_confession.svg";
   static const String ic_close_gradient = "assets/ic_close_gradient.png";
   static const String ic_health = "assets/ic_health.svg";
   static const String ic_switch_inactive = "assets/ic_switch_inactive.svg";
+  static const String ic_snow_png = "assets/ic_snow_png.png";
   static const String ic_sucess = "assets/ic_sucess.svg";
   static const String background_god_png = "assets/background_god_png.png";
   static const String ic_logo = "assets/ic_logo.svg";

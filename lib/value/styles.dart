@@ -94,4 +94,7 @@ class Styles {
     color: Colors.grey[700],
     fontWeight: FontWeight.w700,
   );
+
+  static const TextStyle optionStyle =
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 }

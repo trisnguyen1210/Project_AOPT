@@ -75,16 +75,22 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+
   static List<Widget> _widgetOptions = <Widget>[
     HomeTab(),
-    Text(
-      'Lời Nhắc',
-      style: optionStyle,
-    ),
     PinCodeScreen(),
     MyBean(),
+    Stack(
+      children: <Widget>[
+        Align(
+          alignment: Alignment.center,
+          child: Text(
+            'Đang xây dựng',
+            style: Styles.optionStyle,
+          ),
+        )
+      ],
+    ),
   ];
 
   void _onItemTapped(int index) {
@@ -119,16 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           title: Text('Nhà', style: Styles.bottomBarText),
         ),
-        BottomNavigationBarItem(
-          icon: SvgPicture.asset(R.ic_calendar,
-              height: 24, color: Colors.blueGrey[400]),
-          activeIcon: SvgPicture.asset(
-            R.ic_calendar,
-            height: 24,
-            color: Color(0xff316beb),
-          ),
-          title: Text('Lời nhắc', style: Styles.bottomBarText),
-        ),
+
         BottomNavigationBarItem(
           icon: SvgPicture.asset(R.ic_confession,
               height: 24, color: Colors.blueGrey[400]),
@@ -148,6 +145,16 @@ class _HomeScreenState extends State<HomeScreen> {
             color: Color(0xff316beb),
           ),
           title: Text('Đậu', style: Styles.bottomBarText),
+        ),
+        BottomNavigationBarItem(
+          icon: SvgPicture.asset(R.ic_calendar,
+              height: 24, color: Colors.blueGrey[400]),
+          activeIcon: SvgPicture.asset(
+            R.ic_calendar,
+            height: 24,
+            color: Color(0xff316beb),
+          ),
+          title: Text('Lời nhắc', style: Styles.bottomBarText),
         ),
       ],
       currentIndex: _selectedIndex,

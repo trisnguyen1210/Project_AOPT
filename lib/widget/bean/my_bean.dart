@@ -40,8 +40,28 @@ class MyBean extends StatelessWidget {
               child: TabBarView(
                 children: [
                   BeanTab(),
-                  BeanTab(),
-                  BeanTab(),
+                  Stack(
+                    children: <Widget>[
+                      Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          'Đang xây dựng',
+                          style: Styles.optionStyle,
+                        ),
+                      )
+                    ],
+                  ),
+                  Stack(
+                    children: <Widget>[
+                      Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          'Đang xây dựng',
+                          style: Styles.optionStyle,
+                        ),
+                      )
+                    ],
+                  ),
                 ],
               ),
             ),

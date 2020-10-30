@@ -14,6 +14,10 @@ class RelationDetailOther extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: GradientAppBar(
         gradient: GradientApp.gradientAppbar,
+        flexibleSpace: Image(
+          image: AssetImage(R.ic_snow_png),
+          fit: BoxFit.cover,
+        ),
         leading: IconButton(
           icon: Utils.getIconBack(),
           onPressed: () => Navigator.of(context).pop(),

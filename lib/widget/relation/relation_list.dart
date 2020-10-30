@@ -16,6 +16,10 @@ class RelationList extends StatelessWidget {
         child: Scaffold(
             appBar: GradientAppBar(
               gradient: GradientApp.gradientAppbar,
+              flexibleSpace: Image(
+                image: AssetImage(R.ic_snow_png),
+                fit: BoxFit.cover,
+              ),
               leading: IconButton(
                 icon: Utils.getIconBack(),
                 onPressed: () => Navigator.of(context).pop(),
