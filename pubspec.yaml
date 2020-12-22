@@ -20,6 +20,7 @@ dependencies:
   supercharged: ^1.10.0
   date_format: ^1.0.9
   flutter_circular_chart: ^0.1.0
+  backdrop: ^0.4.7
   r_dart_library:
     git:
       url: https://github.com/YK-Unit/r_dart_library.git
@@ -65,6 +66,11 @@ flutter:
     - assets/ic_congratulation.svg
     - assets/ic_close_gradient.png
     - assets/ic_expired.png
+    - assets/ic_community.svg
+    - assets/ic_family.svg
+    - assets/ic_god_vs_me.svg
+    - assets/ic_god_word.svg
+    - assets/ic_religion.svg
 flr:
   core_version: 3.1.0
   dartfmt_line_length: 80

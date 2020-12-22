@@ -1,10 +1,13 @@
 import 'dart:ui';
 
 import 'package:beans/generated/r.dart';
+import 'package:beans/model/relational_category.dart';
+import 'package:beans/provider/auth_provider.dart';
 import 'package:beans/provider/challenge_provider.dart';
+import 'package:beans/provider/relation_list_provider.dart';
+import 'package:beans/utils/utils.dart';
 import 'package:beans/value/gradient.dart';
 import 'package:beans/value/styles.dart';
-import 'package:beans/widget/bar/sliding_menu.dart';
 import 'package:beans/widget/challenge/challenge_view.dart';
 import 'package:beans/widget/relation/relation_list.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,12 +17,6 @@ import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:provider/provider.dart';
 
 class HomeTab extends StatelessWidget {
-  final List<String> listRelation = <String>['Tôi', 'Tha nhân', 'Chúa'];
-  final List<String> listIconRelation = <String>[
-    R.ic_myself,
-    R.ic_other_guys,
-    R.ic_god
-  ];
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
@@ -30,8 +27,11 @@ class HomeTab extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            titleTop(),
-            getListRelation(),
+            titleTop(context),
+            Provider(
+              create: (context) => RelationListProvider(),
+              child: getListRelation(),
+            ),
             divider(),
             ChangeNotifierProvider(
               create: (context) => ChallengeProvider(),
@@ -40,7 +40,8 @@ class HomeTab extends StatelessWidget {
           ],
         ),
       ),
-      endDrawer: SlidingMenu(),
+      // TODO: Not implemnet yet
+      // endDrawer: SlidingMenu(),
     );
   }
 
@@ -57,41 +58,65 @@ class HomeTab extends StatelessWidget {
   Widget getListRelation() {
     return Padding(
       padding: const EdgeInsets.only(left: 0, right: 0, bottom: 30),
-      child: GridView.builder(
-        itemCount: listRelation.length,
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        gridDelegate:
-            new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-        itemBuilder: (BuildContext context, int index) =>
-            getItemRelation(index, context),
+      child: Consumer<RelationListProvider>(
+        builder: (context, value, child) => FutureBuilder(
+          future: value.fetchCategories(),
+          initialData: List<RelationalCategory>(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return CircularProgressIndicator();
+            }
+
+            final List<RelationalCategory> categories = snapshot.data;
+
+            return GridView(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+              ),
+              children: categories
+                  .asMap()
+                  .map((i, cat) =>
+                      MapEntry(i, getItemRelation(context, categories, i)))
+                  .values
+                  .toList(),
+            );
+          },
+        ),
       ),
     );
   }
 
-  Widget getItemRelation(int index, BuildContext context) {
+  Widget getItemRelation(
+    BuildContext context,
+    List<RelationalCategory> categories,
+    int currentCategoryIndex,
+  ) {
+    final category = categories[currentCategoryIndex];
+
     return GestureDetector(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => RelationList()),
-          );
-        },
-        // The custom button
-        child: Column(
-          children: [
-            //SvgPicture.asset(listIconRelation[index], height: 85, width: 85),
-            Image(
-              width: 85,
-              height: 85,
-              image: AssetImage(listIconRelation[index]),
-            ),
-            Padding(
-                padding: const EdgeInsets.only(top: 14),
-                child:
-                    Text(listRelation[index], style: Styles.textStyleRelation))
-          ],
-        ));
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => RelationList(categories: categories)),
+        );
+      },
+      // The custom button
+      child: Column(
+        children: [
+          Image(
+            width: 85,
+            height: 85,
+            image: AssetImage(category.icon),
+          ),
+          Padding(
+              padding: const EdgeInsets.only(top: 14),
+              child: Text(category.name, style: Styles.textStyleRelation))
+        ],
+      ),
+    );
   }
 
   GradientAppBar createAppbar() {
@@ -112,21 +137,12 @@ class HomeTab extends StatelessWidget {
       ),
       gradient: GradientApp.gradientAppbar,
       automaticallyImplyLeading: false,
-      actions: <Widget>[
-        IconButton(
-          icon: Icon(
-            Icons.more_vert,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            _scaffoldKey.currentState.openEndDrawer();
-          },
-        )
-      ],
     );
   }
 
-  Column titleTop() {
+  Column titleTop(BuildContext context) {
+    final userName = Provider.of<AuthProvider>(context, listen: false).name;
+
     return Column(
       children: [
         Padding(
@@ -139,22 +155,24 @@ class HomeTab extends StatelessWidget {
                   style: Styles.extraHeadingPurple,
                 ),
                 TextSpan(
-                  text: 'NGÀY 12.09.20',
+                  text: "NGÀY ${Utils.getCurrentDate()}",
                   style: Styles.dateStyle,
                 ),
               ],
             ),
           ),
-        ), Padding(
+        ),
+        Padding(
           padding:
-          const EdgeInsets.only(left: 20, right: 20, top: 9, bottom: 43),
+              const EdgeInsets.only(left: 20, right: 20, top: 9, bottom: 43),
           child: RichText(
             textAlign: TextAlign.center,
             text: TextSpan(
               style: Styles.titleGrey,
               children: [
                 TextSpan(
-                    text: 'Mối tương quan nào khiến Thành băn khoăn hay hạnh phúc nhất hôm nay? '),
+                    text:
+                        'Mối tương quan nào khiến $userName băn khoăn hay hạnh phúc nhất hôm nay? '),
                 WidgetSpan(
                   child: Image(
                     image: AssetImage(R.tooltip),

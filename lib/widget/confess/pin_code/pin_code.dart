@@ -27,7 +27,7 @@ class _PinCodeScreenState extends State<PinCodeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Utils.setColorStatubBar();
+    Utils.setColorStatusBar();
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Colors.white,

@@ -36,47 +36,50 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      resizeToAvoidBottomPadding: false,
       body: Container(
         color: Colors.white,
         child: Column(
           children: <Widget>[
             Expanded(
-                child: Center(
-              child: Column(
-                children: [
-                  Padding(
+              child: Center(
+                child: Column(
+                  children: [
+                    Padding(
                       padding: EdgeInsets.only(
                           top: 150, bottom: 23, left: 0, right: 0),
                       child: SvgPicture.asset(
                         R.ic_logo,
                         height: 122,
-                      )),
-                  Text(
-                    'Thiên Chúa là Tình Yêu\n(1 Ga 4,8)',
-                    style: Styles.textStyleGreyMedium,
-                    textAlign: TextAlign.center,
-                  ),
-                ],
+                      ),
+                    ),
+                    Text(
+                      'Thiên Chúa là Tình Yêu\n(1 Ga 4,8)',
+                      style: Styles.textStyleGreyMedium,
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
               ),
-            )),
+            ),
             Expanded(
-                child: Align(
-              alignment: Alignment.bottomCenter,
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.pushReplacement(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: GestureDetector(
+                  onTap: () => Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(builder: (context) => MyApp()),
-                  );
-                },
-                child: Padding(
-                    padding: EdgeInsets.only(bottom: 53, left: 48, right: 48),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.only(bottom: 30, left: 48, right: 48),
                     child: Text(
                       'Skip',
                       style: Styles.bodyGreyUnderline,
-                    )),
+                    ),
+                  ),
+                ),
               ),
-            )),
+            ),
           ],
         ),
       ),

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:intl/intl.dart';
 
 import 'package:beans/widget/relation/confess/confess_success.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class Utils {
     );
   }
 
-  static void setColorStatubBar() {
+  static void setColorStatusBar() {
     //SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
   }
 
@@ -42,8 +43,8 @@ class Utils {
     return currentWhiteBeanCount / whiteBeanCount * 100;
   }
 
-  static double getTargetBlackBeanComplete(int blackBeanCount,
-      int currentBlackBeanCount) {
+  static double getTargetBlackBeanComplete(
+      int blackBeanCount, int currentBlackBeanCount) {
     if (currentBlackBeanCount == 0) return 0;
     if (currentBlackBeanCount / blackBeanCount > 1) return 100;
     return currentBlackBeanCount / blackBeanCount * 100;
@@ -54,7 +55,7 @@ class Utils {
     Color dialColor = Color(0xff83380e);
     Color dialColor2 = Color(0xffe3e3e3);
     double current =
-    getTargetBlackBeanComplete(blackBeanCount, currentBlackBeanCount);
+        getTargetBlackBeanComplete(blackBeanCount, currentBlackBeanCount);
     if (current < 100) {
       return <CircularStackEntry>[
         new CircularStackEntry(
@@ -94,7 +95,7 @@ class Utils {
     Color dialColor = Color(0xfff6d76a);
     Color dialColor2 = Color(0xffe3e3e3);
     double current =
-    getTargetWhiteBeanComplete(whiteBeanCount, currentWhiteBeanCount);
+        getTargetWhiteBeanComplete(whiteBeanCount, currentWhiteBeanCount);
     if (current < 100) {
       return <CircularStackEntry>[
         new CircularStackEntry(
@@ -127,5 +128,11 @@ class Utils {
         ),
       ];
     }
+  }
+
+  static String getCurrentDate() {
+    final DateTime now = DateTime.now();
+    final DateFormat formatter = DateFormat('dd.MM.yy');
+    return formatter.format(now);
   }
 }

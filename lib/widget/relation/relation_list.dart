@@ -1,4 +1,5 @@
 import 'package:beans/generated/r.dart';
+import 'package:beans/model/relational_category.dart';
 import 'package:beans/utils/utils.dart';
 import 'package:beans/value/gradient.dart';
 import 'package:beans/value/styles.dart';
@@ -8,66 +9,65 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gradient_app_bar/gradient_app_bar.dart';
 
 class RelationList extends StatelessWidget {
+  final List<RelationalCategory> categories;
+
+  const RelationList({Key key, this.categories}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: DefaultTabController(
-        length: 3,
+        length: categories.length,
         child: Scaffold(
-            appBar: GradientAppBar(
-              gradient: GradientApp.gradientAppbar,
-              flexibleSpace: Image(
-                image: AssetImage(R.ic_snow_png),
-                fit: BoxFit.cover,
-              ),
-              leading: IconButton(
-                icon: Utils.getIconBack(),
-                onPressed: () => Navigator.of(context).pop(),
-              ),
-              centerTitle: false,
-              titleSpacing: 0.0,
-              title: SvgPicture.asset(
-                R.ic_snowman,
-                width: 99,
-                height: 43,
-              ),
+          appBar: GradientAppBar(
+            gradient: GradientApp.gradientAppbar,
+            flexibleSpace: Image(
+              image: AssetImage(R.ic_snow_png),
+              fit: BoxFit.cover,
             ),
-            body: Column(
-              children: [
-                Container(
-                  color: Colors.white,
-                  child: TabBar(
-                    indicatorColor: Color(0xff316beb),
-                    labelColor: Color(0xff316beb),
-                    labelStyle: Styles.tabText,
-                    indicatorSize: TabBarIndicatorSize.label,
-                    labelPadding: EdgeInsets.only(top: 10),
-                    tabs: [
-                      Tab(text: 'Tôi'),
-                      Tab(text: 'Tha nhân'),
-                      Tab(text: 'Chúa'),
-                    ],
-                  ),
+            leading: IconButton(
+              icon: Utils.getIconBack(),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+            centerTitle: false,
+            titleSpacing: 0.0,
+            title: SvgPicture.asset(
+              R.ic_snowman,
+              width: 99,
+              height: 43,
+            ),
+          ),
+          body: Column(
+            children: [
+              Container(
+                color: Colors.white,
+                child: TabBar(
+                  indicatorColor: Color(0xff316beb),
+                  labelColor: Color(0xff316beb),
+                  labelStyle: Styles.tabText,
+                  indicatorSize: TabBarIndicatorSize.label,
+                  labelPadding: EdgeInsets.only(top: 10),
+                  tabs: categories.map((cat) => Tab(text: cat.name)).toList(),
                 ),
-                Opacity(
-                  opacity: 0.2701590401785715,
-                  child: Container(
-                      height: 1,
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                              color: const Color(0xff979797), width: 1))),
+              ),
+              Opacity(
+                opacity: 0.2701590401785715,
+                child: Container(
+                    height: 1,
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                            color: const Color(0xff979797), width: 1))),
+              ),
+              Expanded(
+                child: TabBarView(
+                  children: categories
+                      .map((cat) => RelationTab(category: cat))
+                      .toList(),
                 ),
-                Expanded(
-                  child: TabBarView(
-                    children: [
-                      RelationTab(),
-                      RelationTab(),
-                      RelationTab(),
-                    ],
-                  ),
-                ),
-              ],
-            )),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

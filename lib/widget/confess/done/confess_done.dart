@@ -18,7 +18,7 @@ class _ConfessDoneState extends State<ConfessDone> {
 
   @override
   Widget build(BuildContext context) {
-    Utils.setColorStatubBar();
+    Utils.setColorStatusBar();
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Colors.white,

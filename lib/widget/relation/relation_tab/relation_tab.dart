@@ -1,12 +1,21 @@
 import 'package:beans/generated/r.dart';
+import 'package:beans/model/relational_category.dart';
+import 'package:beans/model/relational_subcategory.dart';
+import 'package:beans/model/relational_subcategory_detail.dart';
+import 'package:beans/provider/auth_provider.dart';
 import 'package:beans/value/styles.dart';
 import 'package:beans/widget/custom/expansion_tile.dart';
 import 'package:beans/widget/relation/relation_detail/relation_detail.dart';
 import 'package:beans/widget/relation/relation_detail/relation_detail_other.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 
 class RelationTab extends StatelessWidget {
+  final RelationalCategory category;
+
+  const RelationTab({Key key, this.category}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -14,8 +23,8 @@ class RelationTab extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            createTopTitle(),
-            createListViewCategory(),
+            createTopTitle(context),
+            createListViewCategory(category),
           ],
         ),
       ),
@@ -23,7 +32,28 @@ class RelationTab extends StatelessWidget {
   }
 }
 
-Widget createListViewCategory() {
+Widget createListViewCategory(RelationalCategory category) {
+  List<Entry> data = [];
+
+  var subcategories = category.subcategories;
+  subcategories.forEach((subcat) {
+    List<Entry> details = [];
+
+    subcat.details.forEach((detail) {
+      var detailEntry = Entry(detail.description, "");
+      detailEntry.catID = subcat.relationalCategoryId;
+      detailEntry.catTitle = category.name;
+      detailEntry.detail = detail;
+      detailEntry.subcateIcon = subcat.icon;
+      detailEntry.subcateTitle = subcat.name;
+      details.add(detailEntry);
+    });
+
+    data.add(Entry(subcat.name, subcat.icon, details));
+  });
+
+  data.add(Entry("Khác", R.ic_more, [], true));
+
   return ListView.builder(
     itemBuilder: (BuildContext context, int index) =>
         EntryItem(data[index], index, data.length),
@@ -33,7 +63,9 @@ Widget createListViewCategory() {
   );
 }
 
-Widget createTopTitle() {
+Widget createTopTitle(BuildContext context) {
+  final userName = Provider.of<AuthProvider>(context, listen: false).name;
+
   return Padding(
     padding: const EdgeInsets.only(left: 20, right: 20, top: 30, bottom: 20),
     child: RichText(
@@ -42,7 +74,7 @@ Widget createTopTitle() {
         children: [
           TextSpan(
               text:
-                  'Thành hãy chọn 1 điều làm mình trăn trở hay hạnh phúc nhất hôm nay để ghi nhận lại. '),
+                  '$userName hãy chọn 1 điều làm mình trăn trở hay hạnh phúc nhất hôm nay để ghi nhận lại. '),
           WidgetSpan(
             child: Image(
               image: AssetImage(R.tooltip),
@@ -58,55 +90,25 @@ Widget createTopTitle() {
 
 // One entry in the multilevel list displayed by this app.
 class Entry {
-  Entry(this.title, this.icon, [this.children = const <Entry>[]]);
+  Entry(
+    this.title,
+    this.icon, [
+    this.children = const <Entry>[],
+    this.isOther = false,
+  ]);
 
   final String title;
   final String icon;
   final List<Entry> children;
+  final bool isOther;
+  int catID;
+  String catTitle;
+  String subcateTitle;
+  String subcateIcon;
+  RelationalSubcategoryDetail detail;
 }
 
 // The entire multilevel list displayed by this app.
-List<Entry> data = <Entry>[
-  Entry(
-    'Khả năng & Sức khoẻ',
-    R.ic_health,
-    <Entry>[
-      Entry('Khả năng & Sức khoẻ', ""),
-      Entry('Khả năng & Sức khoẻ', ""),
-      Entry('Khả năng & Sức khoẻ', ""),
-    ],
-  ),
-  Entry(
-    'Của cải & Vật chất',
-    R.ic_money,
-    <Entry>[
-      Entry('Của cải & Vật chất', ""),
-      Entry('Của cải & Vật chất', ""),
-    ],
-  ),
-  Entry(
-    'Đặc quyền & Sự yếu đuối',
-    R.ic_human_rights,
-    <Entry>[
-      Entry('Đặc quyền & Sự yếu đuối', ""),
-      Entry('Đặc quyền & Sự yếu đuối', ""),
-      Entry('Đặc quyền & Sự yếu đuối', ""),
-    ],
-  ),
-  Entry(
-    'Thời gian & Hoàn cảnh',
-    R.ic_time,
-    <Entry>[
-      Entry('Thời gian & Hoàn cảnh', ""),
-      Entry('Thời gian & Hoàn cảnh', ""),
-      Entry('Thời gian & Hoàn cảnh', R.ic_time),
-    ],
-  ),
-  Entry(
-    'Khác',
-    R.ic_more,
-  ),
-];
 
 // Displays one Entry. If the entry has children then it's displayed
 // with an ExpansionTile.
@@ -122,7 +124,15 @@ class EntryItem extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => RelationDetail()),
+          MaterialPageRoute(
+            builder: (context) => RelationDetail(
+              categoryId: root.catID,
+              categoryTitle: root.catTitle,
+              detail: root.detail,
+              subcateTitle: root.subcateTitle,
+              subcateIcon: root.subcateIcon,
+            ),
+          ),
         );
       },
       child: ListTile(
@@ -146,15 +156,13 @@ class EntryItem extends StatelessWidget {
   }
 
   Widget _buildTiles(Entry root, int position, BuildContext context) {
-    if (root.children.isEmpty) {
-      if (position == size - 1) {
-        //createParentNoChild(root, position, context);
-        return createParentNoChild(root, position, context);
-      } else {
-        return createChildItem(root, position, context);
-      }
-    } else {
+    if (root.isOther) {
+      return createParentNoChild(root, position, context);
+    }
+    if (root.children.isNotEmpty) {
       return createParenItem(root, position, context);
+    } else {
+      return createChildItem(root, position, context);
     }
   }
 

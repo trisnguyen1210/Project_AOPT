@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 class Registration extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Utils.setColorStatubBar();
+    Utils.setColorStatusBar();
     final registrationProvider = Provider.of<RegistrationProvider>(context);
     return Scaffold(
       backgroundColor: Colors.white,

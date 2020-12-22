@@ -1,4 +1,6 @@
 import 'package:beans/generated/r.dart';
+import 'package:beans/model/relational_reason.dart';
+import 'package:beans/model/relational_subcategory_detail.dart';
 import 'package:beans/utils/utils.dart';
 import 'package:beans/value/gradient.dart';
 import 'package:beans/value/styles.dart';
@@ -8,6 +10,21 @@ import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
 
 class RelationDetail extends StatelessWidget {
+  final int categoryId;
+  final String categoryTitle;
+  final String subcateIcon;
+  final String subcateTitle;
+  final RelationalSubcategoryDetail detail;
+
+  const RelationDetail(
+      {Key key,
+      this.categoryId,
+      this.detail,
+      this.subcateIcon,
+      this.subcateTitle,
+      this.categoryTitle})
+      : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +62,7 @@ class RelationDetail extends StatelessWidget {
                       border: Border.all(
                           color: const Color(0xff979797), width: 1))),
             ),
-            createListViewTopic(),
+            createListViewTopic(detail.reaons),
             createBeanBottle(),
             createButtonDone(context)
           ],
@@ -54,7 +71,23 @@ class RelationDetail extends StatelessWidget {
     );
   }
 
-  Widget createListViewTopic() {
+  Widget createListViewTopic(List<RelationalReason> reasons) {
+    var gratefulReasons = List<Bean>();
+    var badReasons = List<Bean>();
+
+    reasons.forEach((reason) {
+      if (reason.isGrateful) {
+        gratefulReasons.add(Bean(reason.name));
+      } else {
+        badReasons.add(Bean(reason.name));
+      }
+    });
+
+    List<Topic> data = [
+      Topic("Tôi biết ơn vì", gratefulReasons),
+      Topic("Tôi trăn trở vì", badReasons),
+    ];
+
     return Padding(
       padding: EdgeInsets.all(20),
       child: ListView.builder(
@@ -176,14 +209,17 @@ class RelationDetail extends StatelessWidget {
             text: TextSpan(
               children: [
                 TextSpan(
-                  text: 'Tôi ',
+                  text: categoryTitle,
                   style: Styles.headingBoldPurple,
                 ),
                 WidgetSpan(
-                  child: SvgPicture.asset(R.ic_health, height: 24),
+                  child: SvgPicture.asset(
+                    subcateIcon,
+                    height: 24,
+                  ),
                 ),
                 TextSpan(
-                  text: 'Khả năng & Sức khoẻ',
+                  text: subcateTitle,
                   style: Styles.textStyleRegular,
                 )
               ],
@@ -195,8 +231,7 @@ class RelationDetail extends StatelessWidget {
           // height: double.infinity,
           child: Container(
             margin: EdgeInsets.only(top: 5),
-            child: Text('Đối với sức khoẻ của tôi hôm nay',
-                style: Styles.headingGrey),
+            child: Text(detail.description, style: Styles.headingGrey),
           ),
         ),
       ],
@@ -205,10 +240,10 @@ class RelationDetail extends StatelessWidget {
 }
 
 class Topic {
-  Topic(this.title, [this.beans = const <Bean>[]]);
+  Topic(this.title, this.beans);
 
   final String title;
-  final List<Bean> beans;
+  List<Bean> beans;
 }
 
 class Bean {
@@ -216,25 +251,6 @@ class Bean {
 
   final String title;
 }
-
-List<Topic> data = <Topic>[
-  Topic(
-    'Tôi biết ơn vì',
-    <Bean>[
-      Bean('Tôi được khoẻ mạnh'),
-      Bean('Tôi ít đau bệnh'),
-      Bean('Lí do khác…'),
-    ],
-  ),
-  Topic(
-    'Tôi trăn trở vì',
-    <Bean>[
-      Bean('Tôi không bảo vệ sức khoẻ'),
-      Bean('Tôi vui chơi quá độ'),
-      Bean('Lí do khác…'),
-    ],
-  ),
-];
 
 class TopicItem extends StatelessWidget {
   const TopicItem(this.topic, this.position, this.size);

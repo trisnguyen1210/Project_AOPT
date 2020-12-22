@@ -64,7 +64,11 @@ class AcceptedChallengeProvider with ChangeNotifier {
 
     await _challengeLogDao.update(challengeLog);
 
+    // Start countdown for accepting new challenge
     _user.timeLeftForChallenge = DateTime.now().add(Duration(minutes: 5));
+
+    // Increase the green beans
+    _user.greenCount += 2;
 
     _userDao.update(_user);
 

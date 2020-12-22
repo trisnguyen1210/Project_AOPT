@@ -99,10 +99,9 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
-    Utils.setColorStatubBar();
+    Utils.setColorStatusBar();
     return Scaffold(
       body: IndexedStack(
         index: _selectedIndex,
@@ -125,7 +124,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           title: Text('Nhà', style: Styles.bottomBarText),
         ),
-
         BottomNavigationBarItem(
           icon: SvgPicture.asset(R.ic_confession,
               height: 24, color: Colors.blueGrey[400]),
