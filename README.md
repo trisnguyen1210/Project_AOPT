@@ -1,3 +1,16 @@
+Tiến độ hiện tại:
+- xong UI
+- WIP các chức năng:
+   + chức năng challenge cần hoàn thành nốt logic countdown 24h sau khi làm xong 1 thử thách
+   + chức năng show list các tương quan đã load lên, còn bug ui ở trang detail
+   + chức năng show hũ đậu (đang bug)
+- Chức năng cần làm (chưa start):
+   + add đậu
+   + get list trăn trở
+- Chức năng cho giai đoạn sau:
+   + Chức năng đặt mục tiêu
+   + Badge (biểu hiệu)
+   + Lời nhắc
 # Beans
 
 1/ Chức năng của trang home:
@@ -57,3 +70,6 @@ https://drive.google.com/file/d/1rtxjLqA-LyFWQxlDaQ50JHVt_5nqE42z/view?usp=shari
 
 4/ design zeplin: 
 https://zpl.io/aMOwOQz
+
+5/database diagram
+https://dbdiagram.io/d/5f403c1e7b2e2f40e9de5a52
