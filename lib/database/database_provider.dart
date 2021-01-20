@@ -1,8 +1,8 @@
 import 'dart:async';
 
+import 'package:beans/generated/r.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:beans/generated/r.dart';
 
 final badgesTable = 'badges';
 final challengesTable = 'challenges';
@@ -175,8 +175,14 @@ class DatabaseProvider {
     return '''
         CREATE TABLE $relationalItemsTable (
         id INTEGER PRIMARY KEY, 
-        created_at TEXT 
-        );
+        created_at TEXT ,
+        relational_category_id INTEGER,
+        relational_subcategory_id INTEGER,
+        relational_subcategory_detail_id INTEGER, 
+        is_grateful INTEGER, 
+        is_other INTEGER DEFAULT 0, 
+        name TEXT,
+        is_Confess INTEGER DEFAULT 0);
         ''';
   }
 
