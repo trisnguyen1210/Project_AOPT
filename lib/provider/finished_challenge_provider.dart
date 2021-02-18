@@ -13,12 +13,15 @@ import 'package:flutter/material.dart';
 class FinishedChallengeProvider with ChangeNotifier {
   final ChallengeProvider challengeProvider;
 
-  int _secondsLeft = 0;
+  int _secondsLeft = 00;
   String get secondsLeft => Utils.getNumberAddZero(_secondsLeft);
 
-  int _minutesLeft = 0;
-  String get minutesLeft => _minutesLeft.toString();
 
+  int _minutesLeft = 00;
+  String get minutesLeft => Utils.getNumberAddZero(_minutesLeft);
+
+  int _hoursLeft = 00;
+  String get hoursLeft => Utils.getNumberAddZero(_hoursLeft);
   String get name => _currentChallenge?.name ?? '';
 
   Challenge _currentChallenge;
@@ -48,6 +51,7 @@ class FinishedChallengeProvider with ChangeNotifier {
   }
 
   _updateCountDownTime(DiffDate time) {
+    _hoursLeft   = time.hours;
     _minutesLeft = time.min;
     _secondsLeft = time.sec;
     notifyListeners();
@@ -81,7 +85,7 @@ class FinishedChallengeProvider with ChangeNotifier {
   }
 
   _checkDateEnd(DiffDate data) async {
-    if (data.days == -1 && data.hours == 0 && data.min == 0 && data.sec == 0) {
+    if (data.days == -1 && data.hours == 00 && data.min == 00 && data.sec == 00) {
       _disposeDiffTimer();
 
       final user = await _userDao.getOrCreate();

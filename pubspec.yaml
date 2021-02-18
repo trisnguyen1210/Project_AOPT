@@ -63,6 +63,7 @@ flutter:
     - assets/background_god_png.png
     - assets/ic_logo.svg
     - assets/ic_more.svg
+    - assets/ic_congratulation1.svg
     - assets/ic_congratulation.svg
     - assets/ic_close_gradient.png
     - assets/ic_expired.png

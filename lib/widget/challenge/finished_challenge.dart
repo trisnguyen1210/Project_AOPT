@@ -23,7 +23,7 @@ class FinishedChallenge extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 16.0),
       child: SvgPicture.asset(
-        R.ic_congratulation,
+        R.ic_congratulation1,
         width: 60,
         height: 60,
       ),
@@ -56,7 +56,7 @@ class FinishedChallenge extends StatelessWidget {
         builder: (context, challenge, child) => Padding(
           padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
           child: Text(
-            'Chờ ${challenge.minutesLeft}:${challenge.secondsLeft} nữa để tìm thử thách mới',
+            'Chờ ${challenge.hoursLeft}:${challenge.minutesLeft}:${challenge.secondsLeft} nữa để tìm thử thách mới',
             style: Styles.bodyGrey,
             textAlign: TextAlign.center,
           ),
