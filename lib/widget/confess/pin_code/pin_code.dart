@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:beans/generated/r.dart';
 import 'package:beans/provider/auth_provider.dart';
+import 'package:beans/provider/confess_provider.dart';
 import 'package:beans/usecase/user_usecase.dart';
-import 'package:beans/utils/utils.dart';
 import 'package:beans/value/styles.dart';
 import 'package:beans/widget/custom/pin_code_fields.dart';
 import 'package:flutter/material.dart';
@@ -50,6 +50,7 @@ class _PinCodeScreenState extends State<PinCodeScreen> {
             PinCodeTextField(
               length: 4,
               obscureText: true,
+              autoFocus: true,
               mainAxisAlignment: MainAxisAlignment.center,
               animationType: AnimationType.fade,
               controller: textEditingController,
@@ -74,7 +75,9 @@ class _PinCodeScreenState extends State<PinCodeScreen> {
                 if (await userUsecase.checkPin(v)) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ConfessList()),
+                    MaterialPageRoute(
+                      builder: (context) => ConfessList(),
+                    ),
                   );
                 } else {
                   errorController.add(ErrorAnimationType

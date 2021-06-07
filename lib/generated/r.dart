@@ -40,5 +40,11 @@ class R {
   static const String ic_god_vs_me = "assets/ic_god_vs_me.svg";
   static const String ic_god_word = "assets/ic_god_word.svg";
   static const String ic_religion = "assets/ic_religion.svg";
-  static const String slpash_gif = "assets/splash.gif";
+  static const String ic_milkshake = "assets/ic_milkshake.svg";
+  static const String ic_settings = "assets/ic_settings.svg";
+  static const String ic_contact = "assets/ic_contact.svg";
+  static const String ic_share = "assets/ic_share.svg";
+  static const String ic_down_arrow = "assets/ic_down_arrow.svg";
+  static const String splash = "assets/splash.json";
+  static const String ic_edit = "assets/ic_edit.svg";
 }

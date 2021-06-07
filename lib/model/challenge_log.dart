@@ -5,8 +5,6 @@ class ChallengeLog {
   final DateTime createdAt;
   DateTime get dueAt => this.createdAt.add(Duration(hours: 24));
 
-
-
   ChallengeLog({
     this.id,
     this.challengeId,
@@ -15,11 +13,11 @@ class ChallengeLog {
   });
 
   factory ChallengeLog.fromMap(Map<String, dynamic> data) => ChallengeLog(
-    id: data['id'],
-    challengeId: data['challenge_id'],
-    isDone: data['is_done'] == 1 ? true : false,
-    createdAt: DateTime.parse("${data['created_at']}"),
-  );
+        id: data['id'],
+        challengeId: data['challenge_id'],
+        isDone: data['is_done'] == 1 ? true : false,
+        createdAt: DateTime.parse(data['created_at']),
+      );
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{

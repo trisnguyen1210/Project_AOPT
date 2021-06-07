@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 class RegistrationProvider with ChangeNotifier {
   String _name = '';
+
   set name(String value) {
     _name = value;
     notifyListeners();
@@ -11,7 +12,17 @@ class RegistrationProvider with ChangeNotifier {
 
   String get name => _name;
 
+  String _email = '';
+
+  set email(String value) {
+    _email = value;
+    notifyListeners();
+  }
+
+  String get email => _email;
+
   String _pin = '';
+
   set pin(String value) {
     _pin = value;
     notifyListeners();
@@ -20,6 +31,7 @@ class RegistrationProvider with ChangeNotifier {
   String get pin => _pin;
 
   String _retypePin = '';
+
   set retypePin(String value) {
     _retypePin = value;
     notifyListeners();
@@ -27,15 +39,17 @@ class RegistrationProvider with ChangeNotifier {
 
   String get retypePin => _retypePin;
 
-  AgeRange _ageRange = AgeRange.from18To40;
-  set ageRange(AgeRange value) {
-    _ageRange = value;
+  String _bod = '';
+
+  set bod(String value) {
+    _bod = value;
     notifyListeners();
   }
 
-  AgeRange get ageRange => _ageRange;
+  String get bod => _bod;
 
   bool _acceptTerm = false;
+
   set acceptTerm(bool value) {
     _acceptTerm = value;
     notifyListeners();
@@ -44,8 +58,9 @@ class RegistrationProvider with ChangeNotifier {
   bool get acceptTerm => _acceptTerm;
 
   bool get isValid {
-    return name.isNotEmpty &&
-        ageRange != null &&
+    return email.isNotEmpty &&
+        name.isNotEmpty &&
+        bod.isNotEmpty != null &&
         pin.isNotEmpty &&
         pin == retypePin &&
         acceptTerm;
@@ -57,10 +72,7 @@ class RegistrationProvider with ChangeNotifier {
 
   register() async {
     final user = User(
-      name: name,
-      pin: pin,
-      ageRange: ageRange,
-    );
+        name: name, pin: pin, bod: bod, email: email);
 
     await _authProvider.register(user);
   }

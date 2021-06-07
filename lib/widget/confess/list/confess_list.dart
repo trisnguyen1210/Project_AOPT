@@ -22,76 +22,66 @@ class _ConfessListState extends State<ConfessList> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
-          child:
-          ChangeNotifierProvider<ConfessProvider>(
-            create: (context) => ConfessProvider(),
-            child:
-            Column(
+          child: ChangeNotifierProvider<ConfessProvider>(
+        create: (context) => ConfessProvider(),
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(top: 60, bottom: 0, left: 50, right: 50),
+              child: Text('BẢN XÉT MÌNH',
+                  style: Styles.extraHeadingPurple,
+                  textAlign: TextAlign.center),
+            ),
+            Consumer<ConfessProvider>(
+                builder: (context, confessProvider, child) {
+              return Padding(
+                padding: EdgeInsets.only(bottom: 15, left: 50, right: 50),
+                child: RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: 'Từ ngày ' +
+                            confessProvider.dateFrom +
+                            ' tới hôm nay',
+                        style: Styles.bodyGrey,
+                      ),
+                      WidgetSpan(
+                        child: Image(
+                          image: AssetImage(R.tooltip),
+                          height: 28,
+                          width: 28,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            }),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(
-                      top: 60, bottom: 0, left: 50, right: 50),
-                  child: Text('BẢN XÉT MÌNH',
-                      style: Styles.extraHeadingPurple,
-                      textAlign: TextAlign.center),
-                ),
-
-                Consumer<ConfessProvider>(
-                    builder: (context, confessProvider, child) {
-                      return Padding(
-                        padding: EdgeInsets.only(
-                            bottom: 15, left: 50, right: 50),
-                        child: RichText(
-                          text: TextSpan(
-                            children: [
-
-                              TextSpan(
-                                text: 'Từ ngày ' + confessProvider.dateFrom +
-                                    ' tới hôm nay',
-                                style: Styles.bodyGrey,
-                              ),
-                              WidgetSpan(
-                                child: Image(
-                                  image: AssetImage(R.tooltip),
-                                  height: 28,
-                                  width: 28,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    }
-                ),
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Padding(
-                        padding: EdgeInsets.only(right: 15, bottom: 0),
-                        child: SvgPicture.asset(
-                          R.ic_plus,
-                          width: 18,
-                          height: 18,
-                        )),
-                    Padding(
-                        padding: EdgeInsets.only(right: 19),
-                        child: SvgPicture.asset(
-                          R.ic_minus,
-                          width: 18,
-                          height: 18,
-                        )),
-                  ],
-                ),
-                createButtonAddDelete(),
-                createListRelation(),
-                createButtonDone()
+                    padding: EdgeInsets.only(right: 15, bottom: 0),
+                    child: SvgPicture.asset(
+                      R.ic_plus,
+                      width: 18,
+                      height: 18,
+                    )),
+                Padding(
+                    padding: EdgeInsets.only(right: 19),
+                    child: SvgPicture.asset(
+                      R.ic_minus,
+                      width: 18,
+                      height: 18,
+                    )),
               ],
             ),
-          )
-
-
-      ),
+            createButtonAddDelete(),
+            createListRelation(),
+            createButtonDone()
+          ],
+        ),
+      )),
     );
   }
 
@@ -111,23 +101,22 @@ class _ConfessListState extends State<ConfessList> {
   Widget createListRelation() {
     return Consumer<ConfessProvider>(
         builder: (context, confessProvider, child) {
-          if (confessProvider.listConfess.isEmpty) {
-            return creatEmptyView();
-          }
-          return Padding(
-            padding: EdgeInsets.only(left: 26, right: 26),
-            child: ListView.builder(
-              itemBuilder: (BuildContext context, int index) =>
-                  RelationItem(
-                      confessProvider.listConfess.values.elementAt(index),
-                      index, confessProvider.listConfess.keys.length),
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: confessProvider.listConfess.keys.length,
-            ),
-          );
-        }
-    );
+      if (confessProvider.listConfess.isEmpty) {
+        return creatEmptyView();
+      }
+      return Padding(
+        padding: EdgeInsets.only(left: 26, right: 26),
+        child: ListView.builder(
+          itemBuilder: (BuildContext context, int index) => RelationItem(
+              confessProvider.listConfess.values.elementAt(index),
+              index,
+              confessProvider.listConfess.keys.length),
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: confessProvider.listConfess.keys.length,
+        ),
+      );
+    });
   }
 
   Widget creatEmptyView() {
@@ -160,7 +149,6 @@ class _ConfessListState extends State<ConfessList> {
                     text: 'xét mình!',
                     style: Styles.bodyGrey,
                   ),
-
                 ],
               ),
             ),
@@ -173,28 +161,27 @@ class _ConfessListState extends State<ConfessList> {
   Widget createButtonDone() {
     return Consumer<ConfessProvider>(
         builder: (context, confessProvider, child) {
-          if (confessProvider.listConfess.isEmpty) {
-            return Container();
-          }
-          return Padding(
-            padding: EdgeInsets.only(bottom: 20, top: 20),
-            child: GradientButton(
-              increaseWidthBy: 90,
-              increaseHeightBy: 7.0,
-              elevation: 0,
-              callback: () {
-                confessProvider.confessDone();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ConfessDone()),
-                );
-              },
-              gradient: GradientApp.gradientButton,
-              child: Text("Xưng tội xong", style: Styles.buttonText),
-            ),
-          );
-        }
-    );
+      if (confessProvider.listConfess.isEmpty) {
+        return Container();
+      }
+      return Padding(
+        padding: EdgeInsets.only(bottom: 20, top: 20),
+        child: GradientButton(
+          increaseWidthBy: 90,
+          increaseHeightBy: 7.0,
+          elevation: 0,
+          callback: () {
+            confessProvider.confessDone();
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ConfessDone()),
+            );
+          },
+          gradient: GradientApp.gradientButton,
+          child: Text("Xưng tội xong", style: Styles.buttonText),
+        ),
+      );
+    });
   }
 }
 
@@ -266,13 +253,13 @@ class _BeanItem extends State<BeanItem> {
   int size;
   bool monVal = false;
 
-  Widget _buildTiles(List<ConfessionItem> root, int position,
-      BuildContext context) {
+  Widget _buildTiles(
+      List<ConfessionItem> root, int position, BuildContext context) {
     return createChildItem(root, position, context);
   }
 
-  Widget createChildItem(List<ConfessionItem> root, int position,
-      BuildContext context) {
+  Widget createChildItem(
+      List<ConfessionItem> root, int position, BuildContext context) {
     return InkWell(
         onTap: () {
           setState(() {
@@ -288,16 +275,11 @@ class _BeanItem extends State<BeanItem> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(left: 9),
-                          child: Text(
-                            root[0].name,
-                            style: Styles.bodyGrey,
-                          ),
-                        ),
-                      ],
+                    Expanded(
+                      child: Text(
+                        root[0].name,
+                        style: Styles.bodyGrey,
+                      ),
                     ),
                     Text(
                       "x" + root.length.toString(),

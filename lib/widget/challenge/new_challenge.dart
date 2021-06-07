@@ -35,7 +35,7 @@ class NewChallenge extends StatelessWidget {
       child: PopupDialog(
         image: R.ic_expired,
         message:
-            'Đã quá 24 giờ, thử thách của ban đã hết hạn. Nhưng không sao, Thành hãy chấp nhận 1 thử thách mới!',
+            'Đã quá 24 giờ, thử thách của ban đã hết hạn. Nhưng không sao, bạn hãy chấp nhận 1 thử thách mới!',
       ),
     ).then((value) => challenge.showAlert = false);
   }

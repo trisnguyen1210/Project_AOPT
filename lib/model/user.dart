@@ -36,16 +36,18 @@ class User {
   int blackCount = 0;
   String name;
   String pin;
-  AgeRange ageRange;
+  String bod;
   DateTime timeLeftForChallenge;
+  String email;
 
   User({
     this.id,
     this.currentChallengeLogId,
     this.name,
     this.pin,
-    this.ageRange,
+    this.bod,
     this.timeLeftForChallenge,
+    this.email,
     greenCount,
     blackCount,
   });
@@ -58,7 +60,8 @@ class User {
       blackCount: data['black_count'],
       name: data['name'],
       pin: data['pin'],
-      ageRange: data['from_range']?.toAgeRange() ?? AgeRange.from18To40,
+      bod: data['bod'],
+      email: data['email'],
     );
 
     if (data['time_left_for_challenge'] != null) {
@@ -76,7 +79,8 @@ class User {
       'black_count': this.blackCount,
       'name': this.name,
       'pin': this.pin,
-      'age_range': this.ageRange.toShortString(),
+      'bod': this.bod,
+      'email': this.email,
       'time_left_for_challenge': this.timeLeftForChallenge?.toIso8601String(),
     };
 

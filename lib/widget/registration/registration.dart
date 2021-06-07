@@ -1,11 +1,12 @@
-import 'package:beans/model/user.dart';
 import 'package:beans/provider/registration_provider.dart';
 import 'package:beans/utils/utils.dart';
 import 'package:beans/value/gradient.dart';
 import 'package:beans/value/styles.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class Registration extends StatelessWidget {
@@ -13,6 +14,8 @@ class Registration extends StatelessWidget {
   Widget build(BuildContext context) {
     Utils.setColorStatusBar();
     final registrationProvider = Provider.of<RegistrationProvider>(context);
+    final node = FocusScope.of(context);
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -22,10 +25,11 @@ class Registration extends StatelessWidget {
           children: [
             createHeading(),
             createTitle(),
-            createTextFieldName(registrationProvider),
-            createDropDownAge(registrationProvider),
-            createViewPin(registrationProvider),
-            createViewPinRetype(registrationProvider),
+            createTextFieldName(registrationProvider, node),
+            createDropDownAge(registrationProvider, context),
+            createTextFieldEmail(registrationProvider, node),
+            createViewPin(registrationProvider, node),
+            createViewPinRetype(registrationProvider, node),
             createTerm(registrationProvider),
             createButtonDone(registrationProvider),
           ],
@@ -34,7 +38,48 @@ class Registration extends StatelessWidget {
     );
   }
 
-  Widget createTextFieldName(RegistrationProvider registration) {
+  Widget createTextFieldEmail(
+      RegistrationProvider registration, FocusScopeNode node) {
+    return Padding(
+        padding: EdgeInsets.only(bottom: 25),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'Email',
+                    style: Styles.titleGreyBold,
+                  ),
+                ],
+              ),
+            ),
+            TextField(
+              cursorColor: Color(0xff88674d),
+              onChanged: (value) => registration.email = value,
+              keyboardType: TextInputType.emailAddress,
+              maxLines: 1,
+              textInputAction: TextInputAction.next,
+              onSubmitted: (_) => node.nextFocus(),
+              decoration: InputDecoration(
+                isDense: true,
+                contentPadding: EdgeInsets.symmetric(vertical: 12),
+                enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xffcfcfcf))),
+                focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xff88674d))),
+                //Change this value to custom as you like
+              ),
+              style: Styles.bodyGrey,
+            )
+          ],
+        ));
+  }
+
+  Widget createTextFieldName(
+      RegistrationProvider registration, FocusScopeNode node) {
     return Padding(
         padding: EdgeInsets.only(bottom: 25),
         child: Column(
@@ -60,6 +105,8 @@ class Registration extends StatelessWidget {
               onChanged: (value) => registration.name = value,
               keyboardType: TextInputType.name,
               maxLines: 1,
+              textInputAction: TextInputAction.next,
+              onSubmitted: (_) => node.nextFocus(),
               decoration: InputDecoration(
                 isDense: true,
                 contentPadding: EdgeInsets.symmetric(vertical: 12),
@@ -75,7 +122,93 @@ class Registration extends StatelessWidget {
         ));
   }
 
-  Widget createDropDownAge(RegistrationProvider registration) {
+  DateTime selectedDate = DateTime.now();
+
+  _selectDate(BuildContext context, RegistrationProvider registration) async {
+    final ThemeData theme = Theme.of(context);
+    assert(theme.platform != null);
+    switch (theme.platform) {
+      case TargetPlatform.android:
+      case TargetPlatform.fuchsia:
+      case TargetPlatform.linux:
+      case TargetPlatform.windows:
+        return buildMaterialDatePicker(context, registration);
+      case TargetPlatform.iOS:
+      case TargetPlatform.macOS:
+        return buildCupertinoDatePicker(context, registration);
+    }
+  }
+
+  /// This builds material date picker in Android
+  buildMaterialDatePicker(
+      BuildContext context, RegistrationProvider registration) async {
+    final DateTime picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(1940),
+      lastDate: DateTime.now(),
+      helpText: 'Sinh Nhật',
+      cancelText: 'Hủy',
+      confirmText: 'Chọn',
+      errorFormatText: 'Ngày nhập phải hợp lệ',
+      errorInvalidText: 'Ngày nhập phải trong khoảng thời gian cho phép',
+      fieldLabelText: 'Sinh Nhật',
+      fieldHintText: 'dd/MM/yyyy',
+      builder: (context, child) {
+        return Theme(
+          data: ThemeData.light().copyWith(
+            colorScheme: ColorScheme.fromSwatch(
+              primarySwatch: Colors.brown,
+              primaryColorDark: Colors.brown,
+              accentColor: Colors.brown,
+            ),
+            dialogBackgroundColor: Colors.white,
+          ),
+          child: child,
+        );
+      },
+    );
+    if (picked != null && picked != selectedDate) {
+      selectedDate = picked;
+      setValueTextController(registration);
+    }
+  }
+
+  /// This builds cupertion date picker in iOS
+  buildCupertinoDatePicker(
+      BuildContext context, RegistrationProvider registration) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext builder) {
+          return Container(
+            height: MediaQuery.of(context).copyWith().size.height / 3,
+            color: Colors.white,
+            child: CupertinoDatePicker(
+              mode: CupertinoDatePickerMode.date,
+              onDateTimeChanged: (picked) {
+                if (picked != null && picked != selectedDate) {
+                  selectedDate = picked;
+                  setValueTextController(registration);
+                }
+              },
+              initialDateTime: selectedDate,
+              minimumYear: 2000,
+              maximumYear: 2025,
+            ),
+          );
+        });
+  }
+
+  var textController = new TextEditingController();
+
+  void setValueTextController(RegistrationProvider registration) {
+    String formattedDate = DateFormat('dd/MM/yyyy').format(selectedDate);
+    textController.text = "$formattedDate";
+    registration.bod = "$formattedDate";
+  }
+
+  Widget createDropDownAge(
+      RegistrationProvider registration, BuildContext context) {
     return Padding(
         padding: EdgeInsets.only(bottom: 25),
         child: SizedBox(
@@ -93,40 +226,43 @@ class Registration extends StatelessWidget {
                     ),
                     TextSpan(
                       text: '(để app tìm cách xét mình phù hợp)',
-                      style: Styles.subtitleGrey,)
+                      style: Styles.subtitleGrey,
+                    )
                   ],
                 ),
               ),
-
-              DropdownButton<AgeRange>(
-                value: registration.ageRange,
-                icon: Icon(
-                  Icons.arrow_drop_down,
-                  color: Color(0xff88674d),
-                ),
-                elevation: 16,
-                isExpanded: true,
-                style: Styles.bodyGrey,
-                underline: Container(height: 2, color: Color(0xff88674d)),
-                onChanged: (AgeRange newValue) =>
-                    registration.ageRange = newValue,
-                items: [AgeRange.from12To17, AgeRange.from18To40, AgeRange.gt40]
-                    .map<DropdownMenuItem<AgeRange>>((AgeRange value) {
-                  return DropdownMenuItem<AgeRange>(
-                    value: value,
-                    child: Text(
-                      '${value.toShortString()} tuổi',
-                      style: Styles.bodyGrey,
+              GestureDetector(
+                  onTap: () {
+                    _selectDate(context, registration);
+                  },
+                  child: TextField(
+                    focusNode: FocusNode(),
+                    enableInteractiveSelection: false,
+                    enabled: false,
+                    controller: textController,
+                    cursorColor: Color(0xff88674d),
+                    onChanged: (value) => registration.bod = value,
+                    keyboardType: TextInputType.name,
+                    maxLines: 1,
+                    decoration: InputDecoration(
+                      hintStyle: Styles.hintGrey,
+                      hintText: 'DD/MM/YYYY',
+                      isDense: true,
+                      contentPadding: EdgeInsets.symmetric(vertical: 12),
+                      enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xffcfcfcf))),
+                      focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xff88674d))),
+                      //Change this value to custom as you like
                     ),
-                  );
-                }).toList(),
-              ),
+                    style: Styles.bodyGrey,
+                  )),
             ],
           ),
         ));
   }
 
-  Widget createViewPin(RegistrationProvider registration) {
+  Widget createViewPin(RegistrationProvider registration, FocusScopeNode node) {
     return Padding(
         padding: EdgeInsets.only(bottom: 25),
         child: Column(
@@ -145,6 +281,9 @@ class Registration extends StatelessWidget {
               obscureText: true,
               keyboardType: TextInputType.number,
               maxLines: 1,
+              textInputAction: TextInputAction.next,
+              onEditingComplete: () => node.nextFocus(),
+              // Move focus to next
               decoration: InputDecoration(
                 isDense: true,
                 contentPadding: EdgeInsets.symmetric(vertical: 12),
@@ -160,7 +299,8 @@ class Registration extends StatelessWidget {
         ));
   }
 
-  Widget createViewPinRetype(RegistrationProvider registration) {
+  Widget createViewPinRetype(
+      RegistrationProvider registration, FocusScopeNode node) {
     return Padding(
         padding: EdgeInsets.only(bottom: 25),
         child: Column(
@@ -179,6 +319,8 @@ class Registration extends StatelessWidget {
               obscureText: true,
               keyboardType: TextInputType.number,
               maxLines: 1,
+              textInputAction: TextInputAction.done,
+              onSubmitted: (_) => node.unfocus(),
               decoration: InputDecoration(
                 isDense: true,
                 contentPadding: EdgeInsets.symmetric(vertical: 12),
