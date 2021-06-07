@@ -5,7 +5,7 @@ class RelationalSubcategoryDetail {
   int relationalSubcategoryId;
   String description;
 
-  List<RelationalReason> reaons = [];
+  List<RelationalReason> reasons = [];
 
   RelationalSubcategoryDetail({
     this.id,

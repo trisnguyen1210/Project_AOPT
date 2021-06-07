@@ -11,7 +11,6 @@
 
 import 'package:beans/provider/auth_provider.dart';
 import 'package:beans/provider/registration_provider.dart';
-import 'package:beans/utils/utils.dart';
 import 'package:beans/value/styles.dart';
 import 'package:beans/widget/bean/my_bean.dart';
 import 'package:beans/widget/confess/pin_code/pin_code.dart';
@@ -101,7 +100,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: IndexedStack(
@@ -127,7 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         BottomNavigationBarItem(
           icon: SvgPicture.asset(R.ic_confession,
-              height: 24, color:  Color(0xff8e8e93)),
+              height: 24, color: Color(0xff8e8e93)),
           activeIcon: SvgPicture.asset(
             R.ic_confession,
             height: 24,
@@ -136,8 +134,8 @@ class _HomeScreenState extends State<HomeScreen> {
           title: Text('Bản xét mình', style: Styles.bottomBarText),
         ),
         BottomNavigationBarItem(
-          icon: SvgPicture.asset(R.ic_bean,
-              height: 24, color: Color(0xff8e8e93)),
+          icon:
+              SvgPicture.asset(R.ic_bean, height: 24, color: Color(0xff8e8e93)),
           activeIcon: SvgPicture.asset(
             R.ic_bean,
             height: 24,
@@ -147,7 +145,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         BottomNavigationBarItem(
           icon: SvgPicture.asset(R.ic_calendar,
-              height: 24, color:  Color(0xff8e8e93)),
+              height: 24, color: Color(0xff8e8e93)),
           activeIcon: SvgPicture.asset(
             R.ic_calendar,
             height: 24,
@@ -158,7 +156,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ],
       currentIndex: _selectedIndex,
       selectedItemColor: Color(0xff88674d),
-      unselectedItemColor:  Color(0xff8e8e93),
+      unselectedItemColor: Color(0xff8e8e93),
       showUnselectedLabels: true,
       showSelectedLabels: true,
       type: BottomNavigationBarType.fixed,

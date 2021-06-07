@@ -1,5 +1,4 @@
 import 'package:beans/provider/accepted_challenge_provider.dart';
-import 'package:beans/provider/auth_provider.dart';
 import 'package:beans/value/gradient.dart';
 import 'package:beans/value/styles.dart';
 
@@ -12,7 +11,6 @@ class AcceptedChallenge extends StatelessWidget {
   Widget build(BuildContext context) {
     final challenge =
         Provider.of<AcceptedChallengeProvider>(context, listen: false);
-    final authProvider = Provider.of<AuthProvider>(context, listen: false);
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -22,10 +20,7 @@ class AcceptedChallenge extends StatelessWidget {
         SizedBox(height: 6),
         acceptedChallengeText(),
         SizedBox(height: 24),
-        buttonFinish(() {
-          authProvider.updateGreenBean(authProvider.greenCount + 2);
-          challenge.finishChallenge();
-        }),
+        buttonFinish(challenge.finishChallenge),
       ],
     );
   }
@@ -50,7 +45,7 @@ class AcceptedChallenge extends StatelessWidget {
             Column(
               children: [
                 Text(
-                  '${challenge.hourLeft}',
+                  challenge.hourLeft,
                   style: Styles.textStyleLarge,
                 ),
                 Text(
@@ -73,7 +68,7 @@ class AcceptedChallenge extends StatelessWidget {
             Column(
               children: [
                 Text(
-                  '${challenge.minutesLeft}',
+                  challenge.minutesLeft,
                   style: Styles.textStyleLarge,
                 ),
                 Text(
@@ -97,6 +92,7 @@ class AcceptedChallenge extends StatelessWidget {
   Widget buttonFinish(Function finishChallenge) => GradientButton(
         increaseWidthBy: 120,
         increaseHeightBy: 9.0,
+        elevation: 0,
         callback: finishChallenge,
         gradient: GradientApp.gradientButton,
         child: Text('Hoàn thành', style: Styles.buttonText),

@@ -2,6 +2,8 @@ import 'package:beans/generated/r.dart';
 import 'package:beans/model/relational_category.dart';
 import 'package:beans/model/relational_subcategory_detail.dart';
 import 'package:beans/provider/auth_provider.dart';
+import 'package:beans/provider/relation_detail_other_provider.dart';
+import 'package:beans/provider/relation_detail_provider.dart';
 import 'package:beans/value/styles.dart';
 import 'package:beans/widget/custom/expansion_tile.dart';
 import 'package:beans/widget/relation/relation_detail/relation_detail.dart';
@@ -23,7 +25,6 @@ class RelationTab extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            createTopTitle(context),
             createListViewCategory(category, context),
           ],
         ),
@@ -44,6 +45,7 @@ Widget createListViewCategory(
     subcat.details.forEach((detail) {
       var detailEntry = Entry(detail.description, "");
       detailEntry.catID = subcat.relationalCategoryId;
+      detailEntry.subcatID = subcat.id;
       detailEntry.catTitle = category.name;
       detailEntry.detail = detail;
       detailEntry.description = subcat.description;
@@ -62,13 +64,15 @@ Widget createListViewCategory(
 
   data.add(entryOther);
 
-  return ListView.builder(
-    itemBuilder: (BuildContext context, int index) =>
-        EntryItem(data[index], index, data.length),
-    shrinkWrap: true,
-    physics: const NeverScrollableScrollPhysics(),
-    itemCount: data.length,
-  );
+  return Padding(
+      padding: EdgeInsets.all(5),
+      child: ListView.builder(
+        itemBuilder: (BuildContext context, int index) =>
+            EntryItem(data[index], index, data.length),
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: data.length,
+      ));
 }
 
 Widget createTopTitle(BuildContext context) {
@@ -105,11 +109,12 @@ class Entry {
     this.isOther = false,
   ]);
 
-   String title;
-   String description;
-   List<Entry> children;
-   bool isOther;
+  String title;
+  String description;
+  List<Entry> children;
+  bool isOther;
   int catID;
+  int subcatID;
   String catTitle;
   String subcateTitle;
   RelationalSubcategoryDetail detail;
@@ -132,11 +137,15 @@ class EntryItem extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => RelationDetail(
-              categoryId: root.catID,
-              categoryTitle: root.catTitle,
-              detail: root.detail,
-              subcateTitle: root.subcateTitle,
+            builder: (context) => ChangeNotifierProvider(
+              create: (context) => RelationDetailProvider(
+                root.catID,
+                root.catTitle,
+                root.subcateTitle,
+                root.detail,
+                Provider.of<AuthProvider>(context, listen: false),
+              ),
+              child: RelationDetail(),
             ),
           ),
         );
@@ -153,11 +162,17 @@ class EntryItem extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => RelationDetailOther(
-                    categoryId: root.catID,
-                    categoryTitle: root.catTitle,
-                    subcateTitle: root.subcateTitle,
-                  )),
+            builder: (context) => ChangeNotifierProvider(
+              create: (context) => RelationDetailOtherProvider(
+                root.catID,
+                root.subcatID,
+                root.catTitle,
+                root.subcateTitle,
+                Provider.of<AuthProvider>(context, listen: false),
+              ),
+              child: RelationDetailOther(),
+            ),
+          ),
         );
       },
       child: ListTile(

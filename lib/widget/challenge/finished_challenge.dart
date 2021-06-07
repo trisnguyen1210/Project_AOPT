@@ -42,24 +42,24 @@ class FinishedChallenge extends StatelessWidget {
   }
 
   Widget finishedChallengeText() => Consumer<FinishedChallengeProvider>(
-    builder: (context, challenge, child) => Padding(
-      padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
-      child: Text(
-        challenge.name,
-        style: Styles.textStyleStrike,
-        textAlign: TextAlign.center,
-      ),
-    ),
-  );
+        builder: (context, challenge, child) => Padding(
+          padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
+          child: Text(
+            challenge.name,
+            style: Styles.textStyleStrike,
+            textAlign: TextAlign.center,
+          ),
+        ),
+      );
 
   Widget waitText() => Consumer<FinishedChallengeProvider>(
-    builder: (context, challenge, child) => Padding(
-      padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
-      child: Text(
-        'Chờ ${challenge.hoursLeft}:${challenge.minutesLeft}:${challenge.secondsLeft} nữa để tìm thử thách mới',
-        style: Styles.bodyGrey,
-        textAlign: TextAlign.center,
-      ),
-    ),
-  );
+        builder: (context, challenge, child) => Padding(
+          padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
+          child: Text(
+            'Chờ ${challenge.minutesLeft}:${challenge.secondsLeft} nữa để tìm thử thách mới',
+            style: Styles.bodyGrey,
+            textAlign: TextAlign.center,
+          ),
+        ),
+      );
 }

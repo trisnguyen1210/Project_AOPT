@@ -41,6 +41,9 @@ class Styles {
   static TextStyle headingGrey = GoogleFonts.montserrat(
       fontSize: 17, color: Colors.grey[700], fontWeight: FontWeight.w500);
 
+  static TextStyle headingRed = GoogleFonts.montserrat(
+      fontSize: 17, color: Color(0xffC64646), fontWeight: FontWeight.w500);
+
   static TextStyle titleGreyBold = GoogleFonts.montserrat(
       fontSize: 14, color: Colors.grey[700], fontWeight: FontWeight.w700);
 
@@ -86,7 +89,7 @@ class Styles {
       GoogleFonts.montserrat(fontSize: 17, fontWeight: FontWeight.w700);
 
   static TextStyle hintGrey = GoogleFonts.montserrat(
-      fontSize: 14, color: Colors.grey[300], fontWeight: FontWeight.w400);
+      fontSize: 14, color: Colors.grey[500], fontWeight: FontWeight.w400);
   static TextStyle textStyleGreyMedium = GoogleFonts.montserrat(
       fontSize: 17, color: Colors.grey[700], fontWeight: FontWeight.w500);
 

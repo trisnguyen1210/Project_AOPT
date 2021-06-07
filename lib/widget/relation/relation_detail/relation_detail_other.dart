@@ -1,4 +1,5 @@
 import 'package:beans/generated/r.dart';
+import 'package:beans/provider/relation_detail_other_provider.dart';
 import 'package:beans/utils/utils.dart';
 import 'package:beans/value/gradient.dart';
 import 'package:beans/value/styles.dart';
@@ -6,18 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
+import 'package:provider/provider.dart';
 
 class RelationDetailOther extends StatelessWidget {
-
-  final int categoryId;
-  final String categoryTitle;
-  final String subcateTitle;
-  const RelationDetailOther(
-      {Key key,
-        this.categoryId,
-        this.subcateTitle,
-        this.categoryTitle})
-      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,33 +18,32 @@ class RelationDetailOther extends StatelessWidget {
         elevation: 0,
         brightness: Brightness.light,
         gradient: GradientApp.gradientAppbar,
-
         leading: IconButton(
           icon: Utils.getIconBack(),
-          color:  Color(0xff88674d),
+          color: Color(0xff88674d),
           onPressed: () => Navigator.of(context).pop(),
         ),
         centerTitle: false,
         titleSpacing: 0.0,
-
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
             Container(
               margin: EdgeInsets.only(left: 20, right: 10, bottom: 5),
-              child: createTopViewRelation(),
+              child: createTopViewRelation(context),
             ),
             Opacity(
               opacity: 0.2701590401785715,
               child: Container(
-                  height: 1,
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                          color: const Color(0xff979797), width: 1))),
+                height: 1,
+                decoration: BoxDecoration(
+                  border: Border.all(color: const Color(0xff979797), width: 1),
+                ),
+              ),
             ),
-            createListViewTopic(),
-            createBeanBottle(),
+            createListViewTopic(context),
+            createBeanBottle(context),
             createButtonDone(context)
           ],
         ),
@@ -60,17 +51,50 @@ class RelationDetailOther extends StatelessWidget {
     );
   }
 
-  Widget createListViewTopic() {
+  Widget createListViewTopic(BuildContext context) {
+    final provider = Provider.of<RelationDetailOtherProvider>(context);
+    final data = provider.topics;
     return Padding(
-      padding: EdgeInsets.only(left: 20, right: 20, bottom:20),
+      padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
       child: ListView.builder(
         itemBuilder: (BuildContext context, int index) =>
-            TopicItem(dataOther[index], index, dataOther.length),
+            TopicItem(data[index], index, data.length),
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
-        itemCount: dataOther.length,
+        itemCount: data.length,
       ),
     );
+  }
+
+  void _submitRelation(BuildContext context) async {
+    final provider =
+        Provider.of<RelationDetailOtherProvider>(context, listen: false);
+
+    BuildContext dialogContext;
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        dialogContext = context;
+        return Dialog(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CircularProgressIndicator(),
+                SizedBox(height: 16),
+                Text("Đang tải"),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+
+    await provider.submitRelation();
+    Navigator.pop(dialogContext);
+    Utils.goToConfessSuccess(context);
   }
 
   Widget createButtonDone(BuildContext context) {
@@ -87,7 +111,7 @@ class RelationDetailOther extends StatelessWidget {
               increaseHeightBy: 7.0,
               elevation: 0,
               callback: () {
-                Utils.goToConfessSuccess(context);
+                _submitRelation(context);
               },
               gradient: GradientApp.gradientButton,
               child: Text("Xong", style: Styles.buttonText),
@@ -108,7 +132,9 @@ class RelationDetailOther extends StatelessWidget {
     );
   }
 
-  Widget createBeanBottle() {
+  Widget createBeanBottle(BuildContext context) {
+    final provider = Provider.of<RelationDetailOtherProvider>(context);
+
     return Padding(
       padding: EdgeInsets.only(bottom: 20),
       child: Row(
@@ -121,25 +147,23 @@ class RelationDetailOther extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Stack(
-                    children: [SvgPicture.asset(R.ic_white_bean, height: 73),
-                      Positioned(
-                          left: 13.0,
-                          top:10,
-                          child:  RichText(
-                            textAlign: TextAlign.left,
-                            text: TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: '+2',
-                                  style: Styles.boldWhite,
-                                )
-                              ],
-                            ),
-                          ))
-                      ,]
-                )
-
+                Stack(children: [
+                  SvgPicture.asset(R.ic_white_bean, height: 73),
+                  Positioned(
+                      left: 13.0,
+                      top: 10,
+                      child: RichText(
+                        textAlign: TextAlign.left,
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: provider.grateFulCount,
+                              style: Styles.boldWhite,
+                            )
+                          ],
+                        ),
+                      )),
+                ])
               ],
             ),
           ),
@@ -147,24 +171,23 @@ class RelationDetailOther extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Stack(
-                  children: [SvgPicture.asset(R.ic_black_bean, height: 73),
-                    Positioned(
-                        right: 13.0,
-                        top:10,
-                        child:  RichText(
-                          textAlign: TextAlign.left,
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: '+2',
-                                style: Styles.boldWhite,
-                              )
-                            ],
-                          ),
-                        ))
-                  ]
-              )
+              Stack(children: [
+                SvgPicture.asset(R.ic_black_bean, height: 73),
+                Positioned(
+                    right: 13.0,
+                    top: 10,
+                    child: RichText(
+                      textAlign: TextAlign.left,
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: provider.ungrateFulCount,
+                            style: Styles.boldWhite,
+                          )
+                        ],
+                      ),
+                    ))
+              ])
             ],
           ),
         ],
@@ -172,22 +195,23 @@ class RelationDetailOther extends StatelessWidget {
     );
   }
 
-  Widget createTopViewRelation() {
+  Widget createTopViewRelation(BuildContext context) {
+    final provider =
+        Provider.of<RelationDetailOtherProvider>(context, listen: false);
     return Column(
       children: [
         SizedBox(
           width: double.infinity,
-          // height: double.infinity,
           child: RichText(
             textAlign: TextAlign.left,
             text: TextSpan(
               children: [
                 TextSpan(
-                  text: categoryTitle+ " | ",
+                  text: provider.categoryTitle + " | ",
                   style: Styles.headingBoldPurple,
                 ),
                 TextSpan(
-                  text: subcateTitle,
+                  text: provider.subcateTitle,
                   style: Styles.textStyleRegular,
                 )
               ],
@@ -198,35 +222,6 @@ class RelationDetailOther extends StatelessWidget {
     );
   }
 }
-
-class Topic {
-  Topic(this.title, [this.beans = const <Bean>[]]);
-
-  final String title;
-  final List<Bean> beans;
-}
-
-class Bean {
-  Bean(this.title);
-
-  final String title;
-}
-
-List<Topic> dataOther = <Topic>[
-  Topic(
-    'Tôi biết ơn vì',
-    <Bean>[
-      Bean('Lí do'),
-      Bean('Lí do'),
-    ],
-  ),
-  Topic(
-    'Tôi trăn trở vì',
-    <Bean>[
-      Bean('Lí do'),
-    ],
-  ),
-];
 
 class TopicItem extends StatelessWidget {
   const TopicItem(this.topic, this.position, this.size);
@@ -270,7 +265,7 @@ class TopicItem extends StatelessWidget {
 }
 
 class BeanItemOther extends StatelessWidget {
-  const BeanItemOther(this.bean, this.position, this.size);
+  BeanItemOther(this.bean, this.position, this.size);
 
   final Bean bean;
   final int position;
@@ -287,6 +282,12 @@ class BeanItemOther extends StatelessWidget {
             alignment: Alignment.topRight,
             children: <Widget>[
               TextField(
+                onChanged: (title) {
+                  final provider = Provider.of<RelationDetailOtherProvider>(
+                      context,
+                      listen: false);
+                  provider.updateBean(title, position, bean.isGrateful);
+                },
                 cursorColor: Color(0xff88674d),
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
@@ -306,7 +307,8 @@ class BeanItemOther extends StatelessWidget {
                   onTap: () {
                     FocusScope.of(context).requestFocus(FocusNode());
                   },
-                  child: SvgPicture.asset(R.ic_close, height: 15,  color: Color(0xff88674d))),
+                  child: SvgPicture.asset(R.ic_close,
+                      height: 15, color: Color(0xff88674d))),
             ],
           ),
         ),
@@ -347,9 +349,6 @@ class BeanItemOther extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (position == 1)
-      return createChildAddItem(bean, position, context);
-    else
-      return createChildItem(bean, position, context);
+    return createChildItem(bean, position, context);
   }
 }

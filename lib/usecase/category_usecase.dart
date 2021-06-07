@@ -31,7 +31,7 @@ class CategoryUsecase {
         // for each details, add the list of reason
         for (int i = 0; i < detailCount; i++) {
           var reasons = await _reasonDao.getByDetailID(details[i].id);
-          details[i].reaons = reasons;
+          details[i].reasons = reasons;
         }
 
         subcategories[i].details = details;
