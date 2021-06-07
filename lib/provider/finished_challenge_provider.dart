@@ -45,7 +45,7 @@ class FinishedChallengeProvider with ChangeNotifier {
     _user = await _userDao.getOrCreate();
     final currentChallengeLog = await _challengeLogDao.getLatest();
     _currentChallenge =
-        await _challengeDao.get(currentChallengeLog.challengeId);
+    await _challengeDao.get(currentChallengeLog.challengeId);
 
     _countdown(_user.timeLeftForChallenge);
   }

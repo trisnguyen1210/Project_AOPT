@@ -4,14 +4,14 @@ class RelationalSubcategory {
   final int id;
   final int relationalCategoryId;
   final String name;
-  final String icon;
+  final String description;
   List<RelationalSubcategoryDetail> details = [];
 
   RelationalSubcategory({
     this.id,
     this.relationalCategoryId,
     this.name,
-    this.icon,
+    this.description,
   });
 
   factory RelationalSubcategory.fromMap(Map<String, dynamic> data) =>
@@ -19,13 +19,13 @@ class RelationalSubcategory {
         id: data['id'],
         relationalCategoryId: data['relational_category_id'],
         name: data['name'],
-        icon: data['icon'],
+        description: data['description'],
       );
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
       'name': this.name,
-      'icon': this.icon,
+      'description': this.description,
       'relational_category_id': this.relationalCategoryId,
     };
 

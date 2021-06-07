@@ -14,7 +14,7 @@ class SlidingMenu extends StatelessWidget {
           DrawerHeader(
             child: Text('Drawer Header'),
             decoration: BoxDecoration(
-              color: Color(0xff316beb),
+              color: Color(0xff88674d),
             ),
           ),
           ListTile(

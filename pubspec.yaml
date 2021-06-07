@@ -21,13 +21,25 @@ dependencies:
   date_format: ^1.0.9
   flutter_circular_chart: ^0.1.0
   backdrop: ^0.4.7
+  flutter_gifimage: ^1.0.0
   r_dart_library:
     git:
       url: https://github.com/YK-Unit/r_dart_library.git
       ref: 0.2.1
+  flutter_launcher_icons: "^0.8.0"
+
+flutter_icons:
+  #  image_path: "assets/images/icon-128x128.png"
+  image_path_android: "assets/app-icon.png"
+  image_path_ios: "assets/app-icon.png"
+  android: true # can specify file name here e.g. "ic_launcher"
+  ios: true # can specify file name here e.g. "My-Launcher-Icon"
+  adaptive_icon_background: "assets/adaptive-app-icon.png" # only available for Android 8.0 devices and above
+  adaptive_icon_foreground: "assets/adaptive-app-icon.png" # only available for Android 8.0 devices and above
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
 flutter:
   uses-material-design: true
   assets:
@@ -63,8 +75,8 @@ flutter:
     - assets/background_god_png.png
     - assets/ic_logo.svg
     - assets/ic_more.svg
-    - assets/ic_congratulation1.svg
     - assets/ic_congratulation.svg
+    - assets/ic_congratulation2.svg
     - assets/ic_close_gradient.png
     - assets/ic_expired.png
     - assets/ic_community.svg
@@ -72,6 +84,8 @@ flutter:
     - assets/ic_god_vs_me.svg
     - assets/ic_god_word.svg
     - assets/ic_religion.svg
+    - assets/splash.gif
+    - assets/challengeviewbottom.png
 flr:
   core_version: 3.1.0
   dartfmt_line_length: 80

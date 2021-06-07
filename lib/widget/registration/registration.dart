@@ -56,7 +56,7 @@ class Registration extends StatelessWidget {
               ),
             ),
             TextField(
-              cursorColor: Color(0xff316beb),
+              cursorColor: Color(0xff88674d),
               onChanged: (value) => registration.name = value,
               keyboardType: TextInputType.name,
               maxLines: 1,
@@ -66,7 +66,7 @@ class Registration extends StatelessWidget {
                 enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Color(0xffcfcfcf))),
                 focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xff316beb))),
+                    borderSide: BorderSide(color: Color(0xff88674d))),
                 //Change this value to custom as you like
               ),
               style: Styles.bodyGrey,
@@ -102,12 +102,12 @@ class Registration extends StatelessWidget {
                 value: registration.ageRange,
                 icon: Icon(
                   Icons.arrow_drop_down,
-                  color: Color(0xff316beb),
+                  color: Color(0xff88674d),
                 ),
                 elevation: 16,
                 isExpanded: true,
                 style: Styles.bodyGrey,
-                underline: Container(height: 2, color: Color(0xff316beb)),
+                underline: Container(height: 2, color: Color(0xff88674d)),
                 onChanged: (AgeRange newValue) =>
                     registration.ageRange = newValue,
                 items: [AgeRange.from12To17, AgeRange.from18To40, AgeRange.gt40]
@@ -141,7 +141,7 @@ class Registration extends StatelessWidget {
             TextField(
               maxLength: 4,
               onChanged: (value) => registration.pin = value,
-              cursorColor: Color(0xff316beb),
+              cursorColor: Color(0xff88674d),
               obscureText: true,
               keyboardType: TextInputType.number,
               maxLines: 1,
@@ -151,7 +151,7 @@ class Registration extends StatelessWidget {
                 enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Color(0xffcfcfcf))),
                 focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xff316beb))),
+                    borderSide: BorderSide(color: Color(0xff88674d))),
                 //Change this value to custom as you like
               ),
               style: Styles.bodyGrey,
@@ -175,7 +175,7 @@ class Registration extends StatelessWidget {
             TextField(
               maxLength: 4,
               onChanged: (value) => registration.retypePin = value,
-              cursorColor: Color(0xff316beb),
+              cursorColor: Color(0xff88674d),
               obscureText: true,
               keyboardType: TextInputType.number,
               maxLines: 1,
@@ -185,7 +185,7 @@ class Registration extends StatelessWidget {
                 enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Color(0xffcfcfcf))),
                 focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xff316beb))),
+                    borderSide: BorderSide(color: Color(0xff88674d))),
                 //Change this value to custom as you like
               ),
               style: Styles.bodyGrey,
@@ -270,6 +270,7 @@ class Registration extends StatelessWidget {
       child: GradientButton(
         increaseWidthBy: 80,
         increaseHeightBy: 7.0,
+        elevation: 0,
         callback: registration.register,
         isEnabled: registration.isValid,
         gradient: GradientApp.gradientButton,

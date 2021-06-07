@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
 import 'package:beans/widget/relation/confess/confess_success.dart';
@@ -23,7 +24,9 @@ class Utils {
   }
 
   static void setColorStatusBar() {
-    //SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.white,
+    ));
   }
 
   static String getNumberAddZero(int number) {

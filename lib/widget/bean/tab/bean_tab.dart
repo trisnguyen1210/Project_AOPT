@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:beans/provider/auth_provider.dart';
 import 'package:beans/provider/bean_provider.dart';
 import 'package:beans/utils/utils.dart';
 import 'package:beans/value/styles.dart';
@@ -33,19 +34,22 @@ class _BeanTabState extends State<BeanTab> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
-        body: SingleChildScrollView(
-            controller: _scrollController,
-            child: ChangeNotifierProvider<BeanProvider>(
-                create: (context) => BeanProvider(),
-                child: Center(
-                  child: Column(
-                    children: [whiteBeanView(), blackBeanView()],
-                  ),
-                ))));
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
+        controller: _scrollController,
+        child: Center(
+          child: Column(
+            children: [whiteBeanView(context), blackBeanView(context)],
+          ),
+        ),
+      ),
+    );
   }
 
-  Widget blackBeanView() {
+  Widget blackBeanView(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
+    final beanProvider = Provider.of<BeanProvider>(context);
+
     return Visibility(
         visible: monVal,
         child: Column(
@@ -57,40 +61,35 @@ class _BeanTabState extends State<BeanTab> {
                   style: Styles.headingExtraPurple,
                   textAlign: TextAlign.center),
             ),
-            Consumer<BeanProvider>(builder: (context, beanProvider, child) {
-              return Padding(
-                  padding: EdgeInsets.only(left: 48, right: 48),
-                  child: Text(
-                      "Thành đang có " +
-                          beanProvider.blackBeanCount.toString() +
-                          " hạt đậu trăn trở.\ngần chạm mức mục tiêu tối thiểu",
-                      style: Styles.bodyGrey,
-                      textAlign: TextAlign.center));
-            }),
-            Consumer<BeanProvider>(builder: (context, beanProvider, child) {
-              return Padding(
-                  padding: EdgeInsets.only(bottom: 15, left: 48, right: 48),
-                  child: AnimatedCircularChart(
-                    key: _chartKey2,
-                    size: _chartSize,
-                    initialChartData: Utils.getChartDataBlackBean(
-                        beanProvider.target.greenCount,
-                        beanProvider.whiteBeanCount),
-                    chartType: CircularChartType.Radial,
-                    edgeStyle: SegmentEdgeStyle.round,
-                    percentageValues: true,
-                    holeLabel: Utils.getTargetBlackBeanComplete(
-                                beanProvider.target.greenCount,
-                                beanProvider.whiteBeanCount)
-                            .round()
-                            .toString() +
-                        "%",
-                    labelStyle: Theme.of(context)
-                        .textTheme
-                        .title
-                        .merge(new TextStyle(color: labelColor)),
-                  ));
-            }),
+            Padding(
+              padding: EdgeInsets.only(left: 48, right: 48),
+              child: Text(
+                  "Thành đang có " +
+                      authProvider.blackCount.toString() +
+                      " hạt đậu trăn trở.\ngần chạm mức mục tiêu tối thiểu",
+                  style: Styles.bodyGrey,
+                  textAlign: TextAlign.center),
+            ),
+            Padding(
+              padding: EdgeInsets.only(bottom: 15, left: 48, right: 48),
+              child: AnimatedCircularChart(
+                key: _chartKey2,
+                size: _chartSize,
+                initialChartData: Utils.getChartDataBlackBean(0, 0),
+                chartType: CircularChartType.Radial,
+                edgeStyle: SegmentEdgeStyle.round,
+                percentageValues: true,
+                holeLabel: Utils.getTargetBlackBeanComplete(
+                      beanProvider.target?.blackCount ?? 0,
+                      authProvider.blackCount,
+                    ).round().toString() +
+                    "%",
+                labelStyle: Theme.of(context)
+                    .textTheme
+                    .title
+                    .merge(new TextStyle(color: Color(0xff7b4d0a))),
+              ),
+            ),
             Padding(
                 padding: EdgeInsets.only(bottom: 15, left: 48, right: 48),
                 child: Text(
@@ -112,7 +111,9 @@ class _BeanTabState extends State<BeanTab> {
         ));
   }
 
-  Widget whiteBeanView() {
+  Widget whiteBeanView(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
+    final beanProvider = Provider.of<BeanProvider>(context);
     Timer _timer;
     return Column(
       children: [
@@ -121,48 +122,45 @@ class _BeanTabState extends State<BeanTab> {
           child: Text('HỦ ĐẬU BIẾT ƠN',
               style: Styles.headingExtraPurple, textAlign: TextAlign.center),
         ),
-        Consumer<BeanProvider>(builder: (context, beanProvider, child) {
-          return Padding(
-              padding: EdgeInsets.only(left: 48, right: 48),
-              child: Text(
-                  "Thành đang có " +
-                      beanProvider.whiteBeanCount.toString() +
-                      " hạt đậu biết ơn.",
-                  style: Styles.bodyGrey,
-                  textAlign: TextAlign.center));
-        }),
-        Consumer<BeanProvider>(builder: (context, beanProvider, child) {
-          return Padding(
-              padding: EdgeInsets.only(bottom: 15, left: 48, right: 48),
-              child: AnimatedCircularChart(
-                key: _chartKey,
-                size: _chartSize,
-                initialChartData: Utils.getChartDataWhiteBean(
-                    beanProvider.target.greenCount,
-                    beanProvider.whiteBeanCount),
-                chartType: CircularChartType.Radial,
-                edgeStyle: SegmentEdgeStyle.round,
-                percentageValues: true,
-                holeLabel: Utils.getTargetWhiteBeanComplete(
-                            beanProvider.target.greenCount,
-                            beanProvider.whiteBeanCount)
-                        .round()
-                        .toString() +
-                    "%",
-                labelStyle: Theme.of(context)
-                    .textTheme
-                    .title
-                    .merge(new TextStyle(color: labelColor)),
-              ));
-        }),
+        Padding(
+          padding: EdgeInsets.only(left: 48, right: 48),
+          child: Text(
+              "Thành đang có " +
+                  authProvider.greenCount.toString() +
+                  " hạt đậu biết ơn.",
+              style: Styles.bodyGrey,
+              textAlign: TextAlign.center),
+        ),
+        Padding(
+          padding: EdgeInsets.only(bottom: 15, left: 48, right: 48),
+          child: AnimatedCircularChart(
+            key: _chartKey,
+            size: _chartSize,
+            initialChartData: Utils.getChartDataWhiteBean(
+                beanProvider.target?.greenCount ?? 0, authProvider.greenCount),
+            chartType: CircularChartType.Radial,
+            edgeStyle: SegmentEdgeStyle.round,
+            percentageValues: true,
+            holeLabel: Utils.getTargetWhiteBeanComplete(
+                        beanProvider.target?.greenCount ?? 0,
+                        authProvider.greenCount)
+                    .round()
+                    .toString() +
+                "%",
+            labelStyle: Theme.of(context)
+                .textTheme
+                .title
+                .merge(new TextStyle(color: labelColor)),
+          ),
+        ),
         Consumer<BeanProvider>(builder: (context, beanProvider, child) {
           return Padding(
               padding: EdgeInsets.only(bottom: 15, left: 48, right: 48),
               child: Text(
                   "Hoàn thành " +
                       Utils.getTargetWhiteBeanComplete(
-                              beanProvider.target.greenCount,
-                              beanProvider.whiteBeanCount)
+                              beanProvider.target?.greenCount ?? 0,
+                              authProvider.greenCount)
                           .round()
                           .toString() +
                       "% mục tiêu",

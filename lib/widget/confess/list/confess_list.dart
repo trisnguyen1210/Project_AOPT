@@ -181,6 +181,7 @@ class _ConfessListState extends State<ConfessList> {
             child: GradientButton(
               increaseWidthBy: 90,
               increaseHeightBy: 7.0,
+              elevation: 0,
               callback: () {
                 confessProvider.confessDone();
                 Navigator.push(

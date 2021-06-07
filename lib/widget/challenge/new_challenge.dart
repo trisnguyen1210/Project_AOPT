@@ -52,6 +52,7 @@ class NewChallenge extends StatelessWidget {
   Widget buttonChallenge(Function acceptChallenge) => GradientButton(
         increaseWidthBy: 120,
         increaseHeightBy: 7.0,
+        elevation: 0,
         callback: acceptChallenge,
         gradient: GradientApp.gradientButton,
         child: Text("Chấp nhận thử thách", style: Styles.buttonText),

@@ -1,12 +1,14 @@
 import 'dart:async';
 
 import 'package:beans/generated/r.dart';
+import 'package:beans/provider/auth_provider.dart';
 import 'package:beans/usecase/user_usecase.dart';
 import 'package:beans/utils/utils.dart';
 import 'package:beans/value/styles.dart';
 import 'package:beans/widget/custom/pin_code_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 
 import '../list/confess_list.dart';
 
@@ -18,7 +20,6 @@ class PinCodeScreen extends StatefulWidget {
 }
 
 class _PinCodeScreenState extends State<PinCodeScreen> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final UserUsecase userUsecase = UserUsecase();
   TextEditingController textEditingController = TextEditingController();
   StreamController<ErrorAnimationType> errorController =
@@ -27,9 +28,8 @@ class _PinCodeScreenState extends State<PinCodeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Utils.setColorStatusBar();
+    final userName = Provider.of<AuthProvider>(context, listen: false).name;
     return Scaffold(
-      key: _scaffoldKey,
       backgroundColor: Colors.white,
       appBar: createAppbar(),
       body: SingleChildScrollView(
@@ -42,7 +42,7 @@ class _PinCodeScreenState extends State<PinCodeScreen> {
             Padding(
               padding: EdgeInsets.only(bottom: 0, left: 38, right: 38),
               child: Text(
-                'Để xem bản xét mình, Thành hãy nhập mã pin của mình vào bên dưới nhé!',
+                'Để xem bản xét mình, $userName hãy nhập mã pin của mình vào bên dưới nhé!',
                 style: Styles.bodyGrey,
                 textAlign: TextAlign.center,
               ),
@@ -100,6 +100,8 @@ class _PinCodeScreenState extends State<PinCodeScreen> {
 
   AppBar createAppbar() {
     return AppBar(
+      elevation: 1,
+      brightness: Brightness.light,
       centerTitle: true,
       backgroundColor: Colors.white,
       title: Text(

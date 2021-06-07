@@ -101,8 +101,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Utils.setColorStatusBar();
+
     return Scaffold(
+      backgroundColor: Colors.white,
       body: IndexedStack(
         index: _selectedIndex,
         children: _widgetOptions,
@@ -120,44 +121,44 @@ class _HomeScreenState extends State<HomeScreen> {
           activeIcon: SvgPicture.asset(
             R.ic_home,
             height: 24,
-            color: Color(0xff316beb),
+            color: Color(0xff88674d),
           ),
           title: Text('Nhà', style: Styles.bottomBarText),
         ),
         BottomNavigationBarItem(
           icon: SvgPicture.asset(R.ic_confession,
-              height: 24, color: Colors.blueGrey[400]),
+              height: 24, color:  Color(0xff8e8e93)),
           activeIcon: SvgPicture.asset(
             R.ic_confession,
             height: 24,
-            color: Color(0xff316beb),
+            color: Color(0xff88674d),
           ),
           title: Text('Bản xét mình', style: Styles.bottomBarText),
         ),
         BottomNavigationBarItem(
           icon: SvgPicture.asset(R.ic_bean,
-              height: 24, color: Colors.blueGrey[400]),
+              height: 24, color: Color(0xff8e8e93)),
           activeIcon: SvgPicture.asset(
             R.ic_bean,
             height: 24,
-            color: Color(0xff316beb),
+            color: Color(0xff88674d),
           ),
           title: Text('Đậu', style: Styles.bottomBarText),
         ),
         BottomNavigationBarItem(
           icon: SvgPicture.asset(R.ic_calendar,
-              height: 24, color: Colors.blueGrey[400]),
+              height: 24, color:  Color(0xff8e8e93)),
           activeIcon: SvgPicture.asset(
             R.ic_calendar,
             height: 24,
-            color: Color(0xff316beb),
+            color: Color(0xff88674d),
           ),
           title: Text('Lời nhắc', style: Styles.bottomBarText),
         ),
       ],
       currentIndex: _selectedIndex,
-      selectedItemColor: Color(0xff316beb),
-      unselectedItemColor: Color(0xff8e8e93),
+      selectedItemColor: Color(0xff88674d),
+      unselectedItemColor:  Color(0xff8e8e93),
       showUnselectedLabels: true,
       showSelectedLabels: true,
       type: BottomNavigationBarType.fixed,

@@ -8,33 +8,39 @@ import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
 
 class RelationDetailOther extends StatelessWidget {
+
+  final int categoryId;
+  final String categoryTitle;
+  final String subcateTitle;
+  const RelationDetailOther(
+      {Key key,
+        this.categoryId,
+        this.subcateTitle,
+        this.categoryTitle})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: GradientAppBar(
+        elevation: 0,
+        brightness: Brightness.light,
         gradient: GradientApp.gradientAppbar,
-        flexibleSpace: Image(
-          image: AssetImage(R.ic_snow_png),
-          fit: BoxFit.cover,
-        ),
+
         leading: IconButton(
           icon: Utils.getIconBack(),
+          color:  Color(0xff88674d),
           onPressed: () => Navigator.of(context).pop(),
         ),
         centerTitle: false,
         titleSpacing: 0.0,
-        title: SvgPicture.asset(
-          R.ic_snowman,
-          width: 99,
-          height: 43,
-        ),
+
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
             Container(
-              margin: EdgeInsets.only(left: 20, right: 10, top: 20, bottom: 5),
+              margin: EdgeInsets.only(left: 20, right: 10, bottom: 5),
               child: createTopViewRelation(),
             ),
             Opacity(
@@ -56,7 +62,7 @@ class RelationDetailOther extends StatelessWidget {
 
   Widget createListViewTopic() {
     return Padding(
-      padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+      padding: EdgeInsets.only(left: 20, right: 20, bottom:20),
       child: ListView.builder(
         itemBuilder: (BuildContext context, int index) =>
             TopicItem(dataOther[index], index, dataOther.length),
@@ -75,10 +81,11 @@ class RelationDetailOther extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
-            padding: EdgeInsets.only(right: 12),
+            padding: EdgeInsets.only(right: 32),
             child: GradientButton(
               increaseWidthBy: 40,
               increaseHeightBy: 7.0,
+              elevation: 0,
               callback: () {
                 Utils.goToConfessSuccess(context);
               },
@@ -89,6 +96,7 @@ class RelationDetailOther extends StatelessWidget {
           GradientButton(
             increaseWidthBy: 40,
             increaseHeightBy: 7.0,
+            elevation: 0,
             callback: () {
               Navigator.of(context).pop();
             },
@@ -108,30 +116,30 @@ class RelationDetailOther extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
-            padding: EdgeInsets.only(right: 42),
+            padding: EdgeInsets.only(right: 50),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Padding(
-                  padding: EdgeInsets.only(bottom: 8),
-                  child: RichText(
-                    textAlign: TextAlign.left,
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: 'Biết ơn ',
-                          style: Styles.titlePurple,
-                        ),
-                        TextSpan(
-                          text: '+2',
-                          style: Styles.titleGrey,
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                SvgPicture.asset(R.ic_white_bean, height: 79)
+                Stack(
+                    children: [SvgPicture.asset(R.ic_white_bean, height: 73),
+                      Positioned(
+                          left: 13.0,
+                          top:10,
+                          child:  RichText(
+                            textAlign: TextAlign.left,
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: '+2',
+                                  style: Styles.boldWhite,
+                                )
+                              ],
+                            ),
+                          ))
+                      ,]
+                )
+
               ],
             ),
           ),
@@ -139,25 +147,24 @@ class RelationDetailOther extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Padding(
-                padding: EdgeInsets.only(bottom: 8),
-                child: RichText(
-                  textAlign: TextAlign.left,
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text: 'Trăn trở ',
-                        style: Styles.titlePurple,
-                      ),
-                      TextSpan(
-                        text: '+2',
-                        style: Styles.titleGrey,
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              SvgPicture.asset(R.ic_black_bean, height: 79)
+              Stack(
+                  children: [SvgPicture.asset(R.ic_black_bean, height: 73),
+                    Positioned(
+                        right: 13.0,
+                        top:10,
+                        child:  RichText(
+                          textAlign: TextAlign.left,
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: '+2',
+                                style: Styles.boldWhite,
+                              )
+                            ],
+                          ),
+                        ))
+                  ]
+              )
             ],
           ),
         ],
@@ -176,15 +183,12 @@ class RelationDetailOther extends StatelessWidget {
             text: TextSpan(
               children: [
                 TextSpan(
-                  text: 'Tôi ',
-                  style: Styles.headingPurple,
-                ),
-                WidgetSpan(
-                  child: SvgPicture.asset(R.ic_more, height: 24),
+                  text: categoryTitle+ " | ",
+                  style: Styles.headingBoldPurple,
                 ),
                 TextSpan(
-                  text: 'Khác',
-                  style: Styles.textStyleRelation,
+                  text: subcateTitle,
+                  style: Styles.textStyleRegular,
                 )
               ],
             ),
@@ -283,14 +287,14 @@ class BeanItemOther extends StatelessWidget {
             alignment: Alignment.topRight,
             children: <Widget>[
               TextField(
-                cursorColor: Color(0xff316beb),
+                cursorColor: Color(0xff88674d),
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
                 decoration: InputDecoration(
                   enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: Color(0xffcfcfcf))),
                   focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xff316beb))),
+                      borderSide: BorderSide(color: Color(0xff88674d))),
                   hintStyle: Styles.hintGrey,
                   //Change this value to custom as you like
                   isDense: true,
@@ -302,7 +306,7 @@ class BeanItemOther extends StatelessWidget {
                   onTap: () {
                     FocusScope.of(context).requestFocus(FocusNode());
                   },
-                  child: SvgPicture.asset(R.ic_close, height: 15)),
+                  child: SvgPicture.asset(R.ic_close, height: 15,  color: Color(0xff88674d))),
             ],
           ),
         ),
@@ -326,7 +330,7 @@ class BeanItemOther extends StatelessWidget {
                   enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: Color(0xffcfcfcf))),
                   focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xff316beb))),
+                      borderSide: BorderSide(color: Color(0xff88674d))),
                   hintStyle: Styles.hintGrey,
                   //Change this value to custom as you like
                   isDense: true,

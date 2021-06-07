@@ -12,7 +12,6 @@ import 'package:gradient_widgets/gradient_widgets.dart';
 class RelationDetail extends StatelessWidget {
   final int categoryId;
   final String categoryTitle;
-  final String subcateIcon;
   final String subcateTitle;
   final RelationalSubcategoryDetail detail;
 
@@ -20,55 +19,57 @@ class RelationDetail extends StatelessWidget {
       {Key key,
       this.categoryId,
       this.detail,
-      this.subcateIcon,
       this.subcateTitle,
       this.categoryTitle})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: GradientAppBar(
-        gradient: GradientApp.gradientAppbar,
-        flexibleSpace: Image(
-          image: AssetImage(R.ic_snow_png),
-          fit: BoxFit.cover,
-        ),
-        leading: IconButton(
-          icon: Utils.getIconBack(),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        centerTitle: false,
-        titleSpacing: 0.0,
-        title: SvgPicture.asset(
-          R.ic_snowman,
-          width: 99,
-          height: 43,
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              margin: EdgeInsets.only(left: 20, right: 10, top: 20, bottom: 20),
-              child: createTopViewRelation(),
+    return
+      WillPopScope(
+          onWillPop: () async {
+            Navigator.of(context).pop();
+            return false;
+          },
+          child:  Scaffold(
+            backgroundColor: Colors.white,
+            appBar: GradientAppBar(
+              elevation: 0,
+              brightness: Brightness.light,
+              gradient: GradientApp.gradientAppbar,
+
+              leading: IconButton(
+                icon: Utils.getIconBack(),
+                color:  Color(0xff88674d),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+              centerTitle: false,
+              titleSpacing: 0.0,
             ),
-            Opacity(
-              opacity: 0.2701590401785715,
-              child: Container(
-                  height: 1,
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                          color: const Color(0xff979797), width: 1))),
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(left: 20, right: 10, bottom: 20),
+                    child: createTopViewRelation(),
+                  ),
+                  Opacity(
+                    opacity: 0.2701590401785715,
+                    child: Container(
+                        height: 1,
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                color: const Color(0xff979797), width: 1))),
+                  ),
+                  createListViewTopic(detail.reaons),
+                  createBeanBottle(),
+                  createButtonDone(context)
+                ],
+              ),
             ),
-            createListViewTopic(detail.reaons),
-            createBeanBottle(),
-            createButtonDone(context)
-          ],
-        ),
-      ),
-    );
+          )
+      );
+
   }
 
   Widget createListViewTopic(List<RelationalReason> reasons) {
@@ -89,7 +90,7 @@ class RelationDetail extends StatelessWidget {
     ];
 
     return Padding(
-      padding: EdgeInsets.all(20),
+      padding: EdgeInsets.only(left: 20, right: 20, bottom:20, top:20),
       child: ListView.builder(
         itemBuilder: (BuildContext context, int index) =>
             TopicItem(data[index], index, data.length),
@@ -108,9 +109,10 @@ class RelationDetail extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
-            padding: EdgeInsets.only(right: 12),
+            padding: EdgeInsets.only(right: 32),
             child: GradientButton(
               increaseWidthBy: 40,
+              elevation: 0,
               increaseHeightBy: 7.0,
               callback: () {
                 Utils.goToConfessSuccess(context);
@@ -122,6 +124,7 @@ class RelationDetail extends StatelessWidget {
           GradientButton(
             increaseWidthBy: 40,
             increaseHeightBy: 7.0,
+            elevation: 0,
             callback: () {
               Navigator.of(context).pop();
             },
@@ -141,30 +144,30 @@ class RelationDetail extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
-            padding: EdgeInsets.only(right: 42),
+            padding: EdgeInsets.only(right: 50),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Padding(
-                  padding: EdgeInsets.only(bottom: 8),
-                  child: RichText(
-                    textAlign: TextAlign.left,
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: 'Biết ơn ',
-                          style: Styles.titlePurple,
-                        ),
-                        TextSpan(
-                          text: '+2',
-                          style: Styles.titleGrey,
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                SvgPicture.asset(R.ic_white_bean, height: 79)
+                Stack(
+                  children: [SvgPicture.asset(R.ic_white_bean, height: 73),
+                    Positioned(
+                        left: 13.0,
+                        top:10,
+                        child:  RichText(
+                      textAlign: TextAlign.left,
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: '+2',
+                            style: Styles.boldWhite,
+                          )
+                        ],
+                      ),
+                    ))
+                   ,]
+                )
+
               ],
             ),
           ),
@@ -172,25 +175,25 @@ class RelationDetail extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Padding(
-                padding: EdgeInsets.only(bottom: 8),
-                child: RichText(
-                  textAlign: TextAlign.left,
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text: 'Trăn trở ',
-                        style: Styles.titlePurple,
-                      ),
-                      TextSpan(
-                        text: '+2',
-                        style: Styles.titleGrey,
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              SvgPicture.asset(R.ic_black_bean, height: 79)
+              Stack(
+                  children: [SvgPicture.asset(R.ic_black_bean, height: 73),
+                    Positioned(
+                        right: 13.0,
+                        top:10,
+                        child:  RichText(
+                          textAlign: TextAlign.left,
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: '+2',
+                                style: Styles.boldWhite,
+                              )
+                            ],
+                          ),
+                        ))
+                  ]
+              )
+
             ],
           ),
         ],
@@ -209,14 +212,8 @@ class RelationDetail extends StatelessWidget {
             text: TextSpan(
               children: [
                 TextSpan(
-                  text: categoryTitle,
+                  text: categoryTitle+ " | ",
                   style: Styles.headingBoldPurple,
-                ),
-                WidgetSpan(
-                  child: SvgPicture.asset(
-                    subcateIcon,
-                    height: 24,
-                  ),
                 ),
                 TextSpan(
                   text: subcateTitle,
@@ -349,7 +346,7 @@ class _BeanItem extends State<BeanItem> {
                     child: Padding(
                         padding: EdgeInsets.only(right: 48),
                         child: TextField(
-                          cursorColor: Color(0xff316beb),
+                          cursorColor: Color(0xff88674d),
                           keyboardType: TextInputType.multiline,
                           maxLines: null,
                           decoration: InputDecoration(
@@ -358,7 +355,7 @@ class _BeanItem extends State<BeanItem> {
                                       BorderSide(color: Color(0xffcfcfcf))),
                               focusedBorder: UnderlineInputBorder(
                                   borderSide:
-                                      BorderSide(color: Color(0xff316beb))),
+                                      BorderSide(color: Color(0xff88674d))),
                               contentPadding: EdgeInsets.symmetric(vertical: 1),
                               //Change this value to custom as you like
                               isDense: true,
@@ -402,13 +399,16 @@ class _BeanItem extends State<BeanItem> {
                         },
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 9),
-                      child: Text(
-                        root.title,
-                        style: Styles.bodyGrey,
-                      ),
-                    )
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 9),
+                        child: Text(
+                          root.title,
+                          style: Styles.bodyGrey,
+                        ),
+                      )
+                    ),
+
                   ],
                 ),
               ),

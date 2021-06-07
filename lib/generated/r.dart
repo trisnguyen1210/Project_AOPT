@@ -12,7 +12,6 @@ class R {
   static const String ic_myself = "assets/ic_myself.png";
   static const String ic_arrow_next = "assets/ic_arrow_next.svg";
   static const String ic_congratulation = "assets/ic_congratulation.svg";
-  static const String ic_congratulation1 = "assets/ic_congratulation1.svg";
   static const String ic_minus = "assets/ic_minus.svg";
   static const String ic_add = "assets/ic_add.svg";
   static const String ic_confess_done = "assets/ic_confess_done.svg";
@@ -22,7 +21,8 @@ class R {
   static const String tooltip = "assets/tooltip.png";
   static const String ic_snowman = "assets/ic_snowman.svg";
   static const String ic_black_bean = "assets/ic_black_bean.svg";
-  static const String ic_switch_active_blue = "assets/ic_switch_active_blue.svg";
+  static const String ic_switch_active_blue =
+      "assets/ic_switch_active_blue.svg";
   static const String ic_confession = "assets/ic_confession.svg";
   static const String ic_close_gradient = "assets/ic_close_gradient.png";
   static const String ic_health = "assets/ic_health.svg";
@@ -40,4 +40,5 @@ class R {
   static const String ic_god_vs_me = "assets/ic_god_vs_me.svg";
   static const String ic_god_word = "assets/ic_god_word.svg";
   static const String ic_religion = "assets/ic_religion.svg";
+  static const String slpash_gif = "assets/splash.gif";
 }

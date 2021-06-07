@@ -25,22 +25,20 @@ class TargetDao {
   }
 
   Future<Target> getOrCreate() async {
-   /* final db = await dbProvider.database;
+    final db = await dbProvider.database;
 
     final result = await db.query(
       targetsTable,
       limit: 1,
-    );*/
+    );
 
-    /*  if (result.isEmpty) {
-      final initTarget = Target(id: 1, greenCount: 30, blackCount: 30);
-      create(initTarget);
+    if (result.isEmpty) {
+      var initTarget = Target(id: 1, greenCount: 30, blackCount: 30);
+      await create(initTarget);
       return initTarget;
-    }*/
-    final initTarget = Target(id: 1, greenCount: 30, blackCount: 30);
-    create(initTarget);
-    return initTarget;
-    //return Target.fromMap(result.first);
+    }
+
+    return Target.fromMap(result.first);
   }
 
   Future<int> update(Target target) async {

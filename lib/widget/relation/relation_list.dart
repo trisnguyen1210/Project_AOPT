@@ -15,39 +15,39 @@ class RelationList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return  WillPopScope(
+        onWillPop: () async {
+          Navigator.of(context).pop();
+      return false;
+    },
+    child:  MaterialApp(
       home: DefaultTabController(
         length: categories.length,
         child: Scaffold(
+          backgroundColor: Colors.white,
           appBar: GradientAppBar(
+            elevation: 0,
+            brightness: Brightness.light,
             gradient: GradientApp.gradientAppbar,
-            flexibleSpace: Image(
-              image: AssetImage(R.ic_snow_png),
-              fit: BoxFit.cover,
-            ),
             leading: IconButton(
               icon: Utils.getIconBack(),
+              color:  Color(0xff88674d),
               onPressed: () => Navigator.of(context).pop(),
             ),
             centerTitle: false,
             titleSpacing: 0.0,
-            title: SvgPicture.asset(
-              R.ic_snowman,
-              width: 99,
-              height: 43,
-            ),
           ),
           body: Column(
             children: [
               Container(
                 color: Colors.white,
                 child: TabBar(
-                  indicatorColor: Color(0xff316beb),
-                  labelColor: Color(0xff316beb),
+                  indicatorColor: Color(0xff88674d),
+                  labelColor: Color(0xff88674d),
                   labelStyle: Styles.tabText,
                   indicatorSize: TabBarIndicatorSize.label,
                   labelPadding: EdgeInsets.only(top: 10),
-                  tabs: categories.map((cat) => Tab(text: cat.name)).toList(),
+                  tabs: categories.map((cat) => Tab(text: cat.name.toUpperCase())).toList(),
                 ),
               ),
               Opacity(
@@ -69,6 +69,8 @@ class RelationList extends StatelessWidget {
           ),
         ),
       ),
+    )
     );
+
   }
 }
